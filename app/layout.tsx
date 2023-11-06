@@ -4,6 +4,7 @@ import Providers from './providers'
 import RootClientLayout from './client.layout'
 import '@fontsource/open-sans/500.css'
 import './lib/styles/global.css'
+import { InitialOverlay } from './components'
 
 const { description, title, applicationName, images } = {
   title: 'Web3 Template',
@@ -52,6 +53,7 @@ function RootLayout({ children }: { children: React.ReactNode }) {
       <meta name="apple-mobile-web-app-status-bar-style" content="black" />
       <body>
         <Providers>
+          <InitialOverlay />
           <RootClientLayout>{children}</RootClientLayout>
         </Providers>
       </body>
