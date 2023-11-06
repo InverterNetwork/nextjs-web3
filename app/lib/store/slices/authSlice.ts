@@ -1,12 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit'
+import type { PayloadAction } from '@reduxjs/toolkit'
 
 const initialState = {
   isAuth: false,
-};
+}
 
 export const authSlice = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState,
   reducers: {
     setAuth: (state, action: PayloadAction<Partial<AuthState>>) => ({
@@ -15,11 +15,11 @@ export const authSlice = createSlice({
     }),
     resetAuth: () => initialState,
   },
-});
+})
 
-export type AuthState = typeof initialState;
+export type AuthState = typeof initialState
 
 // Action creators are generated for each case reducer function
-export const { setAuth, resetAuth } = authSlice.actions;
+export const { setAuth, resetAuth } = authSlice.actions
 
-export const authReducer = authSlice.reducer;
+export const authReducer = authSlice.reducer
