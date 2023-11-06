@@ -44,6 +44,7 @@ const fonts = {
 
 const shadows = {
   accent: '0 0 10px 0 rgb(116, 214, 116, 0.7)',
+  accentSide: '-4px 4px 6px -3px rgb(116, 214, 116, 0.7)',
   light: `-4px 4px 6px -3px rgba(0, 0, 0, 0.1)`,
   dark: `-4px 4px 6px -3px rgba(0, 0, 0, 0.5)`,
 }

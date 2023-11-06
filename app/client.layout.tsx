@@ -11,7 +11,7 @@ export default function RootClientLayout({
   return (
     <Box>
       <Navbar />
-      <Stack overflow-y="scroll" align={'center'} p={3}>
+      <Stack overflow-y="scroll" align={'center'} p={6}>
         {children}
       </Stack>
     </Box>

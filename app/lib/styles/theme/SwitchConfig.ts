@@ -18,7 +18,7 @@ const baseStyle = definePartsStyle({
       bg: 'light.primary.700',
     },
     _dark: {
-      bg: 'dark.primary.700',
+      bg: 'dark.primary.900',
     },
     _checked: {
       bg: 'light.accent.400',

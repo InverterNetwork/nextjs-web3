@@ -8,7 +8,7 @@ const baseStyle = definePartsStyle({
   // define the part you're going to style
   dialog: {
     _dark: {
-      background: 'dark.primary.900',
+      background: 'dark.primary.700',
     },
     borderRadius: 'xl',
   },

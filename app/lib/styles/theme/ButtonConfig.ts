@@ -12,13 +12,12 @@ export default defineStyleConfig({
       },
     },
     frame: {
-      border: '1px solid',
       _light: {
         background: 'light.primary.100',
         boxShadow: 'light',
       },
       _dark: {
-        background: 'dark.primary.800',
+        background: 'dark.primary.900',
         boxShadow: `dark`,
       },
     },

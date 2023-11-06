@@ -12,7 +12,7 @@ const variants = {
       bg: 'light.primary.200',
       borderRadius: 'xl',
       _dark: {
-        bg: 'dark.primary.700',
+        bg: 'dark.primary.900',
       },
     },
     tab: {

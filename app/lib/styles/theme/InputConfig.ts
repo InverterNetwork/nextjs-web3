@@ -6,6 +6,7 @@ export default createMultiStyleConfigHelpers(
 ).defineMultiStyleConfig({
   baseStyle: {
     field: {
+      boxShadow: 'none !important',
       _light: {
         bg: 'light.primary.50',
         borderColor: 'light.border',
@@ -14,9 +15,11 @@ export default createMultiStyleConfigHelpers(
         bg: 'dark.primary.800',
       },
       _focus: {
-        borderColor: 'light.accent.400',
+        outlineColor: 'light.accent.400',
+        borderColor: 'transparent',
         _dark: {
-          borderColor: 'dark.accent.400',
+          borderColor: 'transparent',
+          outlineColor: 'dark.accent.400',
         },
       },
     },
