@@ -15,11 +15,9 @@ export default createMultiStyleConfigHelpers(
         bg: 'dark.primary.800',
       },
       _focus: {
-        outlineColor: 'light.accent.400',
-        borderColor: 'transparent',
+        borderColor: 'light.accent.400',
         _dark: {
-          borderColor: 'transparent',
-          outlineColor: 'dark.accent.400',
+          borderColor: 'dark.accent.400',
         },
       },
     },

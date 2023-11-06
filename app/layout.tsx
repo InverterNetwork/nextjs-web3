@@ -47,7 +47,10 @@ function RootLayout({ children }: { children: React.ReactNode }) {
       <meta name="apple-mobile-web-app-status-bar-style" content="default" />
       <meta name="apple-mobile-web-app-title" content="Inverter PWA" />
       <meta name="mobile-web-app-capable" content="yes" />
-      <meta name="viewport" content="width=device-width, user-scalable=no" />
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1 user-scalable=no"
+      />
       <link rel="icon" href="/icon-512x512.png" />
       <meta name="theme-color" content="#000000" />
       <meta name="apple-mobile-web-app-status-bar-style" content="black" />
