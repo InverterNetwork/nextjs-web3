@@ -1,7 +1,7 @@
 'use client'
 
 import Navbar from './components/Navbar'
-import { Box, Flex } from '@chakra-ui/react'
+import { Box, Stack } from '@chakra-ui/react'
 
 export default function RootClientLayout({
   children,
@@ -9,11 +9,11 @@ export default function RootClientLayout({
   children: React.ReactNode
 }) {
   return (
-    <Box minH={'100vh'} w={'100vw'}>
+    <Box>
       <Navbar />
-      <Flex justify={'center'} gap={32} p={52} h={'100%'}>
+      <Stack overflow-y="scroll" align={'center'} p={3}>
         {children}
-      </Flex>
+      </Stack>
     </Box>
   )
 }

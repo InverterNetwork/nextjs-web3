@@ -22,6 +22,7 @@ export const getDynamicTheme = (isLight: boolean) => {
   const dynamicBrandColor = isLight ? light.accent[400] : dark.accent[400]
   const shadowDomOverWrites = css`
     .dynamic-shadow-dom {
+      --dynamic-text-primary: ${isLight ? 'black' : 'white'};
       --dynamic-font-family-primary: 'Open Sans', sans-serif;
       --dynamic-base-1: ${isLight ? light.primary[100] : dark.primary[900]};
       --dynamic-base-2: ${isLight ? light.primary[50] : dark.primary[700]};
