@@ -38,10 +38,13 @@ import {
   Tag,
   useDisclosure,
 } from '@chakra-ui/react'
-import { Frame } from './components'
+import { Frame, NumberInput, Pagination } from './components'
+import { useState } from 'react'
 
 export default function HomePage() {
   const modalDisclosure = useDisclosure()
+  const [page, setPage] = useState(1)
+  const [number, setNumber] = useState<string | number>('')
   return (
     <Stack gap={6}>
       <Heading>Frame</Heading>
@@ -124,6 +127,14 @@ export default function HomePage() {
       <Skeleton w={12} h={6} />
       <SkeletonCircle />
       <SkeletonText w={12} />
+      <Heading>Pagination</Heading>
+      <Pagination totalPages={10} page={page} setPage={setPage} />
+      <Heading>Number Input</Heading>
+      <NumberInput
+        label="Main Number Input"
+        value={number}
+        onChange={setNumber}
+      />
     </Stack>
   )
 }
