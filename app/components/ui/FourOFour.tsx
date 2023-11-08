@@ -1,4 +1,7 @@
-import { Stack, Heading, Divider, Button, Link } from '@chakra-ui/react'
+'use client'
+
+import { Link } from '@chakra-ui/next-js'
+import { Stack, Heading, Divider, Button } from '@chakra-ui/react'
 
 export default function FourOFour() {
   return (

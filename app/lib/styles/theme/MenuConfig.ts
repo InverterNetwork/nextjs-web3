@@ -12,7 +12,7 @@ const baseStyle = definePartsStyle({
     borderRadius: 'xl',
     bg: 'light.primary.50',
     _dark: {
-      bg: 'dark.primary.800',
+      bg: 'dark.primary.900',
     },
   },
   item: {

@@ -12,7 +12,7 @@ export default createMultiStyleConfigHelpers(
         borderColor: 'light.border',
       },
       _dark: {
-        bg: 'dark.primary.800',
+        bg: 'dark.primary.900',
       },
       _focus: {
         borderColor: 'light.accent.400',
