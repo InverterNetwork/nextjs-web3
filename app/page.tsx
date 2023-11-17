@@ -44,7 +44,7 @@ import { useState } from 'react'
 export default function HomePage() {
   const modalDisclosure = useDisclosure()
   const [page, setPage] = useState(1)
-  const [number, setNumber] = useState<string | number>('')
+  const [number, setNumber] = useState<string>('')
   return (
     <Stack gap={6}>
       <Heading>Frame</Heading>

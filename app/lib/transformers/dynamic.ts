@@ -1,4 +1,4 @@
-import { EvmNetwork } from '@dynamic-labs/sdk-react'
+import { EvmNetwork } from '@dynamic-labs/sdk-react-core'
 import { ExtendedChain } from '@lifi/sdk'
 
 export const transformLifiChainsToDynamicEvmNetworks = (

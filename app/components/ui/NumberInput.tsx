@@ -26,7 +26,7 @@ export default function NumberInput({
   min?: number
   precision?: number
   max?: number
-  onChange: (number: number | string) => void
+  onChange: (string: string) => void
   value?: string | number
   label?: string
 } & Omit<StackProps, 'onChange'>) {
@@ -37,8 +37,7 @@ export default function NumberInput({
       min,
       precision,
       max,
-      onChange: (valueAsString) =>
-        onChange(Number(formatAmountString(valueAsString))),
+      onChange: (valueAsString) => onChange(formatAmountString(valueAsString)),
       value,
     })
 

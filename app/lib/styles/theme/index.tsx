@@ -12,6 +12,7 @@ import Menu from './MenuConfig'
 import Skeleton from './SkeletonConfig'
 import Input from './InputConfig'
 import Switch from './SwitchConfig'
+import Text from './TextConfig'
 
 export const { light, dark } = {
   light: {
@@ -67,6 +68,7 @@ export default extendTheme({
   },
   shadows,
   components: {
+    Text,
     Accordion,
     Modal,
     Frame,
