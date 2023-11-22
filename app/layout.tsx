@@ -1,10 +1,10 @@
 import React from 'react'
 import type { Metadata } from 'next'
 import Providers from './providers'
+import { RouteProgressBar, Navbar } from './components'
+import { cookies } from 'next/headers'
 import '@fontsource/open-sans/500.css'
 import './lib/styles/global.css'
-import { RouteProgressBar, Navbar } from './components'
-import InitialOverlay from './components/ui/InitialOverlay'
 
 const { description, title, applicationName, images } = {
   title: 'Web3 Template',
@@ -39,8 +39,13 @@ export const metadata: Metadata = {
 }
 
 function RootLayout({ children }: { children: React.ReactNode }) {
+  const cookieStore = cookies()
+  const colorMode = cookieStore.get('chakra-ui-color-mode')?.value as
+    | 'light'
+    | 'dark'
+    | undefined
   return (
-    <html lang="en">
+    <html lang="en" data-theme={colorMode} style={{ colorScheme: colorMode }}>
       {/* PWA config */}
       <link rel="manifest" href="/manifest.json" />
       <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,10 +59,10 @@ function RootLayout({ children }: { children: React.ReactNode }) {
       <link rel="icon" href="/icon-512x512.png" />
       <meta name="theme-color" content="#000000" />
       <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-      <body>
+      <body className={`chakra-ui-${colorMode}`}>
         <Providers>
           <RouteProgressBar />
-          <InitialOverlay />
+          {/* <InitialOverlay /> */}
           {/* CONTENT */}
           <div className="layout-body">
             <Navbar />

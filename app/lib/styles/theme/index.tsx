@@ -1,5 +1,4 @@
 import { extendTheme, ThemeConfig } from '@chakra-ui/react'
-import { mode } from '@chakra-ui/theme-tools'
 import Card from './CardConfig'
 import Tabs from './TabsConfig'
 import Button from './ButtonConfig'
@@ -51,11 +50,14 @@ const shadows = {
 }
 
 const styles = {
-  global: (props: any) => ({
+  global: {
     body: {
-      bg: mode(bg.light, bg.dark)(props),
+      bg: bg.light,
+      _dark: {
+        bg: bg.dark,
+      },
     },
-  }),
+  },
 }
 
 export default extendTheme({

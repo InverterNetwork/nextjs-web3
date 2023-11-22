@@ -1,20 +1,17 @@
 'use client'
 
-import {
-  Box,
-  Button,
-  Flex,
-  useColorMode,
-  useColorModeValue,
-} from '@chakra-ui/react'
+import { Box, Button, Flex, useColorMode } from '@chakra-ui/react'
 import { DynamicWidget } from '@dynamic-labs/sdk-react-core'
 import { Link } from '@chakra-ui/next-js'
 import { usePathname } from 'next/navigation'
 import Image from 'next/image'
 import NextLink from 'next/link'
+import { dark, light } from '@/lib'
+import { FaMoon, FaSun } from 'react-icons/fa'
 
 export default function Navbar() {
-  const borderColor = useColorModeValue('light.border', 'dark.border')
+  const { colorMode } = useColorMode()
+  const borderColor = colorMode === 'light' ? light.border : dark.border
   const pathname = usePathname()
 
   const { toggleColorMode } = useColorMode()
@@ -31,7 +28,6 @@ export default function Navbar() {
             height={42}
           />
         </NextLink>
-        <Button onClick={toggleColorMode}>Toggle</Button>
         <DynamicWidget variant="modal" />
       </Flex>
 
@@ -42,6 +38,9 @@ export default function Navbar() {
         borderTop="1px solid"
         borderColor={borderColor}
       >
+        <Button onClick={toggleColorMode} mr={'auto'}>
+          {colorMode === 'light' ? <FaMoon /> : <FaSun />}
+        </Button>
         <Button
           variant={'frame'}
           as={Link}
