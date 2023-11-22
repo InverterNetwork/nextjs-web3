@@ -14,9 +14,8 @@ const baseStyle = definePartsStyle({
     },
   },
   track: {
-    _light: {
-      bg: 'light.primary.700',
-    },
+    bg: 'light.primary.200',
+
     _dark: {
       bg: 'dark.primary.900',
     },

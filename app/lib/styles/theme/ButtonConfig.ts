@@ -4,18 +4,16 @@ export default defineStyleConfig({
   variants: {
     base: {
       border: '1px solid',
-      _light: {
-        background: 'light.primary.50',
-      },
+      background: 'light.primary.50',
+      borderColor: 'light.border',
       _dark: {
         background: 'dark.primary.700',
       },
     },
     frame: {
-      _light: {
-        background: 'light.primary.100',
-        boxShadow: 'light',
-      },
+      background: 'light.primary.100',
+      boxShadow: 'light',
+
       _dark: {
         background: 'dark.primary.900',
         boxShadow: `dark`,
@@ -23,9 +21,8 @@ export default defineStyleConfig({
     },
     accent: {
       color: 'white',
-      _light: {
-        background: 'light.accent.400',
-      },
+      background: 'light.accent.400',
+
       _dark: {
         background: 'dark.accent.400',
       },
@@ -37,11 +34,8 @@ export default defineStyleConfig({
   baseStyle: {
     fontWeight: 'regular',
     borderRadius: 'xl',
-    _light: {
-      borderColor: 'light.border',
-      _focus: {
-        outlineColor: 'light.accent.400',
-      },
+    _focus: {
+      outlineColor: 'light.accent.400',
     },
     _dark: {
       borderColor: 'dark.border',
@@ -51,17 +45,14 @@ export default defineStyleConfig({
     },
     _active: {
       color: 'white',
-      _light: {
-        background: 'light.accent.400',
-      },
+      background: 'light.accent.400',
       _dark: {
         background: 'dark.accent.400',
       },
     },
     _hover: {
-      _light: {
-        background: 'light.accent.300',
-      },
+      background: 'light.accent.300',
+
       _dark: {
         background: 'dark.accent.300',
       },

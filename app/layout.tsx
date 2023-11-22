@@ -3,7 +3,8 @@ import type { Metadata } from 'next'
 import Providers from './providers'
 import '@fontsource/open-sans/500.css'
 import './lib/styles/global.css'
-import { InitialOverlay, RouteProgressBar, Navbar } from './components'
+import { RouteProgressBar, Navbar } from './components'
+import InitialOverlay from './components/ui/InitialOverlay'
 
 const { description, title, applicationName, images } = {
   title: 'Web3 Template',
@@ -57,9 +58,11 @@ function RootLayout({ children }: { children: React.ReactNode }) {
         <Providers>
           <RouteProgressBar />
           <InitialOverlay />
-          <Navbar />
           {/* CONTENT */}
-          <div className="content">{children}</div>
+          <div className="layout-body">
+            <Navbar />
+            <div className="content">{children}</div>
+          </div>
         </Providers>
       </body>
     </html>

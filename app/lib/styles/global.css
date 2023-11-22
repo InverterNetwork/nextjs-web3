@@ -1,33 +1,38 @@
 html {
   position: fixed;
-}
-
-html,
-body {
-  width: 100%;
-  height: 100%;
-}
-
-body {
-  display: grid;
-  grid-template-rows: auto 1fr;
-  overflow-x: hidden;
   font-family: 'Open Sans';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-.navbar {
+html,
+body,
+.layout-body {
+  width: 100vw;
+  height: 100vh;
+}
+
+.layout-body {
+  padding-top: 1.5rem;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  overflow-x: hidden;
+}
+
+.header {
   grid-row: 1;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
   padding: 12px 32px 12px 32px;
   background-color: inherit;
 }
 
 .content {
+  padding: 1.5rem;
+}
+
+.content,
+.sub-content {
   grid-row: 2;
   overflow: hidden scroll;
-  padding: 1.5rem;
 }

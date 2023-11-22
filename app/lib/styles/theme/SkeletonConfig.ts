@@ -5,10 +5,9 @@ const $endColor = cssVar('skeleton-end-color')
 
 const base = defineStyle({
   borderRadius: 'lg',
-  _light: {
-    [$startColor.variable]: '#ECFDF5', //primary
-    [$endColor.variable]: '#22C55E', // accent.500
-  },
+  [$startColor.variable]: '#ECFDF5', //primary
+  [$endColor.variable]: '#22C55E', // accent.500
+
   _dark: {
     [$startColor.variable]: '#86EFAC', // primary
     [$endColor.variable]: '#22C55E', // accent.500

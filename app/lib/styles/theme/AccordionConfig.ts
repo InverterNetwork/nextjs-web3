@@ -13,9 +13,8 @@ const baseStyle = definePartsStyle({
     },
   },
   panel: {
-    _light: {
-      borderColor: 'black',
-    },
+    borderColor: 'black',
+
     _dark: {
       borderColor: 'dark.accent.300',
     },
