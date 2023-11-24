@@ -28,10 +28,7 @@ body,
 
 .content {
   padding: 1.5rem;
-}
-
-.content,
-.sub-content {
+  padding-bottom: 7rem;
   grid-row: 2;
   overflow: hidden scroll;
 }

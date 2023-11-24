@@ -6,9 +6,9 @@ import { cookies } from 'next/headers'
 import '@fontsource/open-sans/500.css'
 import './lib/styles/global.css'
 
-const { description, title, applicationName, images } = {
-  title: 'Web3 Template',
-  applicationName: 'Inverter',
+const title = 'Inverter Network'
+const { description, applicationName, images } = {
+  applicationName: `${title} | Web3 Template`,
   description:
     'Easily edit and deploy your own web3 application with this template.',
   images: [
@@ -40,10 +40,8 @@ export const metadata: Metadata = {
 
 function RootLayout({ children }: { children: React.ReactNode }) {
   const cookieStore = cookies()
-  const colorMode = cookieStore.get('chakra-ui-color-mode')?.value as
-    | 'light'
-    | 'dark'
-    | undefined
+  const colorMode = (cookieStore.get('chakra-ui-color-mode')?.value ??
+    'light') as 'light' | 'dark'
   return (
     <html lang="en" data-theme={colorMode} style={{ colorScheme: colorMode }}>
       {/* PWA config */}
