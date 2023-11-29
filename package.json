@@ -33,8 +33,12 @@
     "@fontsource/open-sans": "^5.0.17",
     "@lifi/sdk": "^2.5.0",
     "@reduxjs/toolkit": "^1.9.7",
+    "connect-mongo": "^5.1.0",
     "framer-motion": "^10.16.4",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.0.1",
     "next": "latest",
+    "next-app-session": "^1.0.7",
     "next-nprogress-bar": "^2.1.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -46,9 +50,11 @@
   "devDependencies": {
     "@commitlint/cli": "^18.2.0",
     "@commitlint/config-conventional": "^18.1.0",
+    "@types/jsonwebtoken": "^9.0.5",
     "@types/node": "^20.4.5",
     "@types/react": "^18.2.17",
     "@types/react-dom": "^18.2.7",
+    "bun-types": "^1.0.14",
     "eslint": "^8.53.0",
     "eslint-config-next": "latest",
     "eslint-config-prettier": "^9.0.0",
@@ -56,13 +62,14 @@
     "husky": "^8.0.3",
     "lint-staged": "^15.0.2",
     "prettier": "^3.0.3",
-    "standard-version": "^9.5.0",
-    "typescript": "^5.1.6"
+    "standard-version": "^9.5.0"
   },
   "peerDependencies": {
+    "typescript": "^5.3.2",
     "@tanstack/react-query": "^4.36.1",
     "viem": "^1.18.6",
-    "ethers": "^5.7.2"
+    "ethers": "^5.7.2",
+    "mongodb": "^6.2.0"
   },
   "browser": {
     "fs": false,

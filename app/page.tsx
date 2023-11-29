@@ -40,11 +40,15 @@ import {
 } from '@chakra-ui/react'
 import { Frame, NumberInput, Pagination } from './components'
 import { useState } from 'react'
+import { useAppSelector } from './lib/store'
 
 export default function HomePage() {
   const modalDisclosure = useDisclosure()
   const [page, setPage] = useState(1)
   const [number, setNumber] = useState<string>('')
+
+  const user = useAppSelector((state) => state.user)
+
   return (
     <Stack gap={6}>
       <Heading>Frame</Heading>

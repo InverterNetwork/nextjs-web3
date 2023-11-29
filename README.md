@@ -55,6 +55,7 @@ bun run build && bun start
 For automated processes like CI/CD using AWS CodePipeline:
 
 1. Edit line 41 in `/.github/.workflows/aws-ecr.yml` to match your AWS ECR_REPOSITORY Name.
+2. Add non `NEXT_PUBLIC_` environment variables to the env vars of the running EC2 instance.
 
 ## GitHub Secrets Configuration
 
@@ -63,4 +64,4 @@ For automated processes like CI/CD using GitHub Actions:
 1. Navigate to your GitHub repository and access the `Settings` tab.
 2. Locate the `Secrets` option in the left sidebar.
 3. Use the `New repository secret` button to add new secrets.
-4. Specifically, add secrets for `DYNAMIC_ID_DEV` and `DYNAMIC_ID_PROD` .
+4. Specifically, add secrets for `DYNAMIC_ID_DEV`, and `DYNAMIC_ID_PROD` .

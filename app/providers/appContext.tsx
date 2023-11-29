@@ -1,7 +1,8 @@
 'use client'
 
-import { useIsHydrated } from '@/hooks'
-import { createContext, useContext } from 'react'
+import { useClientAuth, useIsHydrated } from '@/hooks'
+import { useDynamicContext } from '@dynamic-labs/sdk-react-core'
+import { createContext, useContext, useEffect } from 'react'
 
 export type TAppContext = {
   isHydrated: boolean
@@ -15,6 +16,8 @@ export default function AppProvider({
   children: React.ReactNode
 }) {
   const isHydrated = useIsHydrated()
+  const { authToken } = useDynamicContext()
+  const handleClientAuth = useClientAuth()
 
   // CONTEXT
   //==============================================
@@ -24,6 +27,10 @@ export default function AppProvider({
 
   // EFFECTS
   //==============================================
+  useEffect(() => {
+    if (!!authToken) handleClientAuth(authToken)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authToken])
 
   // RETURN
   //==============================================
