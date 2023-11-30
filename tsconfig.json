@@ -29,6 +29,9 @@
       "bun-types" // add Bun global
     ]
   },
+  "types": [
+    "bun-types" // add Bun global
+  ],
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
 }

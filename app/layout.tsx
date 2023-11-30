@@ -1,10 +1,24 @@
+/// <reference lib="dom" />
+/// <reference lib="dom.iterable" />
+/// <reference lib="esnext" />
+
+// This is required because bun-types currently removes the libs defined in the tsconfig
+// https://github.com/oven-sh/bun/issues/5134
+
 import React from 'react'
 import type { Metadata } from 'next'
 import Providers from './providers'
 import { RouteProgressBar, Navbar } from './components'
 import { cookies } from 'next/headers'
 import '@fontsource/open-sans/500.css'
+import { config } from './lib/styles'
 import './lib/styles/global.css'
+import { Open_Sans } from 'next/font/google'
+
+const openSans = Open_Sans({
+  subsets: ['latin'],
+  display: 'swap',
+})
 
 const title = 'Inverter Network'
 const { description, applicationName, images } = {
@@ -40,10 +54,15 @@ export const metadata: Metadata = {
 
 function RootLayout({ children }: { children: React.ReactNode }) {
   const cookieStore = cookies()
-  const colorMode = (cookieStore.get('chakra-ui-color-mode')?.value ??
-    'light') as 'light' | 'dark'
+  const colorMode =
+    cookieStore.get('chakra-ui-color-mode')?.value ?? config.initialColorMode
   return (
-    <html lang="en" data-theme={colorMode} style={{ colorScheme: colorMode }}>
+    <html
+      lang="en"
+      className={openSans.className}
+      data-theme={colorMode}
+      style={{ colorScheme: colorMode }}
+    >
       {/* PWA config */}
       <link rel="manifest" href="/manifest.json" />
       <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -60,7 +79,6 @@ function RootLayout({ children }: { children: React.ReactNode }) {
       <body className={`chakra-ui-${colorMode}`}>
         <Providers>
           <RouteProgressBar />
-          {/* <InitialOverlay /> */}
           {/* CONTENT */}
           <div className="layout-body">
             <Navbar />

@@ -1,4 +1,4 @@
-import { dark, light } from '@/lib/styles/theme'
+import { dark, light } from '.'
 import { css } from '@emotion/react'
 
 export const getDynamicTheme = (isLight: boolean) => {
@@ -21,12 +21,16 @@ export const getDynamicTheme = (isLight: boolean) => {
       `
 
   const dynamicBrandColor = isLight ? light.accent[400] : dark.accent[400]
+  const textColor = isLight ? 'black' : 'white'
+  const base2 = isLight ? light.primary[100] : dark.primary[800]
   const shadowDomOverWrites = css`
     .dynamic-shadow-dom {
-      --dynamic-text-primary: ${isLight ? 'black' : 'white'};
+      --dynamic-badge-color: ${textColor};
+      --dynamic-badge-background: ${base2};
+      --dynamic-text-primary: ${textColor};
       --dynamic-font-family-primary: 'Open Sans', sans-serif;
       --dynamic-base-1: ${isLight ? light.primary[50] : dark.primary[900]};
-      --dynamic-base-2: ${isLight ? light.primary[100] : dark.primary[800]};
+      --dynamic-base-2: ${base2};
       --dynamic-base-3: ${isLight ? light.primary[200] : dark.primary[700]};
       --dynamic-base-4: ${borderColor};
       --dynamic-button-primary-background: ${isLight

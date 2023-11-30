@@ -3,9 +3,9 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import ReduxProvider from '../lib/store/ReduxProvider'
 import ConnectorProvider from './ConnectorProvider'
-import AppProvider from './appContext'
-import { theme } from '@/lib'
 import { ChakraProvider, cookieStorageManager } from '@chakra-ui/react'
+import AppProvider from './appContext'
+import theme from '@/lib/styles/theme'
 
 const queryClient = new QueryClient()
 

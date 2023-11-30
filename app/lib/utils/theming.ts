@@ -32,7 +32,7 @@ export function generateColorShades(
   interval: number = 10
 ): Record<number, string> {
   const shades: Record<number, string> = {}
-  let percentages = []
+  const percentages = []
 
   for (let i = 0; i < 10; i++) percentages.push(i * interval)
   percentages.reverse()

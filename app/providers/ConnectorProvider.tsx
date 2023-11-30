@@ -1,11 +1,8 @@
 'use client'
 
 import { Global } from '@emotion/react'
-import {
-  lifi,
-  transformLifiChainsToDynamicEvmNetworks,
-  getDynamicTheme,
-} from '@/lib'
+import { lifi, transformLifiChainsToDynamicEvmNetworks } from '@/lib'
+import { getDynamicTheme } from '@/lib/styles/dynamicTheme'
 import { useColorMode } from '@chakra-ui/react'
 import { EthereumWalletConnectors } from '@dynamic-labs/ethereum'
 import { MagicWalletConnectors } from '@dynamic-labs/magic'

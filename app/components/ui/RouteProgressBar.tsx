@@ -1,6 +1,6 @@
 'use client'
 
-import { dark, light } from '@/lib/styles/theme'
+import { dark, light } from '@/lib/styles'
 import { useColorModeValue } from '@chakra-ui/react'
 import { AppProgressBar } from 'next-nprogress-bar'
 
