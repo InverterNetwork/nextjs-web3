@@ -24,10 +24,10 @@
   "dependencies": {
     "@chakra-ui/next-js": "^2.1.5",
     "@chakra-ui/react": "^2.8.1",
-    "@dynamic-labs/ethereum": "^0.19.0",
-    "@dynamic-labs/magic": "^0.19.0",
-    "@dynamic-labs/sdk-react-core": "^0.19.0",
-    "@dynamic-labs/wagmi-connector": "^0.19.0",
+    "@dynamic-labs/ethereum": "^0.19.3",
+    "@dynamic-labs/magic": "^0.19.3",
+    "@dynamic-labs/sdk-react-core": "^0.19.3",
+    "@dynamic-labs/wagmi-connector": "^0.19.3",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@fontsource/open-sans": "^5.0.17",
@@ -49,6 +49,7 @@
     "@types/node": "^20.4.5",
     "@types/react": "^18.2.17",
     "@types/react-dom": "^18.2.7",
+    "bun-types": "^1.0.14",
     "eslint": "^8.53.0",
     "eslint-config-next": "latest",
     "eslint-config-prettier": "^9.0.0",
@@ -56,10 +57,10 @@
     "husky": "^8.0.3",
     "lint-staged": "^15.0.2",
     "prettier": "^3.0.3",
-    "standard-version": "^9.5.0",
-    "typescript": "^5.1.6"
+    "standard-version": "^9.5.0"
   },
   "peerDependencies": {
+    "typescript": "^5.1.6",
     "@tanstack/react-query": "^4.36.1",
     "viem": "^1.18.6",
     "ethers": "^5.7.2"

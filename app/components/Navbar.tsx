@@ -6,7 +6,7 @@ import { Link } from '@chakra-ui/next-js'
 import { usePathname } from 'next/navigation'
 import Image from 'next/image'
 import NextLink from 'next/link'
-import { dark, light } from '@/lib'
+import { dark, light } from '@/lib/styles'
 import { FaMoon, FaSun } from 'react-icons/fa'
 
 export default function Navbar() {
