@@ -9,6 +9,7 @@
     "build": "next build",
     "start": "next start -p 8080",
     "pre-commit": "lint-staged",
+    "type-check": "tsc -p ./tsconfig.json --pretty --noEmit",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "prettier": "prettier --check .",
@@ -16,7 +17,8 @@
     "release": "standard-version"
   },
   "lint-staged": {
-    "app/": [
+    ".": "npm run type-check",
+    ".**/*.{js,jsx,ts,tsx}": [
       "npm run lint:fix",
       "npm run prettier:fix"
     ]
@@ -24,10 +26,10 @@
   "dependencies": {
     "@chakra-ui/next-js": "^2.1.5",
     "@chakra-ui/react": "^2.8.1",
-    "@dynamic-labs/ethereum": "^0.19.3",
-    "@dynamic-labs/magic": "^0.19.3",
-    "@dynamic-labs/sdk-react-core": "^0.19.3",
-    "@dynamic-labs/wagmi-connector": "^0.19.3",
+    "@dynamic-labs/ethereum": "^0.19.4",
+    "@dynamic-labs/magic": "^0.19.4",
+    "@dynamic-labs/sdk-react-core": "^0.19.4",
+    "@dynamic-labs/wagmi-connector": "^0.19.4",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@fontsource/open-sans": "^5.0.17",
@@ -58,7 +60,6 @@
     "eslint": "^8.53.0",
     "eslint-config-next": "latest",
     "eslint-config-prettier": "^9.0.0",
-    "eslint-plugin-prettier": "^5.0.1",
     "husky": "^8.0.3",
     "lint-staged": "^15.0.2",
     "prettier": "^3.0.3",
