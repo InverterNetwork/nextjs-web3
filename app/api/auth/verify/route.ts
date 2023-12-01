@@ -9,7 +9,7 @@ if (!process.env.DYNAMIC_PUBLIC_KEY)
     'No DYNAMIC_PUBLIC_KEY was found in the Environment Variables Please add it'
   )
 
-const publicKey = process.env.DYNAMIC_PUBLIC_KEY
+const publicKey = process.env.DYNAMIC_PUBLIC_KEY.replace(/\\n/g, '\n')
 
 export async function GET(req: Request) {
   // Get Current Session
@@ -18,13 +18,15 @@ export async function GET(req: Request) {
   const authToken = req.headers.get('authorization')?.split(' ')[1] || null // Get Bearer token
 
   // If no Authorization Header was found
-  if (!authToken)
+  if (!authToken) {
+    if (!!currentSession) await session().destroy()
     return new Response(
       "<authorization: Bearer __token__> couldn't be found in the headers",
       {
         status: 404,
       }
     )
+  }
 
   let decoded = {} as any,
     isVerified = false
@@ -56,28 +58,32 @@ export async function GET(req: Request) {
     role: UserRole.User,
   }
 
-  // If the current session is the same as the new one
-  if (currentSession?.address === state.address)
-    return Response.json(currentSession)
-
-  // Connect to the Database
+  // Connect to the DB
   await connectDB()
 
-  // Create a new User in MongoDB
-  const newUser = new UserModel({
+  const existingUser = await UserModel.findOne({
     address: state.address,
-    email: state.email,
-  })
+  }).lean()
 
-  // Save the new User
-  try {
-    await newUser.save()
-  } catch (e: any) {
-    console.error(e?.message || 'No Error Message was Found')
+  // Update State
+  if (!!existingUser) {
+    state.role = existingUser.role
   }
 
   // Set the new Session
+  if (!!currentSession) await session().destroy()
   await session().setAll(state)
+
+  // Create a new User in MongoDB
+  if (!existingUser) {
+    const newUser = new UserModel({
+      address: state.address,
+      email: state.email,
+    })
+
+    // Save the new User
+    await newUser.save()
+  }
 
   // Return the new Session
   return Response.json(state)

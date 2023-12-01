@@ -1,2 +1,2 @@
 export { default as useIsHydrated } from './useIsHydrated'
-export { default as useClientAuth } from './useClientAuth'
+export { default as useUser } from './useUser'

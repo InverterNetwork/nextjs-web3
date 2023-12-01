@@ -1,6 +1,6 @@
 import { connect } from 'mongoose'
 
-let MONGO_URI = process.env.MONGO_URI
+const MONGO_URI = process.env.MONGO_URI
 
 if (!MONGO_URI || typeof MONGO_URI !== 'string')
   throw new Error('Please add your MongoDB URI to .env')
