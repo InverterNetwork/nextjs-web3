@@ -10,10 +10,9 @@ import type { Metadata } from 'next'
 import Providers from './providers'
 import { RouteProgressBar, Navbar } from './components'
 import { cookies } from 'next/headers'
-import '@fontsource/open-sans/500.css'
-import { config } from './lib/styles'
-import './lib/styles/global.css'
+import { initialTheme } from '../styles'
 import { Open_Sans } from 'next/font/google'
+import '../styles/global.css'
 
 const openSans = Open_Sans({
   subsets: ['latin'],
@@ -53,16 +52,9 @@ export const metadata: Metadata = {
 }
 
 function RootLayout({ children }: { children: React.ReactNode }) {
-  const cookieStore = cookies()
-  const colorMode =
-    cookieStore.get('chakra-ui-color-mode')?.value ?? config.initialColorMode
+  const theme = cookies().get('theme')?.value ?? initialTheme
   return (
-    <html
-      lang="en"
-      className={openSans.className}
-      data-theme={colorMode}
-      style={{ colorScheme: colorMode }}
-    >
+    <html lang="en" data-theme={theme} className={openSans.className}>
       {/* PWA config */}
       <link rel="manifest" href="/manifest.json" />
       <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -76,7 +68,7 @@ function RootLayout({ children }: { children: React.ReactNode }) {
       <link rel="icon" href="/icon-512x512.png" />
       <meta name="theme-color" content="#000000" />
       <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-      <body className={`chakra-ui-${colorMode}`}>
+      <body>
         <Providers>
           <RouteProgressBar />
           {/* CONTENT */}

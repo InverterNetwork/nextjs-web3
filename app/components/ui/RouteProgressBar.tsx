@@ -1,15 +1,15 @@
 'use client'
 
-import { dark, light } from '@/lib/styles'
-import { useColorModeValue } from '@chakra-ui/react'
+import { dark, light } from 'styles'
 import { AppProgressBar } from 'next-nprogress-bar'
+import { useTheme } from '@/hooks'
 
 export default function RouteProgressBar() {
-  const sliderColor = useColorModeValue(light?.accent[400], dark?.accent[400])
+  const { isLight } = useTheme()
   return (
     <AppProgressBar
       height="4px"
-      color={sliderColor}
+      color={isLight ? light.accent : dark.accent}
       options={{ showSpinner: false }}
     />
   )

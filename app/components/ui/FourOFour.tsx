@@ -1,16 +1,13 @@
-'use client'
-
-import { Link } from '@chakra-ui/next-js'
-import { Stack, Heading, Divider, Button } from '@chakra-ui/react'
+import Link from 'next/link'
 
 export default function FourOFour() {
   return (
-    <Stack gap={5} align={'center'} m={'auto'}>
-      <Heading>404 / Page Not Found</Heading>
-      <Divider />
-      <Button variant={'accent'} w={260} as={Link} href="/">
-        Explore
-      </Button>
-    </Stack>
+    <div className="felx flex-col gap-5">
+      <h1>404 / Page Not Found</h1>
+      <div className="divider" />
+      <Link href="/">
+        <button className="btn btn-primary">Explore</button>
+      </Link>
+    </div>
   )
 }

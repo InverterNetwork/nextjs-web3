@@ -1,24 +1,18 @@
 'use client'
 
-import { Box, Button, Flex, useColorMode } from '@chakra-ui/react'
 import { DynamicWidget } from '@dynamic-labs/sdk-react-core'
-import { Link } from '@chakra-ui/next-js'
 import { usePathname } from 'next/navigation'
 import Image from 'next/image'
 import NextLink from 'next/link'
-import { dark, light } from '@/lib/styles'
-import { FaMoon, FaSun } from 'react-icons/fa'
+import ThemeSwitcher from './ThemeSwitcher'
+import Link from 'next/link'
 
 export default function Navbar() {
-  const { colorMode } = useColorMode()
-  const borderColor = colorMode === 'light' ? light.border : dark.border
   const pathname = usePathname()
 
-  const { toggleColorMode } = useColorMode()
-
   return (
-    <Box className="header" borderBottom="1px solid" borderColor={borderColor}>
-      <Flex justifyContent={'space-between'} pb={3}>
+    <div className={`header border-b`}>
+      <div className="flex pb-3 justify-between">
         <NextLink href="/">
           <Image
             priority
@@ -29,43 +23,27 @@ export default function Navbar() {
           />
         </NextLink>
         <DynamicWidget variant="modal" />
-      </Flex>
+      </div>
 
-      <Flex
-        justify={'center'}
-        gap={4}
-        pt={2}
-        borderTop="1px solid"
-        borderColor={borderColor}
-      >
-        <Button onClick={toggleColorMode} mr={'auto'}>
-          {colorMode === 'light' ? <FaMoon /> : <FaSun />}
-        </Button>
-        <Button
-          variant={'frame'}
-          as={Link}
-          href="/"
-          isActive={pathname === '/'}
-        >
-          Landing
-        </Button>
-        <Button
-          variant={'frame'}
-          as={Link}
-          href="/one"
-          isActive={pathname === '/one'}
-        >
-          One
-        </Button>
-        <Button
-          variant={'frame'}
-          as={Link}
-          href="/two"
-          isActive={pathname === '/two'}
-        >
-          Two
-        </Button>
-      </Flex>
-    </Box>
+      <div className="flex justify-center gap-4 border-t pt-2">
+        <ThemeSwitcher />
+
+        {[
+          { href: '/', label: 'Landing' },
+          { href: '/one', label: 'One' },
+          { href: '/two', label: 'two' },
+        ].map((i, index) => (
+          <Link href={i.href} key={index}>
+            <button
+              className={`btn btn-sm ${
+                pathname !== i.href ? 'btn-primary' : 'btn-active'
+              }`}
+            >
+              {i.label}
+            </button>
+          </Link>
+        ))}
+      </div>
+    </div>
   )
 }

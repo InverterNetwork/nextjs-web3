@@ -24,18 +24,14 @@
     ]
   },
   "dependencies": {
-    "@chakra-ui/next-js": "^2.1.5",
-    "@chakra-ui/react": "^2.8.1",
     "@dynamic-labs/ethereum": "^0.19.4",
     "@dynamic-labs/magic": "^0.19.4",
     "@dynamic-labs/sdk-react-core": "^0.19.4",
     "@dynamic-labs/wagmi-connector": "^0.19.4",
     "@emotion/react": "^11.11.1",
-    "@emotion/styled": "^11.11.0",
-    "@fontsource/open-sans": "^5.0.17",
     "@lifi/sdk": "^2.5.0",
     "@reduxjs/toolkit": "^1.9.7",
-    "framer-motion": "^10.16.4",
+    "classnames": "^2.3.2",
     "next": "latest",
     "next-nprogress-bar": "^2.1.2",
     "react": "18.2.0",
@@ -48,17 +44,22 @@
   "devDependencies": {
     "@commitlint/cli": "^18.2.0",
     "@commitlint/config-conventional": "^18.1.0",
+    "@tailwindcss/typography": "^0.5.10",
     "@types/node": "^20.4.5",
     "@types/react": "^18.2.17",
     "@types/react-dom": "^18.2.7",
+    "autoprefixer": "^10.4.16",
     "bun-types": "^1.0.14",
+    "daisyui": "^4.4.17",
     "eslint": "^8.53.0",
     "eslint-config-next": "latest",
     "eslint-config-prettier": "^9.0.0",
     "husky": "^8.0.3",
     "lint-staged": "^15.0.2",
+    "postcss": "^8.4.32",
     "prettier": "^3.0.3",
-    "standard-version": "^9.5.0"
+    "standard-version": "^9.5.0",
+    "tailwindcss": "^3.3.5"
   },
   "peerDependencies": {
     "typescript": "^5.1.6",

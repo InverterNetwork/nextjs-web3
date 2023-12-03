@@ -1,140 +1,72 @@
 'use client'
 
-import {
-  Accordion,
-  AccordionButton,
-  AccordionIcon,
-  AccordionItem,
-  AccordionPanel,
-  Button,
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-  Divider,
-  Flex,
-  Heading,
-  Input,
-  Menu,
-  MenuButton,
-  MenuDivider,
-  MenuItem,
-  MenuList,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-  Skeleton,
-  SkeletonCircle,
-  SkeletonText,
-  Stack,
-  Switch,
-  Tab,
-  TabList,
-  Tabs,
-  Tag,
-  useDisclosure,
-} from '@chakra-ui/react'
-import { Frame, NumberInput, Pagination } from './components'
 import { useState } from 'react'
+import { useDisclosure } from './hooks'
+import { Accordion, Menu, Modal, Pagination, Tab } from './components'
+import { on } from 'events'
 
 export default function HomePage() {
   const modalDisclosure = useDisclosure()
   const [page, setPage] = useState(1)
   const [number, setNumber] = useState<string>('')
+  const [tab, setTab] = useState(1)
   return (
-    <Stack gap={6}>
-      <Heading>Frame</Heading>
-      <Frame>Base Frame</Frame>
-      <Heading>Buttons</Heading>
-      <Flex gap={3}>
-        <Button>Base Button</Button>
-        <Button variant={'frame'}>Frame Button</Button>
-        <Button variant={'accent'}>Accent Button</Button>
-      </Flex>
-      <Heading>Divider</Heading>
-      <Divider />
-      <Heading>Cards</Heading>
-      <Flex gap={3}>
-        <Card>
-          <CardHeader>Base Card</CardHeader>
-          <CardBody>Body</CardBody>
-          <CardFooter>Footer</CardFooter>
-        </Card>
-        <Card variant={'info'}>
-          <CardHeader>Info Card</CardHeader>
-          <CardBody>Body</CardBody>
-          <CardFooter>Footer</CardFooter>
-        </Card>
-      </Flex>
-      <Heading>Tabs</Heading>
-      <Tabs>
-        <TabList>
-          <Tab>First Base Tab</Tab>
-          <Tab>Second Base Tab</Tab>
-        </TabList>
-      </Tabs>
-      <Heading>Tag</Heading>
-      <Tag>Base Tag</Tag>
-      <Heading>Switch</Heading>
-      <Switch />
-      <Heading>Input</Heading>
-      <Input placeholder="Base Input" />
-      <Heading>Menu</Heading>
-      <Menu>
-        {({ isOpen }) => (
-          <>
-            <MenuButton as={Button}>{isOpen ? 'Close' : 'Open'}</MenuButton>
-            <MenuList>
-              <MenuItem>Item One</MenuItem>
-              <MenuDivider />
-              <MenuItem>Item Two</MenuItem>
-            </MenuList>
-          </>
-        )}
+    <div className="flex flex-col gap-3">
+      {/* Card */}
+      <div className="card shadow-xl">
+        <figure>
+          <img
+            src="https://images.mirror-media.xyz/publication-images/2yXY8M-emmKoKGbh5TA_A.jpeg?height=480&width=960"
+            alt="brand"
+          />
+        </figure>
+        <div className="card-body">
+          <h2 className="card-title">Modular Smart Contracts!</h2>
+          <p>Did someone say Inverter?</p>
+          <div className="card-actions justify-end">
+            <button className="btn btn-primary">Buy Now</button>
+          </div>
+        </div>
+      </div>
+      <div className="divider" />
+      {/* Tab */}
+      <Tab setTab={setTab} tab={tab} tabs={['Tab 1', 'Tab 2', 'Tab3']} />
+      <div className="divider"></div>
+      {/* Menu */}
+      <Menu items={['Item 1', 'Item 2']} summary="Title">
+        <Menu items={['Sub Item 1', 'Sub Item 2']} summary="Sub Title" />
       </Menu>
-      <Heading>Modals</Heading>
-      <Button onClick={modalDisclosure.onOpen}>Open Modal</Button>
-      <Modal isOpen={modalDisclosure.isOpen} onClose={modalDisclosure.onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>
-            Base Modal
-            <ModalCloseButton />
-          </ModalHeader>
-          <ModalBody>Body</ModalBody>
-          <ModalFooter>Footer</ModalFooter>
-        </ModalContent>
-      </Modal>
-      <Heading>Accordion</Heading>
-      <Accordion allowToggle>
-        {['One', 'Two'].map((i, index) => {
-          return (
-            <AccordionItem key={index}>
-              <AccordionButton gap={3}>
-                <Heading size="sm">Title {i}</Heading>
-                <AccordionIcon />
-              </AccordionButton>
-              <AccordionPanel borderTop="1px solid">Item {i}</AccordionPanel>
-            </AccordionItem>
-          )
-        })}
-      </Accordion>
-      <Heading>Skeleton</Heading>
-      <Skeleton w={12} h={6} />
-      <SkeletonCircle />
-      <SkeletonText w={12} />
-      <Heading>Pagination</Heading>
-      <Pagination totalPages={10} page={page} setPage={setPage} />
-      <Heading>Number Input</Heading>
-      <NumberInput
-        label="Main Number Input"
-        value={number}
-        onChange={setNumber}
+      <div className="divider"></div>
+      {/* Accordion */}
+      <Accordion
+        items={[
+          { label: 'Accordion 1', content: 'Content 1' },
+          { label: 'Accordion 2', content: 'Content 2' },
+          { label: 'Accordion 3', content: 'Content 3' },
+        ]}
       />
-    </Stack>
+      <div className="divider" />
+      {/* Modal */}
+      {/* Open the modal using document.getElementById('ID').showModal() method */}
+      <button className="btn" onClick={modalDisclosure.onOpen}>
+        open modal
+      </button>
+      <Modal
+        isOpen={modalDisclosure.isOpen}
+        onClose={modalDisclosure.onClose}
+        title="Modal Title"
+      />
+      <div className="divider" />
+      {/* Skeleton */}
+      <div className="flex flex-col gap-4 w-52">
+        <div className="skeleton h-32 w-full"></div>
+        <div className="skeleton h-4 w-28"></div>
+        <div className="skeleton h-4 w-full"></div>
+        <div className="skeleton h-4 w-full"></div>
+      </div>
+      <div className="divider" />
+      {/* Pagination */}
+      <Pagination setPage={setPage} page={page} totalPages={10} />
+    </div>
   )
 }
