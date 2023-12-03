@@ -3,7 +3,7 @@ import { useTransition } from 'react'
 export default function useServerAction() {
   const startTransition = useTransition()[1]
 
-  async function serverAction<T>(action: () => T) {
+  function serverAction<T>(action: () => T) {
     let promise = <T>undefined
 
     startTransition(() => {

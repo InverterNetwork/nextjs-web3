@@ -4,7 +4,7 @@ import { User, UserRole } from '../lib/types'
 import { useDynamicContext } from '@dynamic-labs/sdk-react-core'
 import { useQuery } from '@tanstack/react-query'
 
-export default function useClientAuth() {
+export default function useUser() {
   const { authToken, primaryWallet } = useDynamicContext()
 
   const userQuery = useQuery({

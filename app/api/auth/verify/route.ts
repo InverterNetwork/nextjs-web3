@@ -12,14 +12,12 @@ if (!process.env.DYNAMIC_PUBLIC_KEY)
 const publicKey = process.env.DYNAMIC_PUBLIC_KEY.replace(/\\n/g, '\n')
 
 export async function GET(req: Request) {
-  // Get Current Session
-  const currentSession = await session().all()
   // Get Authorization Header
-  const authToken = req.headers.get('authorization')?.split(' ')[1] || null // Get Bearer token
+  const authToken = req.headers.get('authorization')?.split(' ')[1] // Get Bearer token
 
   // If no Authorization Header was found
-  if (!authToken) {
-    if (!!currentSession) await session().destroy()
+  if (authToken === 'undefined') {
+    await session().destroy()
     return new Response(
       "<authorization: Bearer __token__> couldn't be found in the headers",
       {
@@ -32,7 +30,7 @@ export async function GET(req: Request) {
     isVerified = false
 
   // Verify the Token and get the decoded data
-  jwt.verify(authToken, publicKey!, function (err, decodedRes) {
+  jwt.verify(authToken!, publicKey, function (err, decodedRes) {
     if (!err) {
       isVerified = true
       decoded = decodedRes
@@ -44,7 +42,7 @@ export async function GET(req: Request) {
   // If the token is not verified
   if (!isVerified) {
     // Destroy the current session
-    if (!!currentSession) await session().destroy()
+    await session().destroy()
     return new Response('Un Authorized Auth Token is not valid', {
       status: 401,
     })
@@ -65,24 +63,25 @@ export async function GET(req: Request) {
     address: state.address,
   }).lean()
 
-  // Update State
+  // Update State and handle session
   if (!!existingUser) {
     state.role = existingUser.role
-  }
+    await session().setAll(state)
+  } // Create a new User in MongoDB and handle session
+  else {
+    try {
+      const newUser = new UserModel({
+        address: state.address,
+        ...(!!state.email && { email: state.email }),
+      })
 
-  // Set the new Session
-  if (!!currentSession) await session().destroy()
-  await session().setAll(state)
+      // Save the new User
+      await newUser.save()
 
-  // Create a new User in MongoDB
-  if (!existingUser) {
-    const newUser = new UserModel({
-      address: state.address,
-      email: state.email,
-    })
-
-    // Save the new User
-    await newUser.save()
+      await session().setAll(state)
+    } catch (e: any) {
+      throw e
+    }
   }
 
   // Return the new Session
