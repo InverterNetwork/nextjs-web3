@@ -1,36 +1,40 @@
-import { Button, HStack, StackProps } from '@chakra-ui/react'
-import Frame from './Frame'
+import cn from 'classnames'
 
 export default function Pagination({
   totalPages,
   page,
   setPage,
-  props,
+  ...props
 }: {
   totalPages?: number
   page: number
-  setPage: (page: number) => void
-  props?: StackProps
-}) {
+  setPage(page: number): void
+} & React.DetailedHTMLProps<
+  React.HTMLAttributes<HTMLDivElement>,
+  HTMLDivElement
+>) {
+  const { className, ...rest } = props
   return (
-    <HStack spacing={2} {...props}>
-      <Button
-        size={'sm'}
-        isDisabled={page <= 1}
-        onClick={() => setPage(page - 1)}
+    <div className={cn('join', className)} {...rest}>
+      <button
+        className="join-item btn"
+        disabled={page <= 1}
+        onClick={() => {
+          setPage(page - 1)
+        }}
       >
-        -
-      </Button>
-      <Frame p={1} pl={3} pr={3}>
-        {page}
-      </Frame>
-      <Button
-        isDisabled={(totalPages ?? 1) <= page}
-        size={'sm'}
-        onClick={() => setPage(page + 1)}
+        «
+      </button>
+      <button className="join-item btn">Page {page}</button>
+      <button
+        className="join-item btn"
+        disabled={(totalPages ?? 1) <= page}
+        onClick={() => {
+          setPage(page + 1)
+        }}
       >
-        +
-      </Button>
-    </HStack>
+        »
+      </button>
+    </div>
   )
 }

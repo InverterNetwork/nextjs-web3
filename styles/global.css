@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  overflow: hidden;
+  font-family: 'Open Sans';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  overflow: hidden;
+}
+
+.content {
+  width: 100vw;
+  height: 100vh;
+}
+
+.content::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.content {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 1.5rem;
+  padding-top: 7rem;
+  padding-bottom: 7rem;
+  overflow: hidden scroll;
+}
+
+.navbar-c {
+  padding: 0.3rem;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  width: max-content;
+}

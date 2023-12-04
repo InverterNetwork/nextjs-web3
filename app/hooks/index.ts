@@ -1,2 +1,2 @@
 export { default as useIsHydrated } from './useIsHydrated'
-export { default as useUser } from './useUser'
+export { default as useDisclosure } from './useDisclosure'

@@ -19,13 +19,13 @@ export const getDynamicTheme = (isLight: boolean) => {
     }
       `
 
-  const borderColor = isLight ? light.border : dark.border
+  const borderColor = isLight ? light.neutral : dark.neutral
   const textColor = isLight ? 'black' : 'white'
-  const dynamicBrandColor = isLight ? light.accent[400] : dark.accent[400]
-  const base1 = isLight ? light.primary[50] : dark.primary[900]
-  const base2 = isLight ? light.primary[100] : dark.primary[800]
-  const base3 = isLight ? light.primary[200] : dark.primary[700]
-  const buttonColor = isLight ? light.primary[50] : dark.primary[700]
+  const dynamicBrandColor = isLight ? light.accent : dark.accent
+  const base1 = isLight ? light['base-100'] : dark['base-100']
+  const base2 = isLight ? light['base-200'] : dark['base-200']
+  const base3 = isLight ? light['base-300'] : dark['base-300']
+  const buttonColor = isLight ? light['base-100'] : dark['base-100']
 
   const shadowDomOverWrites = css`
     .dynamic-shadow-dom {

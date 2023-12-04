@@ -1,5 +1,5 @@
 export { default as RouteProgressBar } from './RouteProgressBar'
 export { default as FourOFour } from './FourOFour'
-export { default as Frame } from './Frame'
-export { default as NumberInput } from './NumberInput'
 export { default as Pagination } from './Pagination'
+export { default as Tabs } from './Tabs'
+export { default as Accordion } from './Accordion'

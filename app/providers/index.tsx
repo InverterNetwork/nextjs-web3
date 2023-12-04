@@ -3,26 +3,31 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import ReduxProvider from '../lib/store/ReduxProvider'
 import ConnectorProvider from './ConnectorProvider'
-import { ChakraProvider, cookieStorageManager } from '@chakra-ui/react'
+import { Theme } from 'react-daisyui'
 import AppProvider from './appContext'
-import theme from '@/lib/styles/theme'
 
 const queryClient = new QueryClient()
 
-export default function Providers({ children }: { children: React.ReactNode }) {
+export default function Providers({
+  children,
+  theme,
+}: {
+  children: React.ReactNode
+  theme: string
+}) {
   return (
-    <ChakraProvider theme={theme} colorModeManager={cookieStorageManager}>
-      <QueryClientProvider client={queryClient}>
-        <ReduxProvider>
+    <QueryClientProvider client={queryClient}>
+      <ReduxProvider>
+        <Theme dataTheme={theme}>
           <ConnectorProvider>
             <AppProvider>
               {/* STYLE PROVIDERS AND CHILDREN */}
               {children}
             </AppProvider>
           </ConnectorProvider>
-        </ReduxProvider>
-      </QueryClientProvider>
-    </ChakraProvider>
+        </Theme>
+      </ReduxProvider>
+    </QueryClientProvider>
   )
 }
 
