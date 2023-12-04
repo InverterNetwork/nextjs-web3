@@ -72,11 +72,9 @@ function RootLayout({ children }: { children: React.ReactNode }) {
         <Providers theme={theme}>
           <RouteProgressBar />
           {/* CONTENT */}
-          <div className="layout-body">
-            <NavbarTop />
-            <div className="content">{children}</div>
-            <NavbarBottom />
-          </div>
+          <NavbarTop />
+          <div className="content">{children}</div>
+          <NavbarBottom />
         </Providers>
       </body>
     </html>

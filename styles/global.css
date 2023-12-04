@@ -14,24 +14,35 @@ html {
   height: 100vh;
 }
 
+.content::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
 .content {
-  position: sticky;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.content {
+  position: absolute;
   top: 0;
   left: 0;
   padding: 1.5rem;
   padding-top: 7rem;
-  padding-bottom: 7rem;
+  padding-bottom: 10rem;
   overflow: hidden scroll;
 }
 
 .navbar-c {
+  align-items: center;
   padding: 0.3rem;
-  position: sticky;
+  position: fixed;
   display: flex;
   justify-content: center;
   gap: 1rem;
-  margin-left: auto;
-  margin-right: auto;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 10;
   width: max-content;
 }
