@@ -9,10 +9,6 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
-  overflow: hidden;
-}
-
 .content {
   width: 100vw;
   height: 100vh;
@@ -34,11 +30,12 @@ body {
   left: 0;
   padding: 1.5rem;
   padding-top: 7rem;
-  padding-bottom: 7rem;
+  padding-bottom: 10rem;
   overflow: hidden scroll;
 }
 
 .navbar-c {
+  align-items: center;
   padding: 0.3rem;
   position: fixed;
   display: flex;
