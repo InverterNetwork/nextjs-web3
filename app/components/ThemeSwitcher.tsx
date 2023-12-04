@@ -11,7 +11,7 @@ export default function ThemeSwitcher() {
       <input
         type="checkbox"
         className="theme-controller"
-        value="synthwave"
+        value={theme}
         checked={theme === 'dark'}
         onChange={() => setTheme(theme === 'light' ? 'dark' : 'light')}
       />

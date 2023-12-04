@@ -3,35 +3,29 @@
 @tailwind utilities;
 
 html {
-  overflow: hidden;
+  overflow-x: hidden;
   font-family: 'Open Sans';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-.content {
-  width: 100vw;
-  height: 100vh;
-}
-
-.content::-webkit-scrollbar {
+/* Hide scrollbar for Chrome, Safari and Opera */
+html::-webkit-scrollbar {
   display: none;
 }
 
 /* Hide scrollbar for IE, Edge and Firefox */
-.content {
+html {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
 
-.content {
-  position: absolute;
-  top: 0;
-  left: 0;
+body {
+  width: 100vw;
+  min-height: 100vh;
   padding: 1.5rem;
   padding-top: 7rem;
   padding-bottom: 10rem;
-  overflow: hidden scroll;
 }
 
 .navbar-c {
