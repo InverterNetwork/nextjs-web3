@@ -8,7 +8,7 @@
 import React from 'react'
 import type { Metadata } from 'next'
 import Providers from './providers'
-import { RouteProgressBar, NavbarBottom, NavbarTop } from './components'
+import { RouteProgressBar, Navbar } from './components'
 import { cookies } from 'next/headers'
 import { initialTheme } from '../styles'
 import { Open_Sans } from 'next/font/google'
@@ -72,9 +72,8 @@ function RootLayout({ children }: { children: React.ReactNode }) {
         <Providers theme={theme}>
           <RouteProgressBar />
           {/* CONTENT */}
-          <NavbarTop />
+          <Navbar />
           {children}
-          <NavbarBottom />
         </Providers>
       </body>
     </html>
