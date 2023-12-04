@@ -8,42 +8,40 @@ import Link from 'next/link'
 import { Button } from 'react-daisyui'
 import WalletWidget from './WalletWidget'
 
-export default function Navbar() {
+export function NavbarTop() {
+  return (
+    <div className="navbar-c top-0 drop-shadow-xl rounded-bl-lg rounded-br-lg bg-base-100">
+      <NextLink href="/">
+        <Image
+          priority
+          src="/inverter-light-logo.svg"
+          alt="inverter_logo"
+          width={42}
+          height={42}
+        />
+      </NextLink>
+      <ThemeSwitcher />
+      <WalletWidget />
+    </div>
+  )
+}
+
+export function NavbarBottom() {
   const pathname = usePathname()
 
   return (
-    <div className={`header border-b`}>
-      <div className="flex pb-3 justify-between">
-        <NextLink href="/">
-          <Image
-            priority
-            src="/inverter-light-logo.svg"
-            alt="inverter_logo"
-            width={42}
-            height={42}
-          />
-        </NextLink>
-        <WalletWidget />
-      </div>
-
-      <div className="flex justify-center gap-4 border-t pt-2">
-        <ThemeSwitcher />
-
-        {[
-          { href: '/', label: 'Landing' },
-          { href: '/one', label: 'One' },
-          { href: '/two', label: 'two' },
-        ].map((i, index) => (
-          <Link href={i.href} key={index}>
-            <Button
-              size={'sm'}
-              {...(pathname !== i.href && { color: 'ghost' })}
-            >
-              {i.label}
-            </Button>
-          </Link>
-        ))}
-      </div>
+    <div className="navbar-c bottom-0 drop-shadow-xl rounded-tl-lg rounded-tr-lg bg-base-100">
+      {[
+        { href: '/', label: 'Landing' },
+        { href: '/one', label: 'One' },
+        { href: '/two', label: 'two' },
+      ].map((i, index) => (
+        <Link href={i.href} key={index}>
+          <Button size={'sm'} {...(pathname !== i.href && { color: 'ghost' })}>
+            {i.label}
+          </Button>
+        </Link>
+      ))}
     </div>
   )
 }

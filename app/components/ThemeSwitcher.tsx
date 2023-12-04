@@ -16,9 +16,9 @@ export default function ThemeSwitcher() {
         onChange={() => setTheme(theme === 'light' ? 'dark' : 'light')}
       />
 
-      <FaSun className="swap-on fill-current w-6 h-6" />
+      <FaSun className="swap-on fill-current w-5 h-5" />
 
-      <FaMoon className="swap-off fill-current w-6 h-6" />
+      <FaMoon className="swap-off fill-current w-5 h-5" />
     </label>
   )
 }

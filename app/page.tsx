@@ -23,7 +23,9 @@ export default function HomePage() {
           <Card.Title tag="h2">Modular Smart Contracts!</Card.Title>
           <p>Did someone say Inverter?</p>
           <Card.Actions className="justify-end">
-            <Button color="primary">Integrate Now</Button>
+            <Button size={'sm'} color="primary">
+              Integrate Now
+            </Button>
           </Card.Actions>
         </Card.Body>
       </Card>
