@@ -1,11 +1,12 @@
 'use client'
 
-import { DynamicWidget } from '@dynamic-labs/sdk-react-core'
 import { usePathname } from 'next/navigation'
 import Image from 'next/image'
 import NextLink from 'next/link'
 import ThemeSwitcher from './ThemeSwitcher'
 import Link from 'next/link'
+import { Button } from 'react-daisyui'
+import WalletWidget from './WalletWidget'
 
 export default function Navbar() {
   const pathname = usePathname()
@@ -22,7 +23,7 @@ export default function Navbar() {
             height={42}
           />
         </NextLink>
-        <DynamicWidget variant="modal" />
+        <WalletWidget />
       </div>
 
       <div className="flex justify-center gap-4 border-t pt-2">
@@ -34,13 +35,12 @@ export default function Navbar() {
           { href: '/two', label: 'two' },
         ].map((i, index) => (
           <Link href={i.href} key={index}>
-            <button
-              className={`btn btn-sm ${
-                pathname !== i.href ? 'btn-primary' : 'btn-active'
-              }`}
+            <Button
+              size={'sm'}
+              {...(pathname !== i.href && { color: 'ghost' })}
             >
               {i.label}
-            </button>
+            </Button>
           </Link>
         ))}
       </div>

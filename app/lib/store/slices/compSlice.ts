@@ -1,9 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
-const initialState = {
-  theme: null as string | null,
-}
+const initialState = {}
 
 export const compSlice = createSlice({
   name: 'comp',

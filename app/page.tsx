@@ -2,10 +2,11 @@
 
 import { useState } from 'react'
 import { useDisclosure } from './hooks'
-import { Accordion, Menu, Modal, Pagination, Tab } from './components'
-import { on } from 'events'
+import { Accordion, Pagination, Tabs } from './components'
+import { Button, Card, Divider, Menu, Modal, Skeleton } from 'react-daisyui'
 
 export default function HomePage() {
+  const { Dialog, handleShow } = Modal.useDialog()
   const modalDisclosure = useDisclosure()
   const [page, setPage] = useState(1)
   const [number, setNumber] = useState<string>('')
@@ -13,30 +14,48 @@ export default function HomePage() {
   return (
     <div className="flex flex-col gap-3">
       {/* Card */}
-      <div className="card shadow-xl">
-        <figure>
-          <img
-            src="https://images.mirror-media.xyz/publication-images/2yXY8M-emmKoKGbh5TA_A.jpeg?height=480&width=960"
-            alt="brand"
-          />
-        </figure>
-        <div className="card-body">
-          <h2 className="card-title">Modular Smart Contracts!</h2>
+      <Card>
+        <Card.Image
+          src="https://images.mirror-media.xyz/publication-images/2yXY8M-emmKoKGbh5TA_A.jpeg?height=480&width=960"
+          alt="Brand"
+        />
+        <Card.Body>
+          <Card.Title tag="h2">Modular Smart Contracts!</Card.Title>
           <p>Did someone say Inverter?</p>
-          <div className="card-actions justify-end">
-            <button className="btn btn-primary">Buy Now</button>
-          </div>
-        </div>
-      </div>
-      <div className="divider" />
+          <Card.Actions className="justify-end">
+            <Button color="primary">Integrate Now</Button>
+          </Card.Actions>
+        </Card.Body>
+      </Card>
+      <Divider />
       {/* Tab */}
-      <Tab setTab={setTab} tab={tab} tabs={['Tab 1', 'Tab 2', 'Tab3']} />
-      <div className="divider"></div>
+      <Tabs
+        variant="boxed"
+        setTab={setTab}
+        tab={tab}
+        tabs={['Tab 1', 'Tab 2', 'Tab3']}
+      />
+      <Divider />
       {/* Menu */}
-      <Menu items={['Item 1', 'Item 2']} summary="Title">
-        <Menu items={['Sub Item 1', 'Sub Item 2']} summary="Sub Title" />
+      <Menu className="bg-base-200 rounded-box">
+        <Menu.Item>
+          <a>Item 1</a>
+        </Menu.Item>
+        <Menu.Item>
+          <a>Item 2</a>
+        </Menu.Item>
+        <Menu.Item>
+          <Menu.Details label={'Sub Menu'}>
+            <Menu.Item>
+              <a>level 2 item 1</a>
+            </Menu.Item>
+            <Menu.Item>
+              <a>level 2 item 2</a>
+            </Menu.Item>
+          </Menu.Details>
+        </Menu.Item>
       </Menu>
-      <div className="divider"></div>
+      <Divider />
       {/* Accordion */}
       <Accordion
         items={[
@@ -45,26 +64,27 @@ export default function HomePage() {
           { label: 'Accordion 3', content: 'Content 3' },
         ]}
       />
-      <div className="divider" />
+      <Divider />
       {/* Modal */}
-      {/* Open the modal using document.getElementById('ID').showModal() method */}
-      <button className="btn" onClick={modalDisclosure.onOpen}>
-        open modal
-      </button>
-      <Modal
-        isOpen={modalDisclosure.isOpen}
-        onClose={modalDisclosure.onClose}
-        title="Modal Title"
-      />
-      <div className="divider" />
+      <Button onClick={handleShow}>Open Modal</Button>
+      <Dialog>
+        <Modal.Header className="font-bold">Hello!</Modal.Header>
+        <Modal.Body>This modal works with useDialog hook!</Modal.Body>
+        <Modal.Actions>
+          <form method="dialog">
+            <Button>Close</Button>
+          </form>
+        </Modal.Actions>
+      </Dialog>
+      <Divider />
       {/* Skeleton */}
       <div className="flex flex-col gap-4 w-52">
-        <div className="skeleton h-32 w-full"></div>
-        <div className="skeleton h-4 w-28"></div>
-        <div className="skeleton h-4 w-full"></div>
-        <div className="skeleton h-4 w-full"></div>
+        <Skeleton className="h-32 w-full"></Skeleton>
+        <Skeleton className="h-4 w-28"></Skeleton>
+        <Skeleton className="h-4 w-full"></Skeleton>
+        <Skeleton className="h-4 w-full"></Skeleton>
       </div>
-      <div className="divider" />
+      <Divider />
       {/* Pagination */}
       <Pagination setPage={setPage} page={page} totalPages={10} />
     </div>

@@ -1,25 +1,24 @@
 'use client'
 
+import { useTheme } from 'react-daisyui'
 import { FaMoon, FaSun } from 'react-icons/fa'
-import { useTheme } from '@/hooks'
 
 export default function ThemeSwitcher() {
-  const { isLight, toggleTheme } = useTheme(true)
+  const { theme, setTheme } = useTheme()
 
   return (
     <label className="swap swap-rotate">
-      {/* this hidden checkbox controls the state */}
       <input
         type="checkbox"
         className="theme-controller"
         value="synthwave"
-        checked={!isLight}
-        onChange={toggleTheme}
+        checked={theme === 'dark'}
+        onChange={() => setTheme(theme === 'light' ? 'dark' : 'light')}
       />
 
-      <FaSun className="swap-on fill-current w-7 h-7" />
+      <FaSun className="swap-on fill-current w-6 h-6" />
 
-      <FaMoon className="swap-off fill-current w-7 h-7" />
+      <FaMoon className="swap-off fill-current w-6 h-6" />
     </label>
   )
 }

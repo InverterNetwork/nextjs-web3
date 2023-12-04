@@ -69,7 +69,7 @@ function RootLayout({ children }: { children: React.ReactNode }) {
       <meta name="theme-color" content="#000000" />
       <meta name="apple-mobile-web-app-status-bar-style" content="black" />
       <body>
-        <Providers>
+        <Providers theme={theme}>
           <RouteProgressBar />
           {/* CONTENT */}
           <div className="layout-body">

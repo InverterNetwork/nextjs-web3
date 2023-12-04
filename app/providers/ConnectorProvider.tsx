@@ -8,15 +8,17 @@ import { MagicWalletConnectors } from '@dynamic-labs/magic'
 import { DynamicContextProvider } from '@dynamic-labs/sdk-react-core'
 import { DynamicWagmiConnector } from '@dynamic-labs/wagmi-connector'
 import { useEffect, useState } from 'react'
-import { useTheme } from '@/hooks'
+import { useTheme } from 'react-daisyui'
 
 export default function ConnectorProvider({
   children,
 }: {
   children: React.ReactNode
 }) {
-  const { isLight } = useTheme()
-  const { cssOverrides, shadowDomOverWrites } = getDynamicTheme(isLight)
+  const { theme } = useTheme()
+  const { cssOverrides, shadowDomOverWrites } = getDynamicTheme(
+    theme === 'light'
+  )
 
   const [evmNetworks, setEvmNetworks] =
     useState<ReturnType<typeof transformLifiChainsToDynamicEvmNetworks>>(

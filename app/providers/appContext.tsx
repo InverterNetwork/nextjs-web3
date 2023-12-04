@@ -1,7 +1,9 @@
 'use client'
 
 import { useIsHydrated } from '@/hooks'
-import { createContext, useContext } from 'react'
+import { setThemeCookie } from '@/lib/utils'
+import { createContext, useContext, useEffect } from 'react'
+import { useTheme } from 'react-daisyui'
 
 export type TAppContext = {
   isHydrated: boolean
@@ -14,6 +16,7 @@ export default function AppProvider({
 }: {
   children: React.ReactNode
 }) {
+  const { theme } = useTheme()
   const isHydrated = useIsHydrated()
 
   // CONTEXT
@@ -24,7 +27,9 @@ export default function AppProvider({
 
   // EFFECTS
   //==============================================
-
+  useEffect(() => {
+    setThemeCookie(theme)
+  }, [theme])
   // RETURN
   //==============================================
   return (
