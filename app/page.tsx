@@ -41,7 +41,7 @@ export default function HomePage() {
       {/* Menu */}
       <Menu className="bg-base-200 rounded-box">
         <Menu.Item>
-          <a>Item 1</a>
+          <a className={'active'}>Item 1 {'(active)'}</a>
         </Menu.Item>
         <Menu.Item>
           <a>Item 2</a>
@@ -60,6 +60,8 @@ export default function HomePage() {
       <Divider />
       {/* Accordion */}
       <Accordion
+        className={'bg-base-200'}
+        icon="arrow"
         items={[
           { label: 'Accordion 1', content: 'Content 1' },
           { label: 'Accordion 2', content: 'Content 2' },

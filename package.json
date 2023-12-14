@@ -40,11 +40,12 @@
     "react-icons": "^4.12.0",
     "react-redux": "^8.1.3",
     "redux-persist": "^6.0.0",
-    "wagmi": "^1.4.5"
+    "wagmi": "^1.4.5",
+    "@tanstack/react-query": "^5.13.4"
   },
   "devDependencies": {
-    "@commitlint/cli": "^18.2.0",
-    "@commitlint/config-conventional": "^18.1.0",
+    "@commitlint/cli": "^18.4.3",
+    "@commitlint/config-conventional": "^18.4.3",
     "@tailwindcss/typography": "^0.5.10",
     "@types/node": "^20.4.5",
     "@types/react": "^18.2.17",
@@ -52,19 +53,18 @@
     "autoprefixer": "^10.4.16",
     "bun-types": "^1.0.14",
     "daisyui": "^4.4.17",
-    "eslint": "^8.53.0",
+    "eslint": "^8.55.0",
     "eslint-config-next": "latest",
-    "eslint-config-prettier": "^9.0.0",
+    "eslint-config-prettier": "^9.1.0",
     "husky": "^8.0.3",
-    "lint-staged": "^15.0.2",
+    "lint-staged": "^15.2.0",
     "postcss": "^8.4.32",
-    "prettier": "^3.0.3",
+    "prettier": "^3.1.1",
     "standard-version": "^9.5.0",
     "tailwindcss": "^3.3.5"
   },
   "peerDependencies": {
     "typescript": "^5.1.6",
-    "@tanstack/react-query": "^4.36.1",
     "viem": "^1.18.6",
     "ethers": "^5.7.2"
   },
