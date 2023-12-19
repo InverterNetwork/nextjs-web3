@@ -1,6 +1,6 @@
 'use client'
 
-import { useTheme } from 'react-daisyui'
+import { useTheme } from '@/providers'
 import { FaMoon, FaSun } from 'react-icons/fa'
 import cn from 'classnames'
 

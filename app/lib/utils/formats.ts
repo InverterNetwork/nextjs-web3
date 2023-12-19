@@ -17,3 +17,17 @@ export function formatAmountString(input: string): string {
     sanitizedInput = `${integerPart}.${fractionalPart.replace(/[\.,]/g, '')}`
   return sanitizedInput
 }
+
+export function formatToCompactNumber(value?: string | number) {
+  const number = Number(value)
+  if (isNaN(number)) return '...'
+
+  const formatter = new Intl.NumberFormat('en', {
+    notation: 'compact',
+    compactDisplay: 'short',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })
+
+  return formatter.format(number)
+}

@@ -1,5 +1,5 @@
 export const { initialTheme, light, dark } = {
-  initialTheme: 'light',
+  initialTheme: 'light' as 'light' | 'dark',
   light: {
     primary: '#86EFAC',
     secondary: '#ECFDF5',

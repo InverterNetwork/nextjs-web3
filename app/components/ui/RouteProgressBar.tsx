@@ -2,7 +2,7 @@
 
 import { dark, light } from 'styles'
 import { AppProgressBar } from 'next-nprogress-bar'
-import { useTheme } from 'react-daisyui'
+import { useTheme } from '@/providers'
 
 export default function RouteProgressBar() {
   const { theme } = useTheme()
