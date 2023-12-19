@@ -1,6 +1,6 @@
 'use client'
 
-import { Tabs as DaisyTabs } from 'react-daisyui'
+import { Tabs as DaisyTabs, type TabsProps } from 'react-daisyui'
 
 const { Tab } = DaisyTabs
 
@@ -13,7 +13,7 @@ export default function Tabs({
   tabs?: string[]
   tab: number
   setTab(page: number): void
-} & Parameters<typeof DaisyTabs>[0]) {
+} & TabsProps) {
   return (
     <DaisyTabs {...props}>
       {(tabs ?? []).map((i, index) => (

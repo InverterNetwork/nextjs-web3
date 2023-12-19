@@ -3,7 +3,7 @@
 import { useIsHydrated } from '@/hooks'
 import { setThemeCookie } from '@/lib/utils'
 import { createContext, useContext, useEffect } from 'react'
-import { useTheme } from 'react-daisyui'
+import { useTheme } from '@/providers'
 
 export type TAppContext = {
   isHydrated: boolean

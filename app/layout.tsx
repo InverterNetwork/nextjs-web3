@@ -15,7 +15,7 @@ import { Open_Sans } from 'next/font/google'
 import '../styles/global.css'
 
 const openSans = Open_Sans({
-  subsets: ['latin'],
+  subsets: ['cyrillic'],
   display: 'swap',
 })
 
@@ -52,7 +52,9 @@ export const metadata: Metadata = {
 }
 
 function RootLayout({ children }: { children: React.ReactNode }) {
-  const theme = cookies().get('theme')?.value ?? initialTheme
+  const theme =
+    (cookies().get('theme')?.value as 'light' | 'dark' | undefined) ??
+    initialTheme
   return (
     <html lang="en" data-theme={theme} className={openSans.className}>
       {/* PWA config */}
