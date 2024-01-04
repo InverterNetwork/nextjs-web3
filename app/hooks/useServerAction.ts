@@ -1,16 +1,30 @@
+import { ServerActionWrapperReturn } from '@/lib/utils/serverActionWrapper'
 import { useTransition } from 'react'
 
 export default function useServerAction() {
   const startTransition = useTransition()[1]
 
-  function serverAction<T>(action: () => T) {
-    let promise = <T>undefined
+  async function serverAction<T>(
+    action: () => Promise<ServerActionWrapperReturn<T>>
+  ) {
+    let promise: Promise<ServerActionWrapperReturn<T>> | undefined
 
     startTransition(() => {
       promise = action()
     })
 
-    return promise
+    const awaited = await promise!
+
+    if (!awaited.success) {
+      const error = new Error()
+      error.stack = awaited.res.stack
+      error.name = awaited.res.name
+      error.message = awaited.res.message
+      error.cause = awaited.res.cause
+      throw error
+    }
+
+    return awaited.res
   }
 
   return serverAction
