@@ -5,9 +5,9 @@ export default function useServerAction() {
   const startTransition = useTransition()[1]
 
   async function serverAction<T>(
-    action: () => Promise<ServerActionWrapperReturn<T>>
+    action: () => Promise<ServerActionWrapperReturn<T, true>>
   ) {
-    let promise: Promise<ServerActionWrapperReturn<T>> | undefined
+    let promise: Promise<ServerActionWrapperReturn<T, true>> | undefined
 
     startTransition(() => {
       promise = action()
