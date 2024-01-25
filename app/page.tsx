@@ -1,16 +1,26 @@
 'use client'
 
 import { useState } from 'react'
-import { useDisclosure } from './hooks'
-import { Accordion, Pagination, Tabs } from './components'
+import {
+  Accordion,
+  EditableText,
+  Frame,
+  NoData,
+  NumberInput,
+  Pagination,
+  SubmitableText,
+  Tabs,
+} from './components'
 import { Button, Card, Divider, Menu, Modal, Skeleton } from 'react-daisyui'
+import { useToast } from './providers'
 
 export default function HomePage() {
   const { Dialog, handleShow } = Modal.useDialog()
-  const modalDisclosure = useDisclosure()
+  const addToast = useToast()
   const [page, setPage] = useState(1)
-  const [number, setNumber] = useState<string>('')
+  const [editableText, setEditableText] = useState<string>('')
   const [tab, setTab] = useState(1)
+  const [numberInputValue, setNumberInputValue] = useState('')
   return (
     <div className="flex flex-col gap-3">
       {/* Card */}
@@ -89,8 +99,54 @@ export default function HomePage() {
         <Skeleton className="h-4 w-full"></Skeleton>
       </div>
       <Divider />
+      {/* No Data */}
+      <div className="flex gap-4 itmes-center">
+        <NoData />
+        <NoData inline />
+      </div>
+      <Divider />
       {/* Pagination */}
       <Pagination setPage={setPage} page={page} totalPages={10} />
+      <Divider />
+      {/* Number Input */}
+      <NumberInput
+        label="Number Input"
+        onChange={setNumberInputValue}
+        value={numberInputValue}
+      />
+      <Divider />
+      {/* Frame */}
+      <Frame>
+        <h3>{'This is a Frame :)'}</h3>
+      </Frame>
+      <Divider />
+      {/* Editable Text */}
+      <EditableText
+        label="Editable Text"
+        value={editableText}
+        onChange={setEditableText}
+      />
+      <Divider />
+      {/* Submitable Text */}
+      <SubmitableText
+        header="Submitable Text ( Add, Edit or Custom )"
+        label="Title"
+        onChange={setEditableText}
+        onSubmit={() => {
+          alert('Submitted!')
+        }}
+        data="DATA!"
+      />
+      <Divider />
+      {/* Toast */}
+      <Button
+        color={'primary'}
+        onClick={() => {
+          addToast({ text: 'Test Toast', status: 'success' })
+        }}
+      >
+        Test Toast
+      </Button>
     </div>
   )
 }
