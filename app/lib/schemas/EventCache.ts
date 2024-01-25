@@ -1,8 +1,8 @@
 import { Schema } from 'mongoose'
-import { EventMeta, EEventType } from '../types'
+import { EEventType, EventMetaCache } from '../types'
 
-export const EventCacheSchema = new Schema<EventMeta>(
-  {
+export const EventCacheSchema = new Schema<EventMetaCache>({
+  data: {
     uid: {
       type: String,
       required: true,
@@ -12,6 +12,6 @@ export const EventCacheSchema = new Schema<EventMeta>(
       enum: EEventType,
       required: true,
     },
+    _id: false,
   },
-  { _id: false }
-)
+})

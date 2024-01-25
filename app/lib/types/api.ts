@@ -7,7 +7,7 @@ export type ApiSecret = {
 }
 
 export enum EEventType {
-  RECEIPT_INSERT = 'USER_CHANGE',
+  USER_CHANGE = 'USER_CHANGE',
 }
 
 export type EventType = keyof typeof EEventType
