@@ -12,6 +12,7 @@ import { RouteProgressBar, Navbar } from './components'
 import { cookies } from 'next/headers'
 import { initialTheme } from '../styles'
 import { Open_Sans } from 'next/font/google'
+import Analytics from './providers/Analytics'
 import '../styles/global.css'
 
 const openSans = Open_Sans({
@@ -71,6 +72,7 @@ function RootLayout({ children }: { children: React.ReactNode }) {
       <meta name="theme-color" content="#000000" />
       <meta name="apple-mobile-web-app-status-bar-style" content="black" />
       <body>
+        <Analytics />
         <Providers theme={theme}>
           <RouteProgressBar />
           {/* CONTENT */}
