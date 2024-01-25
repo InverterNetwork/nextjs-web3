@@ -1,8 +1,17 @@
 import { Schema, model, models } from 'mongoose'
-import { MongoGenericModel, User, UserRole } from '../types'
+import { User, EUserRole } from '../types'
+import { ApiSecretSchema } from '../schemas/ApiSecret'
 
 const UserSchema = new Schema<User>(
   {
+    uid: {
+      type: String,
+      required: true,
+      immutable: true,
+      default: function () {
+        return (this as any)._id.toString()
+      },
+    },
     address: {
       type: String,
       required: true,
@@ -10,19 +19,27 @@ const UserSchema = new Schema<User>(
     },
     role: {
       type: String,
-      enum: UserRole,
-      default: UserRole.User,
+      default: 'USER',
+      enum: EUserRole,
     },
     email: {
       type: String,
       unique: true,
     },
+    apiSecrets: {
+      type: [ApiSecretSchema],
+      default: [],
+    },
+    webHookUrl: {
+      type: String,
+    },
   },
   { timestamps: true }
 )
 
-const UserModel =
-  (models.users as MongoGenericModel<typeof UserSchema>) ||
-  model('users', UserSchema)
+const getModel = () => model('users', UserSchema)
 
-export default UserModel
+let UserModel: ReturnType<typeof getModel>
+if (!models.users) UserModel = getModel()
+
+export default UserModel!

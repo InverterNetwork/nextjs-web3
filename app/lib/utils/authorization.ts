@@ -1,27 +1,83 @@
 'use server'
 
 import session from '@/lib/utils/session'
-import connectDB from './connectDB'
-import { UserRole } from '../types'
+import type { UserRole } from '../types'
+import { type Hex } from 'viem'
+import { UserModel } from '../models'
+import { authorized } from '@/lib/types'
+import { scrypt, randomBytes } from 'crypto'
+import { promisify } from 'util'
+import { splitBearer } from './bearer'
 
-export async function adminOnly() {
-  await connectDB()
-  const role = <UserRole | undefined>await session().get('role')
+export async function ownerOnly(token?: string) {
+  const sessionAddress = <Hex | undefined>await session().get('address')
 
-  if (!role) throw new Error('Unauthorized')
+  let isOwner = false
+  let address: Hex | undefined
 
-  const isAdmin = [UserRole.Admin, UserRole.Super].includes(role)
+  if (!!sessionAddress) {
+    address = sessionAddress
+    isOwner = true
+  } else {
+    authorized(token, 'No Bearer Token provided')
 
-  if (!isAdmin) throw new Error('Unauthorized')
+    const { key, secret } = splitBearer(token)
+
+    const user = await UserModel.findOne(
+      { 'apiSecrets.uid': key },
+      { 'apiSecrets.$': 1, address: 1 }
+    ).lean()
+
+    const hashedSecret = user?.apiSecrets?.[0]?.hashedSecret
+
+    authorized(hashedSecret, 'No matching apiSecret found')
+
+    isOwner = await compareApiSecret(secret, hashedSecret)
+    address = user!.address as Hex
+  }
+
+  authorized(isOwner)
+
+  return address as Hex
 }
 
-export async function superOnly() {
-  await connectDB()
+export async function adminOnly(): Promise<UserRole> {
   const role = <UserRole | undefined>await session().get('role')
 
-  if (!role) throw new Error('Unauthorized')
+  authorized(role)
 
-  const isAdmin = [UserRole.Super].includes(role)
+  const isAdmin = ['ADMIN', 'SUPER'].includes(role)
+  authorized(isAdmin)
 
-  if (!isAdmin) throw new Error('Unauthorized')
+  return role
+}
+
+export async function superOnly(): Promise<UserRole> {
+  const role = <UserRole | undefined>await session().get('role')
+
+  authorized(role)
+
+  const isSuper = role === 'SUPER'
+  authorized(isSuper)
+
+  return role
+}
+
+const scryptAsync = promisify(scrypt)
+
+// Function to hash an API secret
+export async function hashApiSecret(apiSecret: string) {
+  const salt = randomBytes(16).toString('hex')
+  const hash = (await scryptAsync(apiSecret, salt, 64)) as Buffer
+  return `${salt}:${hash.toString('hex')}`
+}
+
+// Function to compare a provided API secret with a hashed one
+export async function compareApiSecret(
+  providedSecret: string,
+  storedHash: string
+) {
+  const [salt, key] = storedHash.split(':')
+  const hash = (await scryptAsync(providedSecret, salt, 64)) as Buffer
+  return key === hash.toString('hex')
 }

@@ -1,6 +1,7 @@
 import { UserModel } from '@/lib/models'
-import { User, UserRole } from '@/lib/types'
-import connectDB from '@/lib/utils/connectDB'
+import { Auth, HTTPError } from '@/lib/types'
+import { handleApiResponse } from '@/lib/utils'
+import { getBearer } from '@/lib/utils/bearer'
 import session from '@/lib/utils/session'
 import jwt from 'jsonwebtoken'
 
@@ -12,78 +13,73 @@ if (!process.env.DYNAMIC_PUBLIC_KEY)
 const publicKey = process.env.DYNAMIC_PUBLIC_KEY.replace(/\\n/g, '\n')
 
 export async function GET(req: Request) {
-  // Get Authorization Header
-  const authToken = req.headers.get('authorization')?.split(' ')[1] // Get Bearer token
+  return await handleApiResponse(async () => {
+    // Get Authorization Header
+    const authToken = getBearer(req) // Get Bearer token
 
-  // If no Authorization Header was found
-  if (authToken === 'undefined') {
-    await session().destroy()
-    return new Response(
-      "<authorization: Bearer __token__> couldn't be found in the headers",
-      {
-        status: 404,
+    // If no Authorization Header was found
+    if (authToken === 'undefined') {
+      await session().destroy()
+      throw new HTTPError(
+        "<authorization: Bearer __token__> couldn't be found in the headers",
+        404
+      )
+    }
+
+    let decoded = {} as any,
+      isVerified = false
+
+    // Verify the Token and get the decoded data
+    jwt.verify(authToken!, publicKey, function (err, decodedRes) {
+      if (!err) {
+        isVerified = true
+        decoded = decodedRes
+        return
       }
-    )
-  }
-
-  let decoded = {} as any,
-    isVerified = false
-
-  // Verify the Token and get the decoded data
-  jwt.verify(authToken!, publicKey, function (err, decodedRes) {
-    if (!err) {
-      isVerified = true
-      decoded = decodedRes
-      return
-    }
-    console.error(err)
-  })
-
-  // If the token is not verified
-  if (!isVerified) {
-    // Destroy the current session
-    await session().destroy()
-    return new Response('Un Authorized Auth Token is not valid', {
-      status: 401,
+      console.error(err)
     })
-  }
 
-  const state: User = {
-    // @ts-ignore
-    address: decoded?.verified_credentials?.[0]?.address,
-    // @ts-ignore
-    email: decoded?.verified_credentials?.[0]?.email,
-    role: UserRole.User,
-  }
-
-  // Connect to the DB
-  await connectDB()
-
-  const existingUser = await UserModel.findOne({
-    address: state.address,
-  }).lean()
-
-  // Update State and handle session
-  if (!!existingUser) {
-    state.role = existingUser.role
-    await session().setAll(state)
-  } // Create a new User in MongoDB and handle session
-  else {
-    try {
-      const newUser = new UserModel({
-        address: state.address,
-        ...(!!state.email && { email: state.email }),
-      })
-
-      // Save the new User
-      await newUser.save()
-
-      await session().setAll(state)
-    } catch (e: any) {
-      throw e
+    // If the token is not verified
+    if (!isVerified) {
+      // Destroy the current session
+      await session().destroy()
+      return new HTTPError('UnAuthorized Auth Token is not valid', 401)
     }
-  }
 
-  // Return the new Session
-  return Response.json(state)
+    const state: Omit<Auth, 'isAuth'> = {
+      // @ts-ignore
+      address: decoded?.verified_credentials?.[0]?.address,
+      // @ts-ignore
+      email: decoded?.verified_credentials?.[0]?.email,
+      role: 'USER',
+    }
+
+    const existingUser = await UserModel.findOne({
+      address: state.address,
+    }).lean()
+
+    // Update State and handle session
+    if (!!existingUser) {
+      state.role = existingUser.role
+      await session().setAll(state)
+    } // Create a new User in MongoDB and handle session
+    else {
+      try {
+        const newUser = new UserModel({
+          address: state.address,
+          ...(!!state.email && { email: state.email }),
+        })
+
+        // Save the new User
+        await newUser.save()
+
+        await session().setAll(state)
+      } catch (e: any) {
+        throw e
+      }
+    }
+
+    // Return the new Session
+    return state
+  })
 }

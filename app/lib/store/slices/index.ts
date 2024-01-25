@@ -1,2 +1,2 @@
 export * from './compSlice'
-export * from './userSlice'
+export * from './authSlice'

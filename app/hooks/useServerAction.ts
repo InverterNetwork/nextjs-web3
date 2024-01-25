@@ -1,13 +1,13 @@
 import { ServerActionWrapperReturn } from '@/lib/utils/serverActionWrapper'
 import { useTransition } from 'react'
 
+type Expect<T> = Promise<ServerActionWrapperReturn<T, 'client'>>
+
 export default function useServerAction() {
   const startTransition = useTransition()[1]
 
-  async function serverAction<T>(
-    action: () => Promise<ServerActionWrapperReturn<T, true>>
-  ) {
-    let promise: Promise<ServerActionWrapperReturn<T, true>> | undefined
+  async function serverAction<T>(action: () => Expect<T>) {
+    let promise: Expect<T> | undefined
 
     startTransition(() => {
       promise = action()

@@ -1,7 +1,7 @@
 'use client'
 
 import { DynamicToast } from '@/components'
-import { useToastHandler } from '@/hooks'
+import useToastHandler from '@/hooks/useToastHandler'
 import { createContext, useContext, useState } from 'react'
 
 export type TThemeContext = {

@@ -1,10 +1,10 @@
 import {
-  HydratedDocument,
-  InferSchemaType,
-  Model,
+  // HydratedDocument,
+  // InferSchemaType,
+  // Model,
+  // ObtainSchemaGeneric,
+  // Schema,
   Mongoose,
-  ObtainSchemaGeneric,
-  Schema,
 } from 'mongoose'
 
 declare global {
@@ -14,17 +14,17 @@ declare global {
   }
 }
 
-export type MongoGenericModel<TSchema extends Schema = any> = Model<
-  InferSchemaType<TSchema>,
-  ObtainSchemaGeneric<TSchema, 'TQueryHelpers'>,
-  ObtainSchemaGeneric<TSchema, 'TInstanceMethods'>,
-  ObtainSchemaGeneric<TSchema, 'TVirtuals'>,
-  HydratedDocument<
-    InferSchemaType<TSchema>,
-    ObtainSchemaGeneric<TSchema, 'TVirtuals'> &
-      ObtainSchemaGeneric<TSchema, 'TInstanceMethods'>,
-    ObtainSchemaGeneric<TSchema, 'TQueryHelpers'>
-  >,
-  TSchema
-> &
-  ObtainSchemaGeneric<TSchema, 'TStaticMethods'>
+// export type MongoGenericModel<TSchema extends Schema = any> = Model<
+//   InferSchemaType<TSchema>,
+//   ObtainSchemaGeneric<TSchema, 'TQueryHelpers'>,
+//   ObtainSchemaGeneric<TSchema, 'TInstanceMethods'>,
+//   ObtainSchemaGeneric<TSchema, 'TVirtuals'>,
+//   HydratedDocument<
+//     InferSchemaType<TSchema>,
+//     ObtainSchemaGeneric<TSchema, 'TVirtuals'> &
+//       ObtainSchemaGeneric<TSchema, 'TInstanceMethods'>,
+//     ObtainSchemaGeneric<TSchema, 'TQueryHelpers'>
+//   >,
+//   TSchema
+// > &
+//   ObtainSchemaGeneric<TSchema, 'TStaticMethods'>

@@ -1,7 +1,7 @@
 'use client'
 
+import { useIsHydrated } from '@/hooks'
 import { compressAddress } from '@/lib/utils'
-import { useAppContext } from '@/providers'
 import {
   DynamicUserProfile,
   useDynamicContext,
@@ -9,7 +9,7 @@ import {
 import { Button, Loading } from 'react-daisyui'
 
 export default function WalletWidget() {
-  const { isHydrated } = useAppContext()
+  const isHydrated = useIsHydrated()
   const {
     setShowDynamicUserProfile,
     setShowAuthFlow,
