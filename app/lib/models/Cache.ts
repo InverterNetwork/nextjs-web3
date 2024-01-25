@@ -1,4 +1,4 @@
-import { model, models, Schema } from 'mongoose'
+import { model, Schema } from 'mongoose'
 import { CacheBase, ECacheType, EventMetaCache } from '@/lib/types'
 import { EventCacheSchema } from '../schemas/EventCache'
 
@@ -25,9 +25,12 @@ class CacheModel {
     ECacheType.EVENT_META,
     EventCacheSchema
   )
+
+  static getInstance() {
+    const { cacheModel } = global.mongoose
+    if (!cacheModel) global.mongoose.cacheModel = new CacheModel()
+    return global.mongoose.cacheModel as CacheModel
+  }
 }
 
-let cacheModel: CacheModel
-if (!models.cache) cacheModel = new CacheModel()
-
-export default cacheModel!
+export default CacheModel.getInstance()

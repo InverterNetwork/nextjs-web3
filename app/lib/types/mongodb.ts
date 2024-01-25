@@ -1,30 +1,9 @@
-import {
-  // HydratedDocument,
-  // InferSchemaType,
-  // Model,
-  // ObtainSchemaGeneric,
-  // Schema,
-  Mongoose,
-} from 'mongoose'
+import { Mongoose } from 'mongoose'
 
 declare global {
   var mongoose: {
     promise: ReturnType<Mongoose['connect']> | null
     conn: Mongoose | null
+    cacheModel?: any
   }
 }
-
-// export type MongoGenericModel<TSchema extends Schema = any> = Model<
-//   InferSchemaType<TSchema>,
-//   ObtainSchemaGeneric<TSchema, 'TQueryHelpers'>,
-//   ObtainSchemaGeneric<TSchema, 'TInstanceMethods'>,
-//   ObtainSchemaGeneric<TSchema, 'TVirtuals'>,
-//   HydratedDocument<
-//     InferSchemaType<TSchema>,
-//     ObtainSchemaGeneric<TSchema, 'TVirtuals'> &
-//       ObtainSchemaGeneric<TSchema, 'TInstanceMethods'>,
-//     ObtainSchemaGeneric<TSchema, 'TQueryHelpers'>
-//   >,
-//   TSchema
-// > &
-//   ObtainSchemaGeneric<TSchema, 'TStaticMethods'>

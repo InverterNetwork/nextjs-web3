@@ -37,9 +37,8 @@ const UserSchema = new Schema<User>(
   { timestamps: true }
 )
 
-const getModel = () => model('users', UserSchema)
+const setModel = () => model('users', UserSchema)
 
-let UserModel: ReturnType<typeof getModel>
-if (!models.users) UserModel = getModel()
+if (!models.users) setModel()
 
-export default UserModel!
+export default models.users as ReturnType<typeof setModel>
