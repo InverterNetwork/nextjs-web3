@@ -1,7 +1,7 @@
 import { Schema } from 'mongoose'
-import { EEventType, EventMetaCache } from '../types'
+import { EEventType, EventCache } from '../types'
 
-export const EventCacheSchema = new Schema<EventMetaCache>({
+export const EventCacheSchema = new Schema<EventCache>({
   data: {
     uid: {
       type: String,

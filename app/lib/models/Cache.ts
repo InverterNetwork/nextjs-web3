@@ -1,5 +1,5 @@
 import { model, models, Schema } from 'mongoose'
-import { CacheBase, ECacheType, EventMeta, EventMetaCache } from '@/lib/types'
+import { CacheBase, ECacheType } from '@/lib/types'
 import { EventCacheSchema } from '../schemas/EventCache'
 
 // Define the base schema
@@ -22,17 +22,14 @@ const setModels = () => {
   const Base = model('cache', CacheBaseSchema)
 
   return {
-    [ECacheType.EVENT_META]: Base.discriminator(
-      ECacheType.EVENT_META,
-      EventCacheSchema
-    ),
+    [ECacheType.EVENT]: Base.discriminator(ECacheType.EVENT, EventCacheSchema),
   }
 }
 
 if (!models.cache) setModels()
 
 const cachedModels = {
-  [ECacheType.EVENT_META]: models.cache.discriminators![ECacheType.EVENT_META],
+  [ECacheType.EVENT]: models.cache.discriminators![ECacheType.EVENT],
 } as ReturnType<typeof setModels>
 
 export default cachedModels

@@ -12,7 +12,7 @@ export enum EEventType {
 
 export type EventType = keyof typeof EEventType
 
-export type EventMeta = {
+export type EventData = {
   operationType: EventType
   uid: string
 }
