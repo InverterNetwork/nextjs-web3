@@ -9,19 +9,26 @@ export function useInputFocus(tracker?: any) {
   const inputs = useAppContext().inputFocus
 
   useEffect(() => {
-    setInputIndex(inputs.findIndex((i) => i === inputRef.current))
+    if (inputs) {
+      const newIndex = inputs.findIndex((i) => i === inputRef.current)
+      if (newIndex !== inputIndex) setInputIndex(newIndex)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputs])
 
   const onDone = () => {
-    if (typeof document !== 'undefined') {
+    if (inputs) {
       const nextIndex = inputs.findIndex(
-        (input) => parseInt(input.dataset.inputindex!) > inputIndex
+        (input) => input && parseInt(input.dataset.inputindex!) > inputIndex
       )
 
-      if (nextIndex !== -1) inputs[nextIndex].focus()
+      // const firstNonHiddenIndex = inputs.findIndex(
+      //   (input) => input && window.getComputedStyle(input).display !== 'none'
+      // )
+
+      if (nextIndex !== -1 && inputs[nextIndex]) inputs[nextIndex].focus()
       // If it's the last one, focus on the first
-      else inputs[0].focus()
+      // else if (inputs[firstNonHiddenIndex]) inputs[firstNonHiddenIndex].focus()
     }
   }
 
@@ -41,7 +48,7 @@ export function useInputFocus(tracker?: any) {
 export function useInputFocusHandler() {
   const [inputs, setInputs] = useState<HTMLInputElement[]>([])
 
-  useEffect(() => {
+  const updateInputs = () => {
     if (typeof document !== 'undefined') {
       const newInputs = Array.from(
         document.querySelectorAll('input[data-inputindex]')
@@ -49,8 +56,23 @@ export function useInputFocusHandler() {
       // @ts-ignore
       setInputs(newInputs)
     }
+  }
+
+  useEffect(() => {
+    // Create a MutationObserver instance to watch for changes in the DOM
+    const observer = new MutationObserver(updateInputs)
+
+    // Start observing the document with the configured parameters
+    observer.observe(document, {
+      childList: true,
+      subtree: true,
+      attributeFilter: ['data-inputindex'],
+    })
+
+    // Clean up: disconnect the observer when the component is unmounted
+    return () => observer.disconnect()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [typeof document])
+  }, [])
 
   return inputs
 }
