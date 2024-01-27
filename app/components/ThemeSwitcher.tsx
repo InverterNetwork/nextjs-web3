@@ -1,6 +1,6 @@
 'use client'
 
-import { useTheme } from '@/providers'
+import { useTheme } from '@/hooks'
 import { FaMoon, FaSun } from 'react-icons/fa'
 import cn from 'classnames'
 

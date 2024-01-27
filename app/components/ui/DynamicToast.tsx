@@ -15,7 +15,7 @@ export default function DynamicToast({
     const timer = setTimeout(() => {
       // remove until there is no more toast
       removeToast(0)
-    }, 5_000)
+    }, 10000)
     return () => clearTimeout(timer)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [alerts])
@@ -33,7 +33,11 @@ export default function DynamicToast({
           className="px-2 py-1 flex text-xs items-center"
         >
           <p>{alert.text}</p>
-          <Button color="ghost" onClick={() => removeToast(index)}>
+          <Button
+            className="ml-auto"
+            color="ghost"
+            onClick={() => removeToast(index)}
+          >
             X
           </Button>
         </Alert>

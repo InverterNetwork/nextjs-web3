@@ -1,14 +1,16 @@
 'use client'
 
+import useIsHydratedHandler from '@/hooks/useIsHydratedHandler'
 import { setThemeCookie } from '@/lib/utils'
 import { createContext, useContext, useEffect } from 'react'
-import { useTheme } from '@/providers'
 import useAuthHandler from '@/hooks/useAuthHandler'
-import useIsHydratedHandler from '@/hooks/useIsHydratedHandler'
+import { useTheme } from '@/hooks'
+import { useInputFocusHandler } from '@/hooks/useInputFocus'
 
 export type TAppContext = {
   auth: ReturnType<typeof useAuthHandler>
   isHydrated: boolean
+  inputFocus: ReturnType<typeof useInputFocusHandler>
 }
 
 const AppContext = createContext({} as TAppContext)
@@ -20,7 +22,7 @@ export default function AppProvider({
 }) {
   const { theme } = useTheme()
   const isHydrated = useIsHydratedHandler()
-
+  const inputFocus = useInputFocusHandler()
   const auth = useAuthHandler()
 
   // CONTEXT
@@ -28,6 +30,7 @@ export default function AppProvider({
   const contextData: TAppContext = {
     auth,
     isHydrated,
+    inputFocus,
   }
 
   // EFFECTS
