@@ -36,7 +36,7 @@ export async function GET(req: Request) {
         decoded = decodedRes
         return
       }
-      console.error(err)
+      throw new HTTPError(err.message, 401)
     })
 
     // If the token is not verified
