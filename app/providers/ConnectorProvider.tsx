@@ -8,7 +8,7 @@ import { MagicWalletConnectors } from '@dynamic-labs/magic'
 import { DynamicContextProvider } from '@dynamic-labs/sdk-react-core'
 import { DynamicWagmiConnector } from '@dynamic-labs/wagmi-connector'
 import { useEffect, useState } from 'react'
-import { useTheme } from '@/providers'
+import { useTheme } from '@/hooks'
 
 export default function ConnectorProvider({
   children,

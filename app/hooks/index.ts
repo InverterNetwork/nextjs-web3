@@ -1,3 +1,8 @@
-export { default as useIsHydrated } from './useIsHydrated'
+import { useAppContext, useThemeContext } from '@/providers'
+
 export { default as useDisclosure } from './useDisclosure'
-export { default as useToastHandler } from './useToastHandler'
+
+export const useIsHydrated = () => useAppContext().isHydrated
+export const useToast = () => useThemeContext().toastHandler
+export const useTheme = () => useThemeContext().themeHandler
+export { useInputFocus } from './useInputFocus'

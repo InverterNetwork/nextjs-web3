@@ -26,7 +26,7 @@ export default function useToastHandler() {
 
 function extractError(errorMessage?: string) {
   if (!errorMessage) return 'Error: Unknown error'
-  const regex = /Error: .*/
+  const regex = /(Error|Details): .*/
   const match = errorMessage.match(regex)
   return match ? match[0] : errorMessage
 }

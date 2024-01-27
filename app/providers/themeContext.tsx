@@ -1,13 +1,15 @@
 'use client'
 
 import { DynamicToast } from '@/components'
-import { useToastHandler } from '@/hooks'
+import useToastHandler from '@/hooks/useToastHandler'
 import { createContext, useContext, useState } from 'react'
 
 export type TThemeContext = {
-  theme: 'light' | 'dark'
-  setTheme: (theme: 'light' | 'dark') => void
-  addToast: ReturnType<typeof useToastHandler>['addToast']
+  themeHandler: {
+    theme: 'light' | 'dark'
+    setTheme: (theme: 'light' | 'dark') => void
+  }
+  toastHandler: ReturnType<typeof useToastHandler>
 }
 
 const ThemeContext = createContext({} as TThemeContext)
@@ -25,9 +27,11 @@ export default function ThemeProvider({
   // CONTEXT
   //==============================================
   const contextData: TThemeContext = {
-    theme,
-    setTheme,
-    addToast: toastHandler.addToast,
+    themeHandler: {
+      theme,
+      setTheme,
+    },
+    toastHandler: toastHandler,
   }
 
   return (
@@ -38,10 +42,4 @@ export default function ThemeProvider({
   )
 }
 
-export const useTheme = () => {
-  const { addToast, ...rest } = useContext(ThemeContext)
-
-  return rest
-}
-
-export const useToast = () => useContext(ThemeContext).addToast
+export const useThemeContext = () => useContext(ThemeContext)

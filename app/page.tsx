@@ -8,19 +8,23 @@ import {
   NoData,
   NumberInput,
   Pagination,
-  SubmitableText,
+  SubmitableTextForm,
   Tabs,
 } from './components'
 import { Button, Card, Divider, Menu, Modal, Skeleton } from 'react-daisyui'
-import { useToast } from './providers'
+import { useToast } from '@/hooks'
 
 export default function HomePage() {
   const { Dialog, handleShow } = Modal.useDialog()
-  const addToast = useToast()
+  const { addToast } = useToast()
   const [page, setPage] = useState(1)
   const [editableText, setEditableText] = useState<string>('')
   const [tab, setTab] = useState(1)
   const [numberInputValue, setNumberInputValue] = useState('')
+  const [formState, setFormState] = useState({
+    title: '',
+    description: '',
+  })
   return (
     <div className="flex flex-col gap-3">
       {/* Card */}
@@ -122,16 +126,27 @@ export default function HomePage() {
       <Divider />
       {/* Editable Text */}
       <EditableText
+        invalid={editableText.length < 3}
         label="Editable Text"
         value={editableText}
         onChange={setEditableText}
       />
       <Divider />
       {/* Submitable Text */}
-      <SubmitableText
-        header="Submitable Text ( Add, Edit or Custom )"
-        label="Title"
-        onChange={setEditableText}
+      <SubmitableTextForm
+        rows={[
+          {
+            label: 'Title',
+            onChange: (t) => setFormState((p) => ({ ...p, title: t })),
+            invalid: formState.title.length < 3,
+          },
+          {
+            label: 'Description',
+            onChange: (t) => setFormState((p) => ({ ...p, description: t })),
+            invalid: formState.description.length < 3,
+          },
+        ]}
+        header="Submitable Text Form"
         onSubmit={() => {
           alert('Submitted!')
         }}
