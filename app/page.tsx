@@ -3,13 +3,13 @@
 import { useState } from 'react'
 import {
   Accordion,
-  EditableText,
   Frame,
   NoData,
   NumberInput,
   Pagination,
-  SubmitableTextForm,
+  SubmitableForm,
   Tabs,
+  TextInput,
 } from './components'
 import { Button, Card, Divider, Menu, Modal, Skeleton } from 'react-daisyui'
 import { useToast } from '@/hooks'
@@ -18,12 +18,14 @@ export default function HomePage() {
   const { Dialog, handleShow } = Modal.useDialog()
   const { addToast } = useToast()
   const [page, setPage] = useState(1)
-  const [editableText, setEditableText] = useState<string>('')
+  const [textInputValue, setTextInput] = useState<string>('')
   const [tab, setTab] = useState(1)
   const [numberInputValue, setNumberInputValue] = useState('')
   const [formState, setFormState] = useState({
-    title: '',
-    description: '',
+    url: '',
+    email: '',
+    address: '',
+    number: '',
   })
   return (
     <div className="flex flex-col gap-3">
@@ -112,6 +114,18 @@ export default function HomePage() {
       {/* Pagination */}
       <Pagination setPage={setPage} page={page} totalPages={10} />
       <Divider />
+      {/* Frame */}
+      <Frame>
+        <h3>{'This is a Frame :)'}</h3>
+      </Frame>
+      <Divider />
+      {/* Text Input */}
+      <TextInput
+        label="Text Input"
+        onChange={setTextInput}
+        value={textInputValue}
+      />
+      <Divider />
       {/* Number Input */}
       <NumberInput
         label="Number Input"
@@ -119,36 +133,33 @@ export default function HomePage() {
         value={numberInputValue}
       />
       <Divider />
-      {/* Frame */}
-      <Frame>
-        <h3>{'This is a Frame :)'}</h3>
-      </Frame>
-      <Divider />
-      {/* Editable Text */}
-      <EditableText
-        invalid={editableText.length < 3}
-        label="Editable Text"
-        value={editableText}
-        onChange={setEditableText}
-      />
-      <Divider />
-      {/* Submitable Text */}
-      <SubmitableTextForm
+      {/* Submitable Form */}
+      <SubmitableForm
         rows={[
           {
-            label: 'Title',
-            onChange: (t) => setFormState((p) => ({ ...p, title: t })),
-            invalid: formState.title.length < 3,
-            type: 'text',
+            label: 'URL',
+            onChange: (t) => setFormState((p) => ({ ...p, url: t })),
+            type: 'url',
           },
           {
-            label: 'Description',
-            onChange: (t) => setFormState((p) => ({ ...p, description: t })),
-            invalid: formState.description.length < 3,
-            type: 'text',
+            label: 'EVM Address',
+            onChange: (t) => setFormState((p) => ({ ...p, address: t })),
+            type: 'address',
+          },
+          {
+            label: 'Email',
+            onChange: (t) => setFormState((p) => ({ ...p, email: t })),
+            type: 'email',
+          },
+          {
+            label: 'Number',
+            type: 'number',
+            onChange: (t) => setFormState((p) => ({ ...p, number: t })),
+            min: 2,
+            max: 5,
           },
         ]}
-        header="Submitable Text Form"
+        header="Submitable Form"
         onSubmit={() => {
           alert('Submitted!')
         }}

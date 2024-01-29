@@ -1,81 +1,130 @@
+'use client'
+
 import { useInputFocus } from '@/hooks/useInputFocus'
 import { formatAmountString } from '@/lib/utils'
 import cn from 'classnames'
+import { Input, type InputProps } from 'react-daisyui'
+
+import { z } from 'zod'
 
 export default function NumberInput({
   step = 1,
-  defaultValue = 1,
   min = 0,
   max = undefined,
-  precision = 0,
   onChange,
-  value,
   label,
+  invalid = false,
   ...props
 }: {
   onChange: (string: string) => void
-  value: string | number
-  step?: number
-  defaultValue?: number
-  min?: number
-  precision?: number
-  max?: number
   label?: string
-} & Omit<
-  React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
-  'onChange'
->) {
-  const handleIncrement = () => {
-    let newValue = (Number(value) ?? defaultValue) + step
-    if (max !== undefined) newValue = Math.min(newValue, max)
-    onChange(formatAmountString(newValue.toString()))
-  }
-
-  const handleDecrement = () => {
-    let newValue = (Number(value) ?? defaultValue) - step
-    if (min !== undefined) newValue = Math.max(newValue, min)
-    onChange(formatAmountString(newValue.toString()))
-  }
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (max !== undefined && Number(e.target.value) > max) return
-    onChange(formatAmountString(e.target.value))
-  }
+  invalid?: boolean
+} & Omit<InputProps, 'onChange' | 'placeholder' | 'onSubmit' | 'color'>) {
+  const minNumber = Number(min)
+  const maxNumber = Number(max)
+  const stepNumber = Number(step)
 
   const { inputRef, inputIndex, onDone } = useInputFocus()
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') onDone()
+  const handleIncrementOrDecrement = (inc?: boolean) => {
+    let newValue =
+      Number(inputRef.current?.value) + (!!inc ? stepNumber : -stepNumber)
+
+    // if (max !== undefined) newValue = Math.min(newValue, maxNumber)
+    // if (min !== undefined) newValue = Math.max(newValue, minNumber)
+
+    const newString = formatAmountString(newValue.toString())
+
+    if (!!inputRef.current) inputRef.current.value = newString
+    onChange(newString)
   }
 
-  props.className = cn(props?.className)
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // if (min !== undefined && Number(e.target.value) < minNumber) return
+    // if (max !== undefined && Number(e.target.value) > maxNumber) return
+
+    onChange(formatAmountString(e.target.value))
+  }
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      onDone()
+    }
+  }
+
+  const setValidity = (msg: string) => {
+    inputRef.current!.setCustomValidity(msg)
+  }
+
+  const scanValidity = () => {
+    let valid = true
+    let validityMessage = ''
+
+    if (!!inputRef.current) {
+      const value = Number(inputRef.current.value)
+      try {
+        z.number()
+          .min(minNumber, `Must be at least ${minNumber}`)
+          .max(maxNumber, `Must be at most ${maxNumber}`)
+          .parse(value)
+
+        valid = true
+        validityMessage = ''
+      } catch (e: any) {
+        valid = false
+        if (e instanceof z.ZodError) {
+          validityMessage = e.errors[0]?.message
+        }
+      }
+      setValidity(validityMessage)
+    }
+
+    return valid
+  }
+
+  const isInvalid = invalid || !scanValidity()
 
   return (
-    <div {...props}>
-      {!!label && (
-        <>
-          <h3>{label}</h3>
-          <hr className="my-3" />
-        </>
-      )}
+    <>
+      <label className={cn('label', !label && 'hidden')}>
+        <span className="label-text">{label}</span>
+      </label>
+
       <div className="flex gap-3">
-        <button onClick={handleDecrement} className="btn" tabIndex={-1}>
+        <button
+          type="button"
+          onClick={() => {
+            handleIncrementOrDecrement(false)
+          }}
+          className="btn"
+          tabIndex={-1}
+        >
           -
         </button>
-        <input
+
+        <Input
+          className="w-full"
           ref={inputRef}
           onKeyDown={handleKeyDown}
           type="number"
           inputMode="decimal"
-          value={value}
           onChange={handleChange}
-          className="input w-full input-bordered"
           data-inputindex={inputIndex}
+          {...(isInvalid && { color: 'warning' })}
+          {...props}
         />
-        <button onClick={handleIncrement} className="btn" tabIndex={-1}>
+
+        <button
+          type="button"
+          onClick={() => {
+            handleIncrementOrDecrement(true)
+          }}
+          className="btn"
+          tabIndex={-1}
+        >
           +
         </button>
       </div>
-    </div>
+    </>
   )
 }
