@@ -25,6 +25,10 @@ export function useInputFocus(tracker?: any) {
           (input) => input && parseInt(input.dataset.inputindex!) > inputIndex
         )
 
+      // Check if inputRef is the last input in the parent form
+      const form = inputRef.current?.form
+      if (form && !form.checkValidity()) return
+
       const finalNextIndex = nextIndex === -1 ? 0 : nextIndex
 
       setTimeout(() => {

@@ -9,7 +9,7 @@ import NumberInput from './NumberInput'
 import TextInput, { TextInputProps } from './TextInput'
 
 type SubmitableFormProps = {
-  rows: (TextInputProps & { isNumber?: boolean })[]
+  rows: TextInputProps[]
   onSubmit: () => void
   header: string
   buttonLabel?: string
@@ -28,6 +28,7 @@ export default function SubmitableForm({
   defaultIsEditing,
 }: SubmitableFormProps) {
   const [isEditing, setIsEditing] = useState(defaultIsEditing ?? false)
+
   const invalid = rows.some((i) => i.invalid)
 
   const toggle = () => {
@@ -62,37 +63,13 @@ export default function SubmitableForm({
         className={cn('form-control w-full', !isEditing && 'hidden')}
         onSubmit={handleSubmit}
       >
-        {rows.map(
-          ({ onChange, label, invalid = false, isNumber, ...props }, i) => {
-            if (isNumber)
-              return (
-                <NumberInput
-                  key={i}
-                  label={label}
-                  onChange={onChange}
-                  invalid={invalid}
-                />
-              )
+        {rows.map(({ ...props }, i) => {
+          if (props.type === 'number') return <NumberInput key={i} {...props} />
 
-            return (
-              <TextInput
-                key={i}
-                onChange={onChange}
-                label={label}
-                invalid={invalid}
-                {...props}
-              />
-            )
-          }
-        )}
+          return <TextInput key={i} {...props} />
+        })}
 
-        <Button
-          className="mt-3"
-          size={'sm'}
-          color="primary"
-          type="submit"
-          disabled={invalid}
-        >
+        <Button className="mt-3" size={'sm'} color="primary" type="submit">
           Submit
         </Button>
       </form>

@@ -5,47 +5,44 @@ import { formatAmountString } from '@/lib/utils'
 import cn from 'classnames'
 import { Input, type InputProps } from 'react-daisyui'
 
+import { z } from 'zod'
+
 export default function NumberInput({
   step = 1,
   min = 0,
   max = undefined,
-  precision = 0,
   onChange,
-  value,
   label,
   invalid = false,
   ...props
 }: {
-  tracker?: number | boolean
   onChange: (string: string) => void
-  value?: string | number
-  step?: number
-  defaultValue?: number
-  min?: number
-  precision?: number
-  max?: number
   label?: string
   invalid?: boolean
-} & Omit<
-  InputProps,
-  'onChange' | 'placeholder' | 'value' | 'onSubmit' | 'color'
->) {
+} & Omit<InputProps, 'onChange' | 'placeholder' | 'onSubmit' | 'color'>) {
+  const minNumber = Number(min)
+  const maxNumber = Number(max)
+  const stepNumber = Number(step)
+
   const { inputRef, inputIndex, onDone } = useInputFocus()
 
-  const handleIncrementOrDecrement = (type: 'inc' | 'dec') => {
+  const handleIncrementOrDecrement = (inc?: boolean) => {
     let newValue =
-      (Number(inputRef.current?.value) ?? props.defaultValue) +
-      (type === 'inc' ? step : -step)
-    if (max !== undefined) newValue = Math.min(newValue, max)
-    if (min !== undefined) newValue = Math.max(newValue, min)
+      Number(inputRef.current?.value) + (!!inc ? stepNumber : -stepNumber)
+
+    // if (max !== undefined) newValue = Math.min(newValue, maxNumber)
+    // if (min !== undefined) newValue = Math.max(newValue, minNumber)
+
     const newString = formatAmountString(newValue.toString())
+
     if (!!inputRef.current) inputRef.current.value = newString
     onChange(newString)
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (min !== undefined && Number(e.target.value) < min) return
-    if (max !== undefined && Number(e.target.value) > max) return
+    // if (min !== undefined && Number(e.target.value) < minNumber) return
+    // if (max !== undefined && Number(e.target.value) > maxNumber) return
+
     onChange(formatAmountString(e.target.value))
   }
 
@@ -55,6 +52,38 @@ export default function NumberInput({
     }
   }
 
+  const setValidity = (msg: string) => {
+    inputRef.current!.setCustomValidity(msg)
+  }
+
+  const scanValidity = () => {
+    let valid = true
+    let validityMessage = ''
+
+    if (!!inputRef.current) {
+      const value = Number(inputRef.current.value)
+      try {
+        z.number()
+          .min(minNumber, `Must be at least ${minNumber}`)
+          .max(maxNumber, `Must be at most ${maxNumber}`)
+          .parse(value)
+
+        valid = true
+        validityMessage = ''
+      } catch (e: any) {
+        valid = false
+        if (e instanceof z.ZodError) {
+          validityMessage = e.errors[0]?.message
+        }
+      }
+      setValidity(validityMessage)
+    }
+
+    return valid
+  }
+
+  const isInvalid = invalid || !scanValidity()
+
   return (
     <>
       <label className={cn('label', !label && 'hidden')}>
@@ -63,16 +92,16 @@ export default function NumberInput({
 
       <div className="flex gap-3">
         <button
-          onClick={(e) => {
-            if (e.nativeEvent.detail === 0) return
-
-            handleIncrementOrDecrement('dec')
+          type="button"
+          onClick={() => {
+            handleIncrementOrDecrement(false)
           }}
           className="btn"
           tabIndex={-1}
         >
           -
         </button>
+
         <Input
           className="w-full"
           ref={inputRef}
@@ -81,14 +110,14 @@ export default function NumberInput({
           inputMode="decimal"
           onChange={handleChange}
           data-inputindex={inputIndex}
-          {...(invalid && { color: 'warning' })}
+          {...(isInvalid && { color: 'warning' })}
           {...props}
         />
-        <button
-          onClick={(e) => {
-            if (e.nativeEvent.detail === 0) return
 
-            handleIncrementOrDecrement('inc')
+        <button
+          type="button"
+          onClick={() => {
+            handleIncrementOrDecrement(true)
           }}
           className="btn"
           tabIndex={-1}

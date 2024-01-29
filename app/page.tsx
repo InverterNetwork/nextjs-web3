@@ -22,8 +22,9 @@ export default function HomePage() {
   const [tab, setTab] = useState(1)
   const [numberInputValue, setNumberInputValue] = useState('')
   const [formState, setFormState] = useState({
-    title: '',
-    description: '',
+    url: '',
+    email: '',
+    address: '',
     number: '',
   })
   return (
@@ -136,22 +137,26 @@ export default function HomePage() {
       <SubmitableForm
         rows={[
           {
-            label: 'Title',
-            onChange: (t) => setFormState((p) => ({ ...p, title: t })),
-            invalid: formState.title.length < 3,
-            type: 'text',
+            label: 'URL',
+            onChange: (t) => setFormState((p) => ({ ...p, url: t })),
+            type: 'url',
           },
           {
-            label: 'Description',
-            onChange: (t) => setFormState((p) => ({ ...p, description: t })),
-            invalid: formState.description.length < 3,
-            type: 'text',
+            label: 'EVM Address',
+            onChange: (t) => setFormState((p) => ({ ...p, address: t })),
+            type: 'address',
+          },
+          {
+            label: 'Email',
+            onChange: (t) => setFormState((p) => ({ ...p, email: t })),
+            type: 'email',
           },
           {
             label: 'Number',
-            isNumber: true,
+            type: 'number',
             onChange: (t) => setFormState((p) => ({ ...p, number: t })),
-            invalid: formState.number.length < 3,
+            min: 2,
+            max: 5,
           },
         ]}
         header="Submitable Form"
