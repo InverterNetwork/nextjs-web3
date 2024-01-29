@@ -67,7 +67,7 @@ export async function GET(req: Request) {
       try {
         const newUser = new UserModel({
           address: state.address,
-          ...(!!state.email && { email: state.email }),
+          email: state.email,
         })
 
         // Save the new User

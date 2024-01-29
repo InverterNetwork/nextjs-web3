@@ -25,6 +25,7 @@ const UserSchema = new Schema<User>(
     email: {
       type: String,
       unique: true,
+      sparse: true,
     },
     apiSecrets: {
       type: [ApiSecretSchema],
