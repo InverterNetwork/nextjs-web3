@@ -1,21 +1,15 @@
 'use client'
 
 import { useState } from 'react'
-import { Button, Input, type InputProps } from 'react-daisyui'
+import { Button } from 'react-daisyui'
 import Copy from './Copy'
-import { useInputFocus } from '@/hooks/useInputFocus'
 import cn from 'classnames'
 import React from 'react'
+import NumberInput from './NumberInput'
+import TextInput, { TextInputProps } from './TextInput'
 
-type EditableInputProps = {
-  rows: ({
-    onChange: (value: string) => void
-    invalid?: boolean
-    label?: string
-  } & Omit<
-    InputProps,
-    'onChange' | 'placeholder' | 'value' | 'onSubmit' | 'color'
-  >)[]
+type SubmitableFormProps = {
+  rows: (TextInputProps & { isNumber?: boolean })[]
   onSubmit: () => void
   header: string
   buttonLabel?: string
@@ -24,7 +18,7 @@ type EditableInputProps = {
   defaultIsEditing?: boolean
 }
 
-export default function SubmitableTextForm({
+export default function SubmitableForm({
   rows,
   header,
   data,
@@ -32,16 +26,13 @@ export default function SubmitableTextForm({
   isPending,
   buttonLabel = 'Edit',
   defaultIsEditing,
-  ...props
-}: EditableInputProps) {
+}: SubmitableFormProps) {
   const [isEditing, setIsEditing] = useState(defaultIsEditing ?? false)
-  const { inputRef, inputIndex, onDone } = useInputFocus(isEditing)
   const invalid = rows.some((i) => i.invalid)
 
   const toggle = () => {
     if (isEditing) {
       setIsEditing(false)
-      onDone()
     } else {
       setIsEditing(true)
     }
@@ -55,13 +46,7 @@ export default function SubmitableTextForm({
   }
 
   const Toggler = () => (
-    <Button
-      size={'sm'}
-      variant="outline"
-      onClick={toggle}
-      loading={isPending}
-      tabIndex={-1}
-    >
+    <Button size={'sm'} variant="outline" onClick={toggle} loading={isPending}>
       {!isEditing ? (!data ? 'Add' : buttonLabel ?? 'Edit') : 'Cancel'}
     </Button>
   )
@@ -77,26 +62,29 @@ export default function SubmitableTextForm({
         className={cn('form-control w-full', !isEditing && 'hidden')}
         onSubmit={handleSubmit}
       >
-        {rows.map(({ onChange, label, invalid = false }, i) => {
-          return (
-            <React.Fragment key={i}>
-              <label className={cn('label', !label && 'hidden')}>
-                <span className="label-text">{label}</span>
-              </label>
+        {rows.map(
+          ({ onChange, label, invalid = false, isNumber, ...props }, i) => {
+            if (isNumber)
+              return (
+                <NumberInput
+                  key={i}
+                  label={label}
+                  onChange={onChange}
+                  invalid={invalid}
+                />
+              )
 
-              <Input
+            return (
+              <TextInput
+                key={i}
+                onChange={onChange}
+                label={label}
+                invalid={invalid}
                 {...props}
-                {...(invalid && { color: 'warning' })}
-                placeholder={'Type Here'}
-                onChange={(e) => {
-                  onChange(e.target.value)
-                }}
-                ref={inputRef}
-                data-inputindex={inputIndex}
               />
-            </React.Fragment>
-          )
-        })}
+            )
+          }
+        )}
 
         <Button
           className="mt-3"

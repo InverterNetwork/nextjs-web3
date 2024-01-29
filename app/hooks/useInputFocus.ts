@@ -18,17 +18,18 @@ export function useInputFocus(tracker?: any) {
 
   const onDone = () => {
     if (inputs) {
-      const nextIndex = inputs.findIndex(
-        (input) => input && parseInt(input.dataset.inputindex!) > inputIndex
-      )
+      const nonHiddenInputs = inputs.filter(
+          (input) => input && input.offsetParent !== null
+        ),
+        nextIndex = nonHiddenInputs.findIndex(
+          (input) => input && parseInt(input.dataset.inputindex!) > inputIndex
+        )
 
-      // const firstNonHiddenIndex = inputs.findIndex(
-      //   (input) => input && window.getComputedStyle(input).display !== 'none'
-      // )
+      const finalNextIndex = nextIndex === -1 ? 0 : nextIndex
 
-      if (nextIndex !== -1 && inputs[nextIndex]) inputs[nextIndex].focus()
-      // If it's the last one, focus on the first
-      // else if (inputs[firstNonHiddenIndex]) inputs[firstNonHiddenIndex].focus()
+      setTimeout(() => {
+        nonHiddenInputs[finalNextIndex].focus()
+      }, 0.1)
     }
   }
 
@@ -85,6 +86,8 @@ export function useInputFocusHandler() {
       childList: true,
       subtree: true,
     })
+
+    updateInputs()
 
     // Clean up: disconnect the observer when the component is unmounted
     return () => observer.disconnect()
