@@ -9,9 +9,9 @@ export function useInputFocus(tracker?: any) {
   const inputs = useAppContext().inputFocus
 
   useEffect(() => {
-    if (inputs) {
+    if (!!inputs) {
       const newIndex = inputs.findIndex((i) => i === inputRef.current)
-      if (newIndex !== inputIndex) setInputIndex(newIndex)
+      setInputIndex(newIndex)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputs])
@@ -60,13 +60,30 @@ export function useInputFocusHandler() {
 
   useEffect(() => {
     // Create a MutationObserver instance to watch for changes in the DOM
-    const observer = new MutationObserver(updateInputs)
+    const observer = new MutationObserver((mutationsList) => {
+      let runCondition = false
+      for (let mutation of mutationsList) {
+        if (mutation.type === 'childList') {
+          ;(['addedNodes', 'removedNodes'] as const).map((key) => {
+            Array.from(mutation[key]).forEach((node) => {
+              if (
+                node instanceof HTMLElement &&
+                node.querySelector('input[data-inputindex]')
+              ) {
+                runCondition = true
+              }
+            })
+          })
+        }
+      }
+
+      if (runCondition) updateInputs()
+    })
 
     // Start observing the document with the configured parameters
     observer.observe(document, {
       childList: true,
       subtree: true,
-      attributeFilter: ['data-inputindex'],
     })
 
     // Clean up: disconnect the observer when the component is unmounted

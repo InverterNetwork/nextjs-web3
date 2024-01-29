@@ -139,11 +139,13 @@ export default function HomePage() {
             label: 'Title',
             onChange: (t) => setFormState((p) => ({ ...p, title: t })),
             invalid: formState.title.length < 3,
+            type: 'text',
           },
           {
             label: 'Description',
             onChange: (t) => setFormState((p) => ({ ...p, description: t })),
             invalid: formState.description.length < 3,
+            type: 'text',
           },
         ]}
         header="Submitable Text Form"

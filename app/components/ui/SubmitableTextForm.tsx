@@ -8,11 +8,14 @@ import cn from 'classnames'
 import React from 'react'
 
 type EditableInputProps = {
-  rows: {
+  rows: ({
     onChange: (value: string) => void
     invalid?: boolean
     label?: string
-  }[]
+  } & Omit<
+    InputProps,
+    'onChange' | 'placeholder' | 'value' | 'onSubmit' | 'color'
+  >)[]
   onSubmit: () => void
   header: string
   buttonLabel?: string
@@ -30,11 +33,7 @@ export default function SubmitableTextForm({
   buttonLabel = 'Edit',
   defaultIsEditing,
   ...props
-}: EditableInputProps &
-  Omit<
-    InputProps,
-    'onChange' | 'placeholder' | 'value' | 'onSubmit' | 'color'
-  >) {
+}: EditableInputProps) {
   const [isEditing, setIsEditing] = useState(defaultIsEditing ?? false)
   const { inputRef, inputIndex, onDone } = useInputFocus(isEditing)
   const invalid = rows.some((i) => i.invalid)
