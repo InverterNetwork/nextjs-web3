@@ -10,7 +10,7 @@ import {
   SubmitableForm,
   Tabs,
   TextInput,
-} from './components'
+} from '@/components'
 import { Button, Card, Divider, Menu, Modal, Skeleton } from 'react-daisyui'
 import { useToast } from '@/hooks'
 

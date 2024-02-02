@@ -1,6 +1,6 @@
 'use client'
 
-import { dark, light } from 'styles'
+import { dark, light } from '@/styles'
 import { AppProgressBar } from 'next-nprogress-bar'
 import { useTheme } from '@/hooks'
 

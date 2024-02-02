@@ -1,4 +1,4 @@
-import { HTTPError } from './'
+import { HTTPError } from '.'
 
 export function authorized<T>(
   value: T | undefined | null,

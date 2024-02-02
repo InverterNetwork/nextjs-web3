@@ -7,13 +7,13 @@
 
 import React from 'react'
 import type { Metadata } from 'next'
-import Providers from './providers'
-import { RouteProgressBar, Navbar } from './components'
+import Providers from '@/providers'
+import { RouteProgressBar, Navbar } from '@/components'
 import { cookies } from 'next/headers'
-import { initialTheme } from '../styles'
+import { initialTheme } from '@/styles'
 import { Open_Sans } from 'next/font/google'
-import Analytics from './providers/Analytics'
-import '../styles/global.css'
+import Analytics from '@/providers/Analytics'
+import '@/styles/global.css'
 
 const openSans = Open_Sans({
   subsets: ['cyrillic'],

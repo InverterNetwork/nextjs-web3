@@ -1,10 +1,9 @@
 'use server'
 
 import session from '@/lib/utils/session'
-import type { UserRole } from '../types'
 import { type Hex } from 'viem'
 import { UserModel } from '../models'
-import { authorized } from '@/lib/types'
+import { authorized, UserRole } from '@/lib/types'
 import { scrypt, randomBytes } from 'crypto'
 import { promisify } from 'util'
 import { splitBearer } from './bearer'

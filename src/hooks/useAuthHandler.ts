@@ -1,7 +1,7 @@
 'use client'
 
 import { getBearerConfig } from '@/lib/utils'
-import { Auth } from '../lib/types'
+import { Auth } from '@/lib/types'
 import { useDynamicContext } from '@dynamic-labs/sdk-react-core'
 import { useQuery } from '@tanstack/react-query'
 
