@@ -1,1 +1,1 @@
-export * from './compSlice'
+export * from './componentsSlice'

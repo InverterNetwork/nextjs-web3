@@ -5,11 +5,10 @@ import Image from 'next/image'
 import NextLink from 'next/link'
 import ThemeSwitcher from './ThemeSwitcher'
 import Link from 'next/link'
-import { Button, Menu, Swap } from 'react-daisyui'
+import { Button, Dropdown } from 'react-daisyui'
 import WalletWidget from './WalletWidget'
 import { GiHamburgerMenu } from 'react-icons/gi'
-import { VscChromeClose } from 'react-icons/vsc'
-import { useDisclosure } from '@/hooks'
+import cn from 'classnames'
 
 const NavItems = ({
   pathname,
@@ -26,18 +25,30 @@ const NavItems = ({
 
   if (reverse) arr.reverse()
 
-  return arr.map((i, index) => (
-    <Link href={i.href} key={index}>
-      <Button size={'sm'} {...(pathname !== i.href && { color: 'ghost' })}>
-        {i.label}
-      </Button>
-    </Link>
-  ))
+  return arr.map((i, index) => {
+    if (reverse) {
+      const className = cn(
+        'my-1 p-2 text-md',
+        pathname === i.href && 'bg-base-200'
+      )
+      return (
+        <Dropdown.Item href={i.href} key={index} className={className}>
+          {i.label}
+        </Dropdown.Item>
+      )
+    }
+    return (
+      <Link href={i.href} key={index}>
+        <Button size={'sm'} {...(pathname !== i.href && { color: 'ghost' })}>
+          {i.label}
+        </Button>
+      </Link>
+    )
+  })
 }
 
 export default function Navbar() {
   const pathname = usePathname()
-  const { toggle, isOpen } = useDisclosure()
   return (
     <div className="navbar-c bottom-0 drop-shadow-2xl rounded-tl-xl rounded-tr-xl bg-base-100 border-t border-x">
       <NextLink href="/">
@@ -59,30 +70,17 @@ export default function Navbar() {
         <NavItems pathname={pathname} />
       </div>
 
-      <div className="relative items-center flex lg:hidden">
-        {isOpen && (
-          <Menu className="bg-base-100 rounded-box absolute bottom-[200%] right-0">
-            <Menu.Item className="flex gap-2">
-              <ThemeSwitcher className="w-full" />
-            </Menu.Item>
-            {NavItems({ pathname, reverse: true }).map((i, index) => (
-              <Menu.Item key={index}>{i}</Menu.Item>
-            ))}
-          </Menu>
-        )}
-        <Swap
-          rotate
-          onElement={
-            <VscChromeClose className="fill-current w-5 h-5" onClick={toggle} />
-          }
-          offElement={
-            <GiHamburgerMenu
-              className="fill-current w-5 h-5"
-              onClick={toggle}
-            />
-          }
-        />
-      </div>
+      <Dropdown className="relative items-center flex lg:hidden">
+        <Button tag="label" color="ghost" className="py-0 px-1" tabIndex={0}>
+          <GiHamburgerMenu className="fill-current w-5 h-5" />
+        </Button>
+        <Dropdown.Menu className="menu-sm absolute bottom-[120%] right-0">
+          <Dropdown.Item className="flex gap-2">
+            <ThemeSwitcher className="w-full" />
+          </Dropdown.Item>
+          {NavItems({ pathname, reverse: true })}
+        </Dropdown.Menu>
+      </Dropdown>
     </div>
   )
 }

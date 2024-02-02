@@ -1,10 +1,3 @@
-/// <reference lib="dom" />
-/// <reference lib="dom.iterable" />
-/// <reference lib="esnext" />
-
-// This is required because bun-types currently removes the libs defined in the tsconfig
-// https://github.com/oven-sh/bun/issues/5134
-
 import React from 'react'
 import type { Metadata } from 'next'
 import Providers from './providers'

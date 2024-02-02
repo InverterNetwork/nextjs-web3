@@ -5,4 +5,3 @@ export { default as useDisclosure } from './useDisclosure'
 export const useIsHydrated = () => useAppContext().isHydrated
 export const useToast = () => useThemeContext().toastHandler
 export const useTheme = () => useThemeContext().themeHandler
-export { useInputFocus } from './useInputFocus'

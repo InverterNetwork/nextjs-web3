@@ -2,7 +2,7 @@
 
 import { Global } from '@emotion/react'
 import { lifi, transformLifiChainsToDynamicEvmNetworks } from '@/lib'
-import { getDynamicTheme } from 'styles/dynamicTheme'
+import { getDynamicTheme } from '../../styles/dynamicTheme'
 import { EthereumWalletConnectors } from '@dynamic-labs/ethereum'
 import { MagicWalletConnectors } from '@dynamic-labs/magic'
 import { DynamicContextProvider } from '@dynamic-labs/sdk-react-core'

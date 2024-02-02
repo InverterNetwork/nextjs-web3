@@ -11,12 +11,15 @@ import TextInput, { TextInputProps } from './TextInput'
 type SubmitableFormProps = {
   rows: TextInputProps[]
   onSubmit: () => void
-  header: string
+  header?: string
   buttonLabel?: string
   data?: string
   isPending?: boolean
   defaultIsEditing?: boolean
-}
+} & React.DetailedHTMLProps<
+  React.HTMLAttributes<HTMLDivElement>,
+  HTMLDivElement
+>
 
 export default function SubmitableForm({
   rows,
@@ -25,9 +28,10 @@ export default function SubmitableForm({
   onSubmit,
   isPending,
   buttonLabel = 'Edit',
-  defaultIsEditing,
+  defaultIsEditing = false,
+  ...props
 }: SubmitableFormProps) {
-  const [isEditing, setIsEditing] = useState(defaultIsEditing ?? false)
+  const [isEditing, setIsEditing] = useState(!!header ? defaultIsEditing : true)
 
   const invalid = rows.some((i) => i.invalid)
 
@@ -52,9 +56,16 @@ export default function SubmitableForm({
     </Button>
   )
 
+  const { className, ...rest } = props
+
   return (
-    <>
-      <div className={'w-full flex justify-between items-center'}>
+    <div {...rest} className={cn('flex flex-col w-full gap-3', className)}>
+      <div
+        className={cn(
+          'w-full flex justify-between items-center',
+          !header && 'hidden'
+        )}
+      >
         <h3>{header}</h3>
         <Toggler />
       </div>
@@ -69,7 +80,7 @@ export default function SubmitableForm({
           return <TextInput key={i} {...props} />
         })}
 
-        <Button className="mt-3" size={'sm'} color="primary" type="submit">
+        <Button className="mt-6" size={'sm'} color="primary" type="submit">
           Submit
         </Button>
       </form>
@@ -83,6 +94,6 @@ export default function SubmitableForm({
         <p>{data}</p>
         <Copy data={data} />
       </div>
-    </>
+    </div>
   )
 }
