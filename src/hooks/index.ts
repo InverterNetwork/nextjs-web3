@@ -1,4 +1,4 @@
-import { useAppContext, useThemeContext } from '@/providers'
+import { useAppContext, useThemeContext } from '../providers'
 
 export { default as useDisclosure } from './useDisclosure'
 

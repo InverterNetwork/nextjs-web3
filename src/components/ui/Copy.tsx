@@ -1,6 +1,6 @@
 'use client'
 
-import { useToast } from '@/hooks'
+import { useToast } from '../../hooks'
 import { Button } from 'react-daisyui'
 import { BsCopy } from 'react-icons/bs'
 

@@ -13,6 +13,7 @@ type SubmitableFormProps = {
   onSubmit: () => void
   header?: string
   buttonLabel?: string
+  submitLabel?: string
   data?: string
   isPending?: boolean
   defaultIsEditing?: boolean
@@ -28,6 +29,7 @@ export default function SubmitableForm({
   onSubmit,
   isPending,
   buttonLabel = 'Edit',
+  submitLabel = 'Submit',
   defaultIsEditing = false,
   ...props
 }: SubmitableFormProps) {

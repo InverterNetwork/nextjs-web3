@@ -1,6 +1,6 @@
 'use client'
 
-import { UseToastHandlerReturn } from '@/hooks/useToastHandler'
+import { UseToastHandlerReturn } from '../../hooks/useToastHandler'
 import { useEffect } from 'react'
 import { Alert, Button, Toast } from 'react-daisyui'
 

@@ -1,10 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 
-const { dark, light } = require('./styles')
+const { dark, light } = require('./src/styles')
 
 module.exports = {
   content: [
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/**/*.{js,ts,jsx,tsx,mdx}',
     'node_modules/daisyui/dist/**/*.js',
     'node_modules/react-daisyui/dist/**/*.js',
   ],

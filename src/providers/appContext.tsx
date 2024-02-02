@@ -1,9 +1,9 @@
 'use client'
 
-import useIsHydratedHandler from '@/hooks/useIsHydratedHandler'
-import { setThemeCookie } from '@/lib/utils'
+import useIsHydratedHandler from '../hooks/useIsHydratedHandler'
+import { setThemeCookie } from '../lib/utils'
 import { createContext, useContext, useEffect } from 'react'
-import { useTheme } from '@/hooks'
+import { useTheme } from '../hooks'
 
 export type TAppContext = {
   isHydrated: boolean

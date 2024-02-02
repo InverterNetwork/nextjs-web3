@@ -10,7 +10,7 @@ import {
   SubmitableForm,
   Tabs,
   TextInput,
-} from './components'
+} from '@/components'
 import { Button, Card, Divider, Menu, Modal, Skeleton } from 'react-daisyui'
 import { useDisclosure, useToast } from '@/hooks'
 import { IoClose } from 'react-icons/io5'
@@ -168,7 +168,6 @@ export default function HomePage() {
         onSubmit={() => {
           alert('Submitted!')
         }}
-        defaultIsEditing={true}
         data="DATA!"
       />
       <Divider />
