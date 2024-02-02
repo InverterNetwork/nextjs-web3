@@ -12,10 +12,11 @@ import {
   TextInput,
 } from '@/components'
 import { Button, Card, Divider, Menu, Modal, Skeleton } from 'react-daisyui'
-import { useToast } from '@/hooks'
+import { useDisclosure, useToast } from '@/hooks'
+import { IoClose } from 'react-icons/io5'
 
 export default function HomePage() {
-  const { Dialog, handleShow } = Modal.useDialog()
+  const { onOpen, isOpen, onClose } = useDisclosure()
   const { addToast } = useToast()
   const [page, setPage] = useState(1)
   const [textInputValue, setTextInput] = useState<string>('')
@@ -86,16 +87,16 @@ export default function HomePage() {
       />
       <Divider />
       {/* Modal */}
-      <Button onClick={handleShow}>Open Modal</Button>
-      <Dialog>
-        <Modal.Header className="font-bold">Hello!</Modal.Header>
-        <Modal.Body>This modal works with useDialog hook!</Modal.Body>
-        <Modal.Actions>
-          <form method="dialog">
-            <Button>Close</Button>
-          </form>
-        </Modal.Actions>
-      </Dialog>
+      <Button onClick={onOpen}>Open Modal</Button>
+      <Modal.Legacy open={isOpen}>
+        <Modal.Header className="flex justify-between items-center">
+          <h2>Header</h2>
+          <Button color="ghost" className="p-0">
+            <IoClose size={30} onClick={onClose} />
+          </Button>
+        </Modal.Header>
+        <Modal.Body>This modal works with useDisclosure hook!</Modal.Body>
+      </Modal.Legacy>
       <Divider />
       {/* Skeleton */}
       <div className="flex flex-col gap-4 w-52">
@@ -140,16 +141,19 @@ export default function HomePage() {
             label: 'URL',
             onChange: (t) => setFormState((p) => ({ ...p, url: t })),
             type: 'url',
+            required: true,
           },
           {
             label: 'EVM Address',
             onChange: (t) => setFormState((p) => ({ ...p, address: t })),
             type: 'address',
+            required: true,
           },
           {
             label: 'Email',
             onChange: (t) => setFormState((p) => ({ ...p, email: t })),
             type: 'email',
+            required: true,
           },
           {
             label: 'Number',
@@ -157,12 +161,37 @@ export default function HomePage() {
             onChange: (t) => setFormState((p) => ({ ...p, number: t })),
             min: 2,
             max: 5,
+            required: true,
           },
         ]}
         header="Submitable Form"
         onSubmit={() => {
           alert('Submitted!')
         }}
+        data="DATA!"
+      />
+      <Divider />
+      <SubmitableForm
+        rows={[
+          {
+            label: 'URL',
+            onChange: (t) => setFormState((p) => ({ ...p, url: t })),
+            type: 'url',
+            required: true,
+          },
+          {
+            label: 'Number',
+            type: 'number',
+            onChange: (t) => setFormState((p) => ({ ...p, number: t })),
+            min: 2,
+            max: 5,
+            required: true,
+          },
+        ]}
+        onSubmit={() => {
+          alert('Submitted!')
+        }}
+        defaultIsEditing={true}
         data="DATA!"
       />
       <Divider />

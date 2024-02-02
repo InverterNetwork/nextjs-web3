@@ -1,3 +1,5 @@
+import { StatusCodes } from './statusCodes'
+
 export class HTTPError extends Error {
   statusCode: StatusCodes // Add a statusCode property
   constructor(message: string, statusCode: StatusCodes) {

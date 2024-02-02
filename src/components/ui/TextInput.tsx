@@ -1,17 +1,20 @@
 'use client'
 
-import { useInputFocus } from '@/hooks'
 import { Input, type InputProps } from 'react-daisyui'
 import cn from 'classnames'
 
-import { z } from 'zod'
 import { isAddress } from 'viem'
+import { useState, useRef } from 'react'
+
+type TextInputRestProps = Omit<InputProps, 'onChange' | 'color' | 'type'> & {
+  type?: InputProps['type'] | 'address'
+}
 
 export type TextInputProps = {
   onChange: (value: string) => void
   invalid?: boolean
   label?: string
-} & Omit<InputProps, 'onChange' | 'placeholder' | 'onSubmit' | 'color'>
+} & TextInputRestProps
 
 const TextInput = ({
   onChange,
@@ -19,45 +22,36 @@ const TextInput = ({
   invalid = false,
   ...props
 }: TextInputProps) => {
-  const { inputRef, inputIndex, onDone } = useInputFocus()
+  const [isTouched, setIsTouched] = useState(false)
+  const inputRef = useRef<HTMLInputElement>(null)
+  const [valid, setValid] = useState(false)
 
-  const setValidity = (msg: string) => {
-    inputRef.current!.setCustomValidity(msg)
-  }
+  const handleValidity = (value: string) => {
+    let newValid = inputRef.current?.validity.valid ?? false
 
-  const scanValidity = () => {
-    let valid = true
     if (!!inputRef.current) {
-      const value = inputRef.current.value
+      let validityMessage = ''
       switch (props.type) {
-        case 'url':
-          valid = z.string().url().safeParse(value).success
-          setValidity(valid ? '' : 'Invalid URL')
-          break
-        case 'email':
-          valid = z.string().email().safeParse(value).success
-          setValidity(valid ? '' : 'Invalid Email')
-          break
         case 'address':
-          valid = isAddress(value)
-          setValidity(valid ? '' : 'Invalid Address')
+          newValid = isAddress(value)
+          if (!valid) validityMessage = 'Invalid Address'
           break
       }
+
+      inputRef.current.setCustomValidity(validityMessage)
     }
 
-    return valid
+    if (!isTouched) setIsTouched(true)
+    if (newValid !== valid) setValid(newValid)
   }
 
-  const isInvalid = invalid || !scanValidity()
+  const isInvalid = invalid || !valid
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(e.target.value)
-  }
+    const value = e.target.value
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      onDone()
-    }
+    onChange(value)
+    handleValidity(value)
   }
 
   return (
@@ -67,12 +61,10 @@ const TextInput = ({
       </label>
 
       <Input
-        onKeyDown={handleKeyDown}
-        placeholder={'Type Here'}
+        placeholder={props.placeholder ?? 'Type Here'}
         onChange={handleChange}
         ref={inputRef}
-        data-inputindex={inputIndex}
-        {...(isInvalid && { color: 'warning' })}
+        {...(isTouched && isInvalid && { color: 'warning' })}
         {...props}
       />
     </>

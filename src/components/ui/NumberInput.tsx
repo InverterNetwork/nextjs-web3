@@ -1,88 +1,58 @@
 'use client'
 
-import { useInputFocus } from '@/hooks/useInputFocus'
-import { formatAmountString } from '@/lib/utils'
+import { formatAmountString } from '../../lib/utils'
 import cn from 'classnames'
+import { useState, useRef } from 'react'
 import { Input, type InputProps } from 'react-daisyui'
 
-import { z } from 'zod'
+type NumberInputRestProps = Omit<
+  InputProps,
+  'onChange' | 'color' | 'type' | 'inputMode'
+>
+
+type NumberInputProps = {
+  onChange: (string: string) => void
+  label?: string
+  invalid?: boolean
+} & NumberInputRestProps
 
 export default function NumberInput({
-  step = 1,
-  min = 0,
-  max = undefined,
   onChange,
   label,
   invalid = false,
   ...props
-}: {
-  onChange: (string: string) => void
-  label?: string
-  invalid?: boolean
-} & Omit<InputProps, 'onChange' | 'placeholder' | 'onSubmit' | 'color'>) {
-  const minNumber = Number(min)
-  const maxNumber = Number(max)
-  const stepNumber = Number(step)
+}: NumberInputProps) {
+  const stepNumber = Number(props.step ?? 1)
 
-  const { inputRef, inputIndex, onDone } = useInputFocus()
+  const [isTouched, setIsTouched] = useState(false)
+  const inputRef = useRef<HTMLInputElement>(null)
+  const [valid, setValid] = useState(false)
+
+  const handleValidity = () => {
+    let newValid = inputRef.current?.validity.valid ?? false
+
+    if (!isTouched) setIsTouched(true)
+    if (newValid !== valid) setValid(newValid)
+  }
 
   const handleIncrementOrDecrement = (inc?: boolean) => {
-    let newValue =
-      Number(inputRef.current?.value) + (!!inc ? stepNumber : -stepNumber)
-
-    // if (max !== undefined) newValue = Math.min(newValue, maxNumber)
-    // if (min !== undefined) newValue = Math.max(newValue, minNumber)
-
-    const newString = formatAmountString(newValue.toString())
-
-    if (!!inputRef.current) inputRef.current.value = newString
-    onChange(newString)
+    if (!!inputRef.current) {
+      const newValue =
+          Number(inputRef.current.value) + (!!inc ? stepNumber : -stepNumber),
+        newString = formatAmountString(newValue.toString())
+      inputRef.current.value = newString
+      onChange(newString)
+      handleValidity()
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // if (min !== undefined && Number(e.target.value) < minNumber) return
-    // if (max !== undefined && Number(e.target.value) > maxNumber) return
-
-    onChange(formatAmountString(e.target.value))
+    const value = e.target.value
+    onChange(formatAmountString(value))
+    handleValidity()
   }
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      onDone()
-    }
-  }
-
-  const setValidity = (msg: string) => {
-    inputRef.current!.setCustomValidity(msg)
-  }
-
-  const scanValidity = () => {
-    let valid = true
-    let validityMessage = ''
-
-    if (!!inputRef.current) {
-      const value = Number(inputRef.current.value)
-      try {
-        z.number()
-          .min(minNumber, `Must be at least ${minNumber}`)
-          .max(maxNumber, `Must be at most ${maxNumber}`)
-          .parse(value)
-
-        valid = true
-        validityMessage = ''
-      } catch (e: any) {
-        valid = false
-        if (e instanceof z.ZodError) {
-          validityMessage = e.errors[0]?.message
-        }
-      }
-      setValidity(validityMessage)
-    }
-
-    return valid
-  }
-
-  const isInvalid = invalid || !scanValidity()
+  const isInvalid = invalid || !valid
 
   return (
     <>
@@ -105,12 +75,10 @@ export default function NumberInput({
         <Input
           className="w-full"
           ref={inputRef}
-          onKeyDown={handleKeyDown}
           type="number"
           inputMode="decimal"
           onChange={handleChange}
-          data-inputindex={inputIndex}
-          {...(isInvalid && { color: 'warning' })}
+          {...(isTouched && isInvalid && { color: 'warning' })}
           {...props}
         />
 
