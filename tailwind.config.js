@@ -11,14 +11,8 @@ module.exports = {
   daisyui: {
     themes: [
       {
-        light: {
-          ...require('daisyui/src/theming/themes')['light'],
-          ...light,
-        },
-        dark: {
-          ...require('daisyui/src/theming/themes')['dark'],
-          ...dark,
-        },
+        light,
+        dark,
       },
     ],
   },

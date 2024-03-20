@@ -24,7 +24,11 @@ export default function WalletWidget() {
   if (isAuthenticated)
     return (
       <div>
-        <Button size="sm" onClick={() => setShowDynamicUserProfile(true)}>
+        <Button
+          size="sm"
+          color="primary"
+          onClick={() => setShowDynamicUserProfile(true)}
+        >
           {compressAddress(address)}
         </Button>
         <DynamicUserProfile />

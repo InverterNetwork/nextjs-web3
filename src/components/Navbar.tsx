@@ -29,7 +29,7 @@ const NavItems = ({
     if (reverse) {
       const className = cn(
         'my-1 p-2 text-md',
-        pathname === i.href && 'bg-base-200'
+        pathname === i.href && 'bg-neutral'
       )
       return (
         <Dropdown.Item href={i.href} key={index} className={className}>
@@ -39,7 +39,11 @@ const NavItems = ({
     }
     return (
       <Link href={i.href} key={index}>
-        <Button size={'sm'} {...(pathname !== i.href && { color: 'ghost' })}>
+        <Button
+          size={'sm'}
+          {...(pathname !== i.href && { color: 'ghost' })}
+          active={pathname === i.href}
+        >
           {i.label}
         </Button>
       </Link>
