@@ -8,7 +8,7 @@ const config: Config & {
   theme: {
     extend: {
       borderColor: {
-        faint: 'hsl(var(--bc) / 0.2)',
+        faint: 'var(--fallback-bc,oklch(var(--bc)/0.2))',
       },
     },
   },

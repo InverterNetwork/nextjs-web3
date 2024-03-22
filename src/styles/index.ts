@@ -85,7 +85,7 @@ const extend = (base: typeof darkBase | typeof lightBase) => ({
     'border-color': `var(--fallback-bc,oklch(var(--bc)/0.2))`,
   } as any,
   '.skeleton': {
-    'background-color': base['base-100'],
+    'background-color': base['base-content'],
     'background-image': `linear-gradient(105deg,transparent 0%,transparent 40%,${base['base-300']} 50%,transparent 60%,transparent 100%)`,
   } as any,
 })
