@@ -1,4 +1,4 @@
-import cn from 'classnames'
+import { cn } from '@/styles/cn'
 
 export default function Frame({
   children,
@@ -8,7 +8,7 @@ export default function Frame({
   className?: string
 }) {
   const classes = cn(
-    'container bg-base-200 rounded-box flex gap-3 mx-auto p-4',
+    'container bg-base-100 rounded-box flex gap-3 mx-auto p-4 border input-bordered',
     className,
     !className?.includes('flex-row') && 'flex-col'
   )

@@ -1,9 +1,9 @@
+import type { GetPublicClientReturnType } from '@wagmi/core'
 import { retry } from 'ts-retry-promise'
 import { type Hex } from 'viem'
-import { type PublicClient } from 'wagmi'
 
 export const waitUntilConfirmation = async (
-  publicClient: PublicClient,
+  publicClient: NonNullable<GetPublicClientReturnType>,
   hash?: Hex,
   confirmations = 1
 ) => {

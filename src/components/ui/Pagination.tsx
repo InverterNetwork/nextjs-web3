@@ -1,4 +1,4 @@
-import cn from 'classnames'
+import { cn } from '@/styles/cn'
 
 export default function Pagination({
   totalPages,

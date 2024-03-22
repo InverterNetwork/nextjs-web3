@@ -2,7 +2,7 @@ import { type EvmNetwork } from '@dynamic-labs/sdk-react-core'
 import { type ExtendedChain } from '@lifi/sdk'
 
 export const transformLifiChainsToDynamicEvmNetworks = (
-  chains: ExtendedChain[]
+  chains?: ExtendedChain[]
 ): EvmNetwork[] | undefined => {
   if (!chains) return undefined
   return chains.map((i) => {

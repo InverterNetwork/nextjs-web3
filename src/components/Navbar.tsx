@@ -8,7 +8,7 @@ import Link from 'next/link'
 import { Button, Dropdown } from 'react-daisyui'
 import WalletWidget from './WalletWidget'
 import { GiHamburgerMenu } from 'react-icons/gi'
-import cn from 'classnames'
+import { cn } from '@/styles/cn'
 
 const NavItems = ({
   pathname,
@@ -29,7 +29,7 @@ const NavItems = ({
     if (reverse) {
       const className = cn(
         'my-1 p-2 text-md',
-        pathname === i.href && 'bg-base-200'
+        pathname === i.href && 'bg-neutral'
       )
       return (
         <Dropdown.Item href={i.href} key={index} className={className}>
@@ -39,7 +39,11 @@ const NavItems = ({
     }
     return (
       <Link href={i.href} key={index}>
-        <Button size={'sm'} {...(pathname !== i.href && { color: 'ghost' })}>
+        <Button
+          size={'sm'}
+          {...(pathname !== i.href && { color: 'ghost' })}
+          active={pathname === i.href}
+        >
           {i.label}
         </Button>
       </Link>
@@ -50,7 +54,14 @@ const NavItems = ({
 export default function Navbar() {
   const pathname = usePathname()
   return (
-    <div className="navbar-c bottom-0 drop-shadow-2xl rounded-tl-xl rounded-tr-xl bg-base-100 border-t border-x">
+    <div
+      className={`
+      fixed left-1/2 -translate-x-1/2 items-center p-2 flex 
+      justify-center gap-4 z-10 w-max bottom-0 
+      drop-shadow-2xl rounded-tl-xl rounded-tr-xl bg-base-100 
+      border-t border-x border-faint
+    `.trim()}
+    >
       <NextLink href="/">
         <Image
           priority
