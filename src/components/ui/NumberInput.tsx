@@ -1,7 +1,7 @@
 'use client'
 
 import { formatAmountString } from '../../lib/utils'
-import cn from 'classnames'
+import { cn } from '@/styles/cn'
 import { useState, useRef } from 'react'
 import { Input, type InputProps } from 'react-daisyui'
 

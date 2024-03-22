@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { Button } from 'react-daisyui'
 import Copy from './Copy'
-import cn from 'classnames'
+import { cn } from '@/styles/cn'
 import React from 'react'
 import NumberInput from './NumberInput'
 import TextInput, { TextInputProps } from './TextInput'

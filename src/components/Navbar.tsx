@@ -8,7 +8,7 @@ import Link from 'next/link'
 import { Button, Dropdown } from 'react-daisyui'
 import WalletWidget from './WalletWidget'
 import { GiHamburgerMenu } from 'react-icons/gi'
-import cn from 'classnames'
+import { cn } from '@/styles/cn'
 
 const NavItems = ({
   pathname,

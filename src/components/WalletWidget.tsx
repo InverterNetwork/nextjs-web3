@@ -26,7 +26,7 @@ export default function WalletWidget() {
       <div>
         <Button
           size="sm"
-          color="primary"
+          color="accent"
           onClick={() => setShowDynamicUserProfile(true)}
         >
           {compressAddress(address)}
@@ -35,7 +35,7 @@ export default function WalletWidget() {
       </div>
     )
   return (
-    <Button size="sm" onClick={() => setShowAuthFlow(true)}>
+    <Button size="sm" color="primary" onClick={() => setShowAuthFlow(true)}>
       Connect Wallet
     </Button>
   )

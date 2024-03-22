@@ -1,14 +1,19 @@
 'use client'
 
 import { Global } from '@emotion/react'
-import { lifi, transformLifiChainsToDynamicEvmNetworks } from '@/lib'
+import {
+  lifi,
+  transformLifiChainsToDynamicEvmNetworks,
+  transformLifiChainsToWagmiChains,
+} from '@/lib'
 import { getDynamicTheme } from '../styles/dynamicTheme'
 import { EthereumWalletConnectors } from '@dynamic-labs/ethereum'
-import { MagicWalletConnectors } from '@dynamic-labs/magic'
+import { MagicEvmWalletConnectors } from '@dynamic-labs/magic'
 import { DynamicContextProvider } from '@dynamic-labs/sdk-react-core'
 import { DynamicWagmiConnector } from '@dynamic-labs/wagmi-connector'
 import { useEffect, useState } from 'react'
 import { useTheme } from '@/hooks'
+import { WagmiProvider, createConfig, http } from 'wagmi'
 
 export default function ConnectorProvider({
   children,
@@ -20,17 +25,28 @@ export default function ConnectorProvider({
     theme === 'light'
   )
 
-  const [evmNetworks, setEvmNetworks] =
-    useState<ReturnType<typeof transformLifiChainsToDynamicEvmNetworks>>(
-      undefined
-    )
+  const [lifiChains, setLifiChains] = useState<
+    Awaited<ReturnType<typeof lifi.getChains>> | undefined
+  >(undefined)
 
   useEffect(() => {
-    lifi.getChains().then((lifiChains) => {
-      const evmNetworks = transformLifiChainsToDynamicEvmNetworks(lifiChains)
-      setEvmNetworks(evmNetworks)
-    })
+    lifi.getChains().then(setLifiChains)
   }, [])
+
+  const evmNetworks = transformLifiChainsToDynamicEvmNetworks(lifiChains)
+  const wagmiChains = transformLifiChainsToWagmiChains(lifiChains)
+
+  const config = createConfig({
+    chains: wagmiChains,
+    multiInjectedProviderDiscovery: false,
+    transports: wagmiChains?.reduce(
+      (acc, chain) => {
+        acc[chain.id] = http()
+        return acc
+      },
+      {} as Record<string, ReturnType<typeof http>>
+    ),
+  })
 
   // RENDER
   return (
@@ -40,11 +56,18 @@ export default function ConnectorProvider({
         settings={{
           environmentId: process.env.NEXT_PUBLIC_DYNAMIC_ID || '',
           cssOverrides,
-          walletConnectors: [EthereumWalletConnectors, MagicWalletConnectors],
-          evmNetworks,
+          walletConnectors: [
+            EthereumWalletConnectors,
+            MagicEvmWalletConnectors,
+          ],
+          overrides: {
+            evmNetworks,
+          },
         }}
       >
-        <DynamicWagmiConnector>{children}</DynamicWagmiConnector>
+        <WagmiProvider config={config}>
+          <DynamicWagmiConnector>{children}</DynamicWagmiConnector>
+        </WagmiProvider>
       </DynamicContextProvider>
     </>
   )
