@@ -10,10 +10,15 @@ import {
   SubmitableForm,
   Tabs,
   TextInput,
+  ThreeDCard,
 } from '@/components'
 import { Button, Card, Divider, Menu, Modal, Skeleton } from 'react-daisyui'
 import { useDisclosure, useToast } from '@/hooks'
 import { IoClose } from 'react-icons/io5'
+import Image from 'next/image'
+
+const imageUrl =
+  'https://images.mirror-media.xyz/publication-images/2yXY8M-emmKoKGbh5TA_A.jpeg?height=480&width=960'
 
 export default function HomePage() {
   const { onOpen, isOpen, onClose } = useDisclosure()
@@ -32,10 +37,7 @@ export default function HomePage() {
     <div className="flex flex-col gap-3">
       {/* Card */}
       <Card>
-        <Card.Image
-          src="https://images.mirror-media.xyz/publication-images/2yXY8M-emmKoKGbh5TA_A.jpeg?height=480&width=960"
-          alt="Brand"
-        />
+        <Card.Image src={imageUrl} alt="Brand" />
         <Card.Body>
           <Card.Title tag="h2">Modular Smart Contracts!</Card.Title>
           <p>Did someone say Inverter?</p>
@@ -46,6 +48,32 @@ export default function HomePage() {
           </Card.Actions>
         </Card.Body>
       </Card>
+      <Divider />
+      {/* 3D Card */}
+      <ThreeDCard.Container className="max-w-96 mx-auto">
+        <ThreeDCard.Body>
+          <ThreeDCard.Item
+            as="p"
+            translateZ="60"
+            className="text-subtitle-1 text-primary"
+          >
+            DATE
+          </ThreeDCard.Item>
+
+          <ThreeDCard.Item translateZ="50">TITLE</ThreeDCard.Item>
+
+          <ThreeDCard.Item translateZ="100" className="w-full mt-4">
+            <Image
+              src={imageUrl}
+              width={400}
+              height={200}
+              className="w-full object-cover rounded-xl group-hover/card:shadow-xl"
+              alt="thumbnail"
+            />
+          </ThreeDCard.Item>
+        </ThreeDCard.Body>
+      </ThreeDCard.Container>
+
       <Divider />
       {/* Tab */}
       <Tabs

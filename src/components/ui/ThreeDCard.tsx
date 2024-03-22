@@ -14,7 +14,7 @@ const MouseEnterContext = createContext<
   [boolean, React.Dispatch<React.SetStateAction<boolean>>] | undefined
 >(undefined)
 
-export const Container = ({
+const Container = ({
   children,
   className,
   containerClassName,
@@ -59,7 +59,7 @@ export const Container = ({
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
           className={cn(
-            'flex items-center justify-center relative transition-all duration-200 ease-linear',
+            'flex items-center justify-center relative transition-all duration-200 ease-linear dark:hover:shadow-2xl dark:hover:shadow-primary/[0.1]',
             className
           )}
           style={{
@@ -73,7 +73,7 @@ export const Container = ({
   )
 }
 
-export const Body = ({
+const Body = ({
   children,
   className,
 }: {
@@ -83,7 +83,7 @@ export const Body = ({
   return (
     <Frame
       className={cn(
-        'h-96 w-96 [transform-style:preserve-3d]  [&>*]:[transform-style:preserve-3d]',
+        'h-max [transform-style:preserve-3d]  [&>*]:[transform-style:preserve-3d]',
         className
       )}
     >
@@ -92,7 +92,7 @@ export const Body = ({
   )
 }
 
-export const Item = ({
+const Item = ({
   as: Tag = 'div',
   children,
   className,
@@ -144,10 +144,18 @@ export const Item = ({
 }
 
 // Create a hook to use the context
-export const useMouseEnter = () => {
+const useMouseEnter = () => {
   const context = useContext(MouseEnterContext)
   if (context === undefined) {
     throw new Error('useMouseEnter must be used within a MouseEnterProvider')
   }
   return context
 }
+
+const returns = {
+  Container,
+  Body,
+  Item,
+}
+
+export default returns
