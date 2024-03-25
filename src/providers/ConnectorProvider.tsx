@@ -46,6 +46,7 @@ export default function ConnectorProvider({
       },
       {} as Record<string, ReturnType<typeof http>>
     ),
+    ssr: true,
   })
 
   // RENDER
