@@ -1,8 +1,9 @@
 'use client'
 
+import { setThemeCookie } from '@/styles/utils'
 import { DynamicToast } from '../components'
 import useToastHandler from '../hooks/useToastHandler'
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 
 export type TThemeContext = {
   themeHandler: {
@@ -23,6 +24,12 @@ export default function ThemeProvider({
 }) {
   const toastHandler = useToastHandler()
   const [theme, setTheme] = useState(initialTheme)
+
+  // EFFECTS
+  //==============================================
+  useEffect(() => {
+    setThemeCookie(theme)
+  }, [theme])
 
   // CONTEXT
   //==============================================

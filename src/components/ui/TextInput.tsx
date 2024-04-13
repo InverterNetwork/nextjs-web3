@@ -6,15 +6,13 @@ import { cn } from '@/styles/cn'
 import { isAddress } from 'viem'
 import { useState, useRef } from 'react'
 
-type TextInputRestProps = Omit<InputProps, 'onChange' | 'color' | 'type'> & {
-  type?: InputProps['type'] | 'address'
-}
-
 export type TextInputProps = {
   onChange: (value: string) => void
   invalid?: boolean
   label?: string
-} & TextInputRestProps
+} & Omit<InputProps, 'onChange' | 'color' | 'type'> & {
+    type?: InputProps['type'] | 'address'
+  }
 
 const TextInput = ({
   onChange,
@@ -24,16 +22,16 @@ const TextInput = ({
 }: TextInputProps) => {
   const [isTouched, setIsTouched] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
-  const [valid, setValid] = useState(false)
+  const [valid, setValid] = useState(true)
 
-  const handleValidity = (value: string) => {
-    let newValid = inputRef.current?.validity.valid ?? false
+  const testValidity = (value: string) => {
+    let valid = inputRef.current?.validity.valid ?? true
 
     if (!!inputRef.current) {
       let validityMessage = ''
       switch (props.type) {
         case 'address':
-          newValid = isAddress(value)
+          valid = isAddress(value)
           if (!valid) validityMessage = 'Invalid Address'
           break
       }
@@ -41,33 +39,34 @@ const TextInput = ({
       inputRef.current.setCustomValidity(validityMessage)
     }
 
-    if (!isTouched) setIsTouched(true)
-    if (newValid !== valid) setValid(newValid)
+    return valid
   }
 
   const isInvalid = invalid || !valid
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!isTouched) setIsTouched(true)
     const value = e.target.value
-
     onChange(value)
-    handleValidity(value)
+    setValid(testValidity(value))
   }
 
   return (
-    <>
+    <div className="form-control w-auto">
       <label className={cn('label', !label && 'hidden')}>
         <span className="label-text">{label}</span>
       </label>
 
       <Input
+        // onKeyDown={handleKeyDown}
         placeholder={props.placeholder ?? 'Type Here'}
         onChange={handleChange}
         ref={inputRef}
+        // data-inputindex={inputIndex}
         {...(isTouched && isInvalid && { color: 'warning' })}
         {...props}
       />
-    </>
+    </div>
   )
 }
 

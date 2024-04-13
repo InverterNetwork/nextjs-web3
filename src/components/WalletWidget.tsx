@@ -1,6 +1,6 @@
 'use client'
 
-import { compressAddress } from '@/lib/utils'
+import { format } from '@/lib/utils'
 import { useAppContext } from '@/providers'
 import {
   DynamicUserProfile,
@@ -29,7 +29,7 @@ export default function WalletWidget() {
           color="accent"
           onClick={() => setShowDynamicUserProfile(true)}
         >
-          {compressAddress(address)}
+          {format.compressAddress(address)}
         </Button>
         <DynamicUserProfile />
       </div>

@@ -9,7 +9,7 @@ export default function RouteProgressBar() {
   return (
     <AppProgressBar
       height="4px"
-      color={theme === 'light' ? light.accent : dark.accent}
+      color={theme === 'light' ? light.primary : dark.primary}
       options={{ showSpinner: false }}
     />
   )

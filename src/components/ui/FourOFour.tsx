@@ -6,7 +6,7 @@ export default function FourOFour() {
       <h1>404 / Page Not Found</h1>
       <div className="divider" />
       <Link href="/">
-        <button className="btn btn-primary">Explore</button>
+        <button className="btn btn-primary">Home</button>
       </Link>
     </div>
   )

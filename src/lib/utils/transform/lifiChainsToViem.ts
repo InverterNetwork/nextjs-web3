@@ -2,7 +2,7 @@ import type { ExtendedChain } from '@lifi/sdk'
 import type { Chain } from 'viem'
 import { mainnet } from 'viem/chains'
 
-export function transformLifiChainsToWagmiChains(
+export default function lifiChainsToViemChains(
   chains: ExtendedChain[] | undefined
 ): readonly [Chain, ...Chain[]] {
   return [

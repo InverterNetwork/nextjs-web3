@@ -1,11 +1,7 @@
 'use client'
 
 import { Global } from '@emotion/react'
-import {
-  lifi,
-  transformLifiChainsToDynamicEvmNetworks,
-  transformLifiChainsToWagmiChains,
-} from '@/lib'
+import { lifi } from '@/lib'
 import { getDynamicTheme } from '../styles/dynamicTheme'
 import { EthereumWalletConnectors } from '@dynamic-labs/ethereum'
 import { MagicEvmWalletConnectors } from '@dynamic-labs/magic'
@@ -14,6 +10,7 @@ import { DynamicWagmiConnector } from '@dynamic-labs/wagmi-connector'
 import { useEffect, useState } from 'react'
 import { useTheme } from '@/hooks'
 import { WagmiProvider, createConfig, http } from 'wagmi'
+import { transform } from '@/lib/utils'
 
 export default function ConnectorProvider({
   children,
@@ -33,8 +30,8 @@ export default function ConnectorProvider({
     lifi.getChains().then(setLifiChains)
   }, [])
 
-  const evmNetworks = transformLifiChainsToDynamicEvmNetworks(lifiChains)
-  const wagmiChains = transformLifiChainsToWagmiChains(lifiChains)
+  const evmNetworks = transform.lifiChainsToDynamic(lifiChains)
+  const wagmiChains = transform.lifiChainsToViem(lifiChains)
 
   const config = createConfig({
     chains: wagmiChains,

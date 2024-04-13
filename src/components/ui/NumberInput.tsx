@@ -1,61 +1,59 @@
 'use client'
 
-import { formatAmountString } from '../../lib/utils'
+import { useIsHydrated } from '@/hooks'
+import { format } from '@/lib/utils'
 import { cn } from '@/styles/cn'
 import { useState, useRef } from 'react'
 import { Input, type InputProps } from 'react-daisyui'
-
-type NumberInputRestProps = Omit<
-  InputProps,
-  'onChange' | 'color' | 'type' | 'inputMode'
->
-
-type NumberInputProps = {
-  onChange: (string: string) => void
-  label?: string
-  invalid?: boolean
-} & NumberInputRestProps
 
 export default function NumberInput({
   onChange,
   label,
   invalid = false,
   ...props
-}: NumberInputProps) {
+}: {
+  onChange: (string: string) => void
+  label?: string
+  invalid?: boolean
+} & Omit<InputProps, 'onChange' | 'color' | 'type' | 'inputMode'>) {
   const stepNumber = Number(props.step ?? 1)
 
+  const isHydrated = useIsHydrated()
   const [isTouched, setIsTouched] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
-  const [valid, setValid] = useState(false)
-
-  const handleValidity = () => {
-    let newValid = inputRef.current?.validity.valid ?? false
-
-    if (!isTouched) setIsTouched(true)
-    if (newValid !== valid) setValid(newValid)
-  }
 
   const handleIncrementOrDecrement = (inc?: boolean) => {
-    if (!!inputRef.current) {
-      const newValue =
-          Number(inputRef.current.value) + (!!inc ? stepNumber : -stepNumber),
-        newString = formatAmountString(newValue.toString())
-      inputRef.current.value = newString
-      onChange(newString)
-      handleValidity()
-    }
+    let newValue =
+      Number(inputRef.current?.value) + (!!inc ? stepNumber : -stepNumber)
+    const newString = format.amountString(newValue.toString())
+
+    if (!!inputRef.current) inputRef.current.value = newString
+    onChange(newString)
+    if (!isTouched) setIsTouched(true)
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value
-    onChange(formatAmountString(value))
-    handleValidity()
+    onChange(format.amountString(e.target.value))
+    if (!isTouched) setIsTouched(true)
   }
 
-  const isInvalid = invalid || !valid
+  const scanValidity = () => {
+    let valid = inputRef.current?.validity.valid ?? true
+
+    if (isHydrated) return valid
+
+    if (!!inputRef.current) {
+      // let validityMessage = ''
+      // inputRef.current.setCustomValidity(validityMessage)
+    }
+
+    return valid
+  }
+
+  const isInvalid = invalid || !scanValidity()
 
   return (
-    <>
+    <div className="form-control w-auto">
       <label className={cn('label', !label && 'hidden')}>
         <span className="label-text">{label}</span>
       </label>
@@ -93,6 +91,6 @@ export default function NumberInput({
           +
         </button>
       </div>
-    </>
+    </div>
   )
 }

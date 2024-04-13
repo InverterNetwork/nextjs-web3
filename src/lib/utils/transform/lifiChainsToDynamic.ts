@@ -1,9 +1,9 @@
-import { type EvmNetwork } from '@dynamic-labs/sdk-react-core'
+import { type GenericNetwork } from '@dynamic-labs/types'
 import { type ExtendedChain } from '@lifi/sdk'
 
-export const transformLifiChainsToDynamicEvmNetworks = (
+export default function lifiChainsToDynamicChains(
   chains?: ExtendedChain[]
-): EvmNetwork[] | undefined => {
+): GenericNetwork[] | undefined {
   if (!chains) return undefined
   return chains.map((i) => {
     const { key, name, logoURI, metamask, id } = i
