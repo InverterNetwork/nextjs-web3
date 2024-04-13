@@ -7,7 +7,7 @@ import { EthereumWalletConnectors } from '@dynamic-labs/ethereum'
 import { MagicEvmWalletConnectors } from '@dynamic-labs/magic'
 import { DynamicContextProvider } from '@dynamic-labs/sdk-react-core'
 import { DynamicWagmiConnector } from '@dynamic-labs/wagmi-connector'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useTheme } from '@/hooks'
 import { WagmiProvider, createConfig, http } from 'wagmi'
 import { transform } from '@/lib/utils'
@@ -17,10 +17,11 @@ export default function ConnectorProvider({
 }: {
   children: React.ReactNode
 }) {
-  const { theme } = useTheme()
-  const { cssOverrides, shadowDomOverWrites } = getDynamicTheme(
-    theme === 'light'
-  )
+  const { theme } = useTheme(),
+    { cssOverrides, shadowDomOverWrites } = useMemo(
+      () => getDynamicTheme(theme === 'light'),
+      [theme]
+    )
 
   const [lifiChains, setLifiChains] = useState<
     Awaited<ReturnType<typeof lifi.getChains>> | undefined
@@ -30,21 +31,24 @@ export default function ConnectorProvider({
     lifi.getChains().then(setLifiChains)
   }, [])
 
-  const evmNetworks = transform.lifiChainsToDynamic(lifiChains)
-  const wagmiChains = transform.lifiChainsToViem(lifiChains)
+  const { evmNetworks, config } = useMemo(() => {
+    const evmNetworks = transform.lifiChainsToDynamic(lifiChains),
+      wagmiChains = transform.lifiChainsToViem(lifiChains),
+      config = createConfig({
+        chains: wagmiChains,
+        multiInjectedProviderDiscovery: false,
+        transports: wagmiChains?.reduce(
+          (acc, chain) => {
+            acc[chain.id] = http()
+            return acc
+          },
+          {} as Record<string, ReturnType<typeof http>>
+        ),
+        ssr: true,
+      })
 
-  const config = createConfig({
-    chains: wagmiChains,
-    multiInjectedProviderDiscovery: false,
-    transports: wagmiChains?.reduce(
-      (acc, chain) => {
-        acc[chain.id] = http()
-        return acc
-      },
-      {} as Record<string, ReturnType<typeof http>>
-    ),
-    ssr: true,
-  })
+    return { evmNetworks, config }
+  }, [lifiChains])
 
   // RENDER
   return (
