@@ -5,7 +5,9 @@ import { Auth } from '@/lib/types'
 import { useDynamicContext } from '@dynamic-labs/sdk-react-core'
 import { useQuery } from '@tanstack/react-query'
 
-export default function useAuthHandler() {
+const MONGO_URI = process.env.MONGO_URI
+
+export default function useAuth() {
   const { authToken, primaryWallet } = useDynamicContext()
 
   const authQuery = useQuery({
@@ -18,7 +20,7 @@ export default function useAuthHandler() {
 
       return json
     },
-    enabled: !!authToken && primaryWallet?.connected,
+    enabled: !!authToken && primaryWallet?.connected && !!MONGO_URI,
   })
 
   return authQuery

@@ -42,4 +42,6 @@ const setModel = () => model('users', UserSchema)
 
 if (!models.users) setModel()
 
-export default models.users as ReturnType<typeof setModel>
+const users = models.users as ReturnType<typeof setModel>
+
+export default users

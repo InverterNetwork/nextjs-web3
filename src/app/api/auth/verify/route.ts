@@ -5,15 +5,15 @@ import { getBearer } from '@/lib/utils/bearer'
 import session from '@/lib/utils/session'
 import jwt from 'jsonwebtoken'
 
-if (!process.env.DYNAMIC_PUBLIC_KEY)
-  throw new Error(
-    'No DYNAMIC_PUBLIC_KEY was found in the Environment Variables Please add it'
-  )
-
-const publicKey = process.env.DYNAMIC_PUBLIC_KEY.replace(/\\n/g, '\n')
+const nullablePublicKey = process.env.DYNAMIC_PUBLIC_KEY,
+  publicKey = !!nullablePublicKey
+    ? nullablePublicKey.replace(/\\n/g, '\n')
+    : undefined
 
 export async function GET(req: Request) {
   return await helper.apiResponse(async () => {
+    if (!publicKey) throw new HTTPError('Public Key is not defined', 500)
+
     // Get Authorization Header
     const authToken = getBearer(req) // Get Bearer token
 
