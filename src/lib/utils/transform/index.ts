@@ -2,10 +2,8 @@ import viemChainsToDynamic from './viemChainsToDynamic'
 import lifiChainsToViem from './lifiChainsToViem'
 import lifiChainsToDynamic from './lifiChainsToDynamic'
 
-const main = {
+export default {
   viemChainsToDynamic,
   lifiChainsToViem,
   lifiChainsToDynamic,
 }
-
-export default main

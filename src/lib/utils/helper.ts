@@ -38,10 +38,8 @@ const delay = (seconds: number) =>
 const unixTime = (date?: Date) =>
   Math.floor((date ?? new Date()).getTime() / 1000)
 
-const main = {
+export default {
   apiResponse,
   delay,
   unixTime,
 }
-
-export default main

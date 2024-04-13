@@ -10,8 +10,7 @@ export default function Frame({
   return (
     <div
       className={cn(
-        `container bg-base-100 rounded-box flex gap-3 
-    mx-auto p-4 border border-faint flex-col`,
+        `container bg-base-100 rounded-box flex gap-3 mx-auto p-4 border border-faint flex-col`,
         className
       )}
     >

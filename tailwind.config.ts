@@ -1,10 +1,12 @@
-import type { Config } from 'tailwindcss'
+import type { Config as TailwindConfig } from 'tailwindcss'
 import type { Config as DaisyUIConfig } from 'daisyui'
 import { dark, light } from './src/styles'
 
-const config: Config & {
+type Config = TailwindConfig & {
   daisyui: DaisyUIConfig
-} = {
+}
+
+const config: Config = {
   theme: {
     extend: {
       borderColor: {

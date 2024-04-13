@@ -45,12 +45,10 @@ const unixTimeToDate = (date: number) =>
     day: '2-digit',
   }).format(date * 1000)
 
-const main = {
+export default {
   amountString,
   toCompactNumber,
   compressAddress,
   firstLetterToUpperCase,
   unixTimeToDate,
 }
-
-export default main

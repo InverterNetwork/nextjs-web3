@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+
+export default {
   transpilePackages: ['react-daisyui'],
   reactStrictMode: true,
   images: {
@@ -15,5 +16,3 @@ const nextConfig = {
     return config
   },
 }
-
-module.exports = nextConfig

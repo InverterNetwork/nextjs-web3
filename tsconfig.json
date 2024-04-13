@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "lib": ["dom", "dom.iterable", "esnext"],
-    "tsBuildInfoFile": "./tsconfig.tsbuildinfo",
     "forceConsistentCasingInFileNames": true,
     "allowJs": true,
     "skipLibCheck": true,

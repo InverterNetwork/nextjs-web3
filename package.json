@@ -12,10 +12,10 @@
     "release": "standard-version"
   },
   "dependencies": {
-    "@dynamic-labs/ethereum": "^2.0.0-alpha",
-    "@dynamic-labs/magic": "^2.0.0-alpha",
-    "@dynamic-labs/sdk-react-core": "^2.0.0-alpha",
-    "@dynamic-labs/wagmi-connector": "^2.0.0-alpha",
+    "@dynamic-labs/ethereum": "2.0.0-alpha.23",
+    "@dynamic-labs/magic": "2.0.0-alpha.23",
+    "@dynamic-labs/sdk-react-core": "2.0.0-alpha.23",
+    "@dynamic-labs/wagmi-connector": "2.0.0-alpha.23",
     "@emotion/react": "^11",
     "@lifi/sdk": "^2",
     "@reduxjs/toolkit": "^2",
@@ -37,6 +37,7 @@
     "@commitlint/config-conventional": "^19",
     "@tailwindcss/typography": "^0",
     "@types/bun": "^1",
+    "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10",
@@ -57,8 +58,8 @@
     "zod": "^3",
     "lodash": "^4",
     "@tanstack/react-query": "^5",
-    "viem": "2.7.6",
-    "wagmi": "2.5.7"
+    "viem": "^2.7.6",
+    "wagmi": "^2.5.7"
   },
   "browser": {
     "fs": false,
