@@ -58,7 +58,7 @@ function RootLayout({ children }: { children: React.ReactNode }) {
       <link rel="icon" href="/icon-512x512.png" />
       <meta name="theme-color" content="#000000" />
       <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-      <body className="bg-base-300">
+      <body>
         <Analytics />
         <Providers theme={theme}>
           <RouteProgressBar />
