@@ -1,11 +1,19 @@
 'use client'
 
-import { GTM_ID, pageview } from '../lib/gtm'
+import { GTM_ID, pageview } from '@/lib/utils/gtm'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { Suspense, useEffect } from 'react'
 import Script from 'next/script'
 
 export default function Analytics() {
+  return (
+    <Suspense>
+      <Root />
+    </Suspense>
+  )
+}
+
+function Root() {
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
@@ -18,7 +26,7 @@ export default function Analytics() {
   if (!enabled) return null
 
   return (
-    <Suspense>
+    <>
       <noscript>
         <iframe
           src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
@@ -40,6 +48,6 @@ export default function Analytics() {
   `,
         }}
       />
-    </Suspense>
+    </>
   )
 }

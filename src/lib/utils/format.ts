@@ -1,4 +1,4 @@
-export function formatAmountString(input: string): string {
+function amountString(input: string): string {
   // Remove any leading zeros
   let sanitizedInput = input.replace(/^0+(?=[1-9])/g, '')
   // Replace commas with periods
@@ -18,7 +18,7 @@ export function formatAmountString(input: string): string {
   return sanitizedInput
 }
 
-export function formatToCompactNumber(value?: string | number) {
+function toCompactNumber(value?: string | number) {
   const number = Number(value)
   if (isNaN(number)) return '...'
 
@@ -30,4 +30,25 @@ export function formatToCompactNumber(value?: string | number) {
   })
 
   return formatter.format(number)
+}
+
+const compressAddress = (address?: string) =>
+  !address ? '...' : address.slice(0, 4) + '...' + address.slice(-4)
+
+const firstLetterToUpperCase = (text: string) =>
+  text.charAt(0).toUpperCase() + text.slice(1)
+
+const unixTimeToDate = (date: number) =>
+  new Intl.DateTimeFormat('en-CA', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(date * 1000)
+
+export default {
+  amountString,
+  toCompactNumber,
+  compressAddress,
+  firstLetterToUpperCase,
+  unixTimeToDate,
 }

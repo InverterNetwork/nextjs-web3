@@ -3,6 +3,7 @@
 import { UseToastHandlerReturn } from '../../hooks/useToastHandler'
 import { useEffect } from 'react'
 import { Alert, Button, Toast } from 'react-daisyui'
+import { IoMdCloseCircleOutline } from 'react-icons/io'
 
 export default function DynamicToast({
   removeToast,
@@ -24,21 +25,22 @@ export default function DynamicToast({
     <Toast
       vertical="top"
       horizontal="start"
-      className={'whitespace-break-spaces break-all'}
+      className={'whitespace-break-spaces break-all z-50'}
     >
       {alerts.map((alert, index) => (
         <Alert
           key={index}
           status={alert.status}
-          className="px-2 py-1 flex text-xs items-center"
+          className="px-2 py-1 flex text-xs items-center border border-faint"
         >
           <p>{alert.text}</p>
           <Button
             className="ml-auto"
             color="ghost"
+            size="sm"
             onClick={() => removeToast(index)}
           >
-            X
+            <IoMdCloseCircleOutline size={20} />
           </Button>
         </Alert>
       ))}

@@ -1,6 +1,6 @@
 import { UserModel } from '@/lib/models'
 import { Auth, HTTPError } from '@/lib/types'
-import { handleApiResponse } from '@/lib/utils'
+import { helper } from '@/lib/utils'
 import { getBearer } from '@/lib/utils/bearer'
 import session from '@/lib/utils/session'
 import jwt from 'jsonwebtoken'
@@ -13,7 +13,7 @@ if (!process.env.DYNAMIC_PUBLIC_KEY)
 const publicKey = process.env.DYNAMIC_PUBLIC_KEY.replace(/\\n/g, '\n')
 
 export async function GET(req: Request) {
-  return await handleApiResponse(async () => {
+  return await helper.apiResponse(async () => {
     // Get Authorization Header
     const authToken = getBearer(req) // Get Bearer token
 

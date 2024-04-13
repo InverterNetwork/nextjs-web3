@@ -1,10 +1,8 @@
 'use client'
 
 import useIsHydratedHandler from '../hooks/useIsHydratedHandler'
-import { setThemeCookie } from '../lib/utils'
-import { createContext, useContext, useEffect } from 'react'
+import { createContext, useContext } from 'react'
 import useAuthHandler from '@/hooks/useAuthHandler'
-import { useTheme } from '../hooks'
 
 export type TAppContext = {
   auth: ReturnType<typeof useAuthHandler>
@@ -18,7 +16,6 @@ export default function AppProvider({
 }: {
   children: React.ReactNode
 }) {
-  const { theme } = useTheme()
   const isHydrated = useIsHydratedHandler()
   const auth = useAuthHandler()
 
@@ -29,11 +26,6 @@ export default function AppProvider({
     isHydrated,
   }
 
-  // EFFECTS
-  //==============================================
-  useEffect(() => {
-    setThemeCookie(theme)
-  }, [theme])
   // RETURN
   //==============================================
   return (

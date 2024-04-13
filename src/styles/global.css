@@ -2,9 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Archivo';
+  src: url('/Archivo-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'PowerGrotesk';
+  src: url('/PowerGrotesk-Regular.ttf') format('truetype');
+}
+
 html {
   overflow-x: hidden;
-  font-family: 'Open Sans';
+  font-family: 'Archivo';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -21,6 +31,7 @@ html {
 }
 
 body {
+  @apply bg-base-300;
   width: 100vw;
   min-height: 100vh;
   padding: 1.5rem;
@@ -28,32 +39,25 @@ body {
   padding-bottom: 10rem;
 }
 
-.navbar-c {
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  align-items: center;
-  padding: 0.5rem;
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  z-index: 10;
-  width: max-content;
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'PowerGrotesk';
 }
 
 h1 {
-  @apply text-3xl font-extrabold;
+  @apply text-4xl sm:text-5xl font-extrabold;
 }
 
 h2 {
-  @apply text-2xl font-bold;
+  @apply text-3xl sm:text-4xl font-bold;
 }
 
 h3 {
-  @apply text-xl font-semibold;
+  @apply text-2xl sm:text-3xl font-semibold;
 }
 
 h4 {
-  @apply text-lg;
+  @apply text-xl sm:text-2xl font-medium;
 }

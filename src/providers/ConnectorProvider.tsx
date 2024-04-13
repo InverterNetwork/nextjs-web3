@@ -1,36 +1,54 @@
 'use client'
 
 import { Global } from '@emotion/react'
-import { lifi, transformLifiChainsToDynamicEvmNetworks } from '@/lib'
-import { getDynamicTheme } from '@/styles/dynamicTheme'
+import { lifi } from '@/lib'
+import { getDynamicTheme } from '../styles/dynamicTheme'
 import { EthereumWalletConnectors } from '@dynamic-labs/ethereum'
-import { MagicWalletConnectors } from '@dynamic-labs/magic'
+import { MagicEvmWalletConnectors } from '@dynamic-labs/magic'
 import { DynamicContextProvider } from '@dynamic-labs/sdk-react-core'
 import { DynamicWagmiConnector } from '@dynamic-labs/wagmi-connector'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useTheme } from '@/hooks'
+import { WagmiProvider, createConfig, http } from 'wagmi'
+import { transform } from '@/lib/utils'
 
 export default function ConnectorProvider({
   children,
 }: {
   children: React.ReactNode
 }) {
-  const { theme } = useTheme()
-  const { cssOverrides, shadowDomOverWrites } = getDynamicTheme(
-    theme === 'light'
-  )
-
-  const [evmNetworks, setEvmNetworks] =
-    useState<ReturnType<typeof transformLifiChainsToDynamicEvmNetworks>>(
-      undefined
+  const { theme } = useTheme(),
+    { cssOverrides, shadowDomOverWrites } = useMemo(
+      () => getDynamicTheme(theme === 'light'),
+      [theme]
     )
 
+  const [lifiChains, setLifiChains] = useState<
+    Awaited<ReturnType<typeof lifi.getChains>> | undefined
+  >(undefined)
+
   useEffect(() => {
-    lifi.getChains().then((lifiChains) => {
-      const evmNetworks = transformLifiChainsToDynamicEvmNetworks(lifiChains)
-      setEvmNetworks(evmNetworks)
-    })
+    lifi.getChains().then(setLifiChains)
   }, [])
+
+  const { evmNetworks, config } = useMemo(() => {
+    const evmNetworks = transform.lifiChainsToDynamic(lifiChains),
+      wagmiChains = transform.lifiChainsToViem(lifiChains),
+      config = createConfig({
+        chains: wagmiChains,
+        multiInjectedProviderDiscovery: false,
+        transports: wagmiChains?.reduce(
+          (acc, chain) => {
+            acc[chain.id] = http()
+            return acc
+          },
+          {} as Record<string, ReturnType<typeof http>>
+        ),
+        ssr: true,
+      })
+
+    return { evmNetworks, config }
+  }, [lifiChains])
 
   // RENDER
   return (
@@ -40,11 +58,18 @@ export default function ConnectorProvider({
         settings={{
           environmentId: process.env.NEXT_PUBLIC_DYNAMIC_ID || '',
           cssOverrides,
-          walletConnectors: [EthereumWalletConnectors, MagicWalletConnectors],
-          evmNetworks,
+          walletConnectors: [
+            EthereumWalletConnectors,
+            MagicEvmWalletConnectors,
+          ],
+          overrides: {
+            evmNetworks,
+          },
         }}
       >
-        <DynamicWagmiConnector>{children}</DynamicWagmiConnector>
+        <WagmiProvider config={config}>
+          <DynamicWagmiConnector>{children}</DynamicWagmiConnector>
+        </WagmiProvider>
       </DynamicContextProvider>
     </>
   )

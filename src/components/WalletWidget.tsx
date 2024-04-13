@@ -1,7 +1,7 @@
 'use client'
 
 import { useIsHydrated } from '@/hooks'
-import { compressAddress } from '@/lib/utils'
+import { format } from '@/lib/utils'
 import {
   DynamicUserProfile,
   useDynamicContext,
@@ -24,14 +24,18 @@ export default function WalletWidget() {
   if (isAuthenticated)
     return (
       <div>
-        <Button size="sm" onClick={() => setShowDynamicUserProfile(true)}>
-          {compressAddress(address)}
+        <Button
+          size="sm"
+          color="accent"
+          onClick={() => setShowDynamicUserProfile(true)}
+        >
+          {format.compressAddress(address)}
         </Button>
         <DynamicUserProfile />
       </div>
     )
   return (
-    <Button size="sm" onClick={() => setShowAuthFlow(true)}>
+    <Button size="sm" color="primary" onClick={() => setShowAuthFlow(true)}>
       Connect Wallet
     </Button>
   )

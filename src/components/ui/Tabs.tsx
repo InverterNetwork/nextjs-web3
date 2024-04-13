@@ -1,5 +1,6 @@
 'use client'
 
+import { cn } from '@/styles/cn'
 import { Tabs as DaisyTabs, type TabsProps } from 'react-daisyui'
 
 const { Tab } = DaisyTabs
@@ -14,8 +15,9 @@ export default function Tabs({
   tab: number
   setTab(page: number): void
 } & TabsProps) {
+  const { className, ...rest } = props
   return (
-    <DaisyTabs {...props}>
+    <DaisyTabs {...rest} className={cn(className, 'border border-faint')}>
       {(tabs ?? []).map((i, index) => (
         <Tab
           key={index}
