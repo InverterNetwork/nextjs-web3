@@ -17,7 +17,7 @@ import { CacheType } from '@/lib/types'
  * handleRemoteCache('Chains', LifiService.getChains, {})
  * handleRemoteCache('FiatRate', () => ExternalCallService.fetchExchangeRate('USD'), { 'data.base': 'USD' })
  */
-export default async function handleRemoteCache<T>(
+export default async function <T>(
   modelName: CacheType,
   fetchLatestData: () => T,
   filter: Record<string, string> = {},

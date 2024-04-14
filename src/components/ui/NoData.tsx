@@ -1,6 +1,6 @@
 import { FaDatabase } from 'react-icons/fa'
 
-export default function NoData({ inline = false }: { inline?: boolean }) {
+export function NoData({ inline = false }: { inline?: boolean }) {
   if (inline)
     return (
       <div className="flex items-center gap-3">

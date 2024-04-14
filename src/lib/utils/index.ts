@@ -1,5 +1,11 @@
-export { default as helper } from './helper'
-export { default as format } from './format'
-export { default as transform } from './transform'
-export * from './authorization'
-export * from './bearer'
+import misc from './misc'
+import main from './main'
+import format from './format'
+import transform from './transform'
+
+export default {
+  ...misc,
+  ...main,
+  format,
+  transform,
+}

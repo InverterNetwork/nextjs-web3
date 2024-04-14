@@ -2,11 +2,9 @@
 
 import { useState } from 'react'
 import { Button } from 'react-daisyui'
-import Copy from './Copy'
+import { Copy, NumberInput, TextInput, TextInputProps } from '.'
 import { cn } from '@/styles/cn'
 import React from 'react'
-import NumberInput from './NumberInput'
-import TextInput, { TextInputProps } from './TextInput'
 
 type SubmitableFormProps = {
   rows: TextInputProps[]
@@ -22,7 +20,7 @@ type SubmitableFormProps = {
   HTMLDivElement
 >
 
-export default function SubmitableForm({
+export function SubmitableForm({
   rows,
   header,
   data,

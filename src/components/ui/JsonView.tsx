@@ -10,7 +10,7 @@ import {
 } from 'react-json-view-lite'
 import 'react-json-view-lite/dist/index.css'
 
-const JsonView = (json: any) => {
+export const JsonView = (json: any) => {
   const isLight = useTheme().theme === 'light'
   return (
     <JsonViewOrg
@@ -20,5 +20,3 @@ const JsonView = (json: any) => {
     />
   )
 }
-
-export default JsonView

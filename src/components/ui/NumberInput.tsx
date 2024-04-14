@@ -1,12 +1,12 @@
 'use client'
 
 import { useIsHydrated } from '@/hooks'
-import { format } from '@/lib/utils'
+import utils from '@/lib/utils'
 import { cn } from '@/styles/cn'
 import { useState, useRef } from 'react'
 import { Input, type InputProps } from 'react-daisyui'
 
-export default function NumberInput({
+export function NumberInput({
   onChange,
   label,
   invalid = false,
@@ -25,7 +25,7 @@ export default function NumberInput({
   const handleIncrementOrDecrement = (inc?: boolean) => {
     let newValue =
       Number(inputRef.current?.value) + (!!inc ? stepNumber : -stepNumber)
-    const newString = format.amountString(newValue.toString())
+    const newString = utils.format.amountString(newValue.toString())
 
     if (!!inputRef.current) inputRef.current.value = newString
     onChange(newString)
@@ -33,7 +33,7 @@ export default function NumberInput({
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(format.amountString(e.target.value))
+    onChange(utils.format.amountString(e.target.value))
     if (!isTouched) setIsTouched(true)
   }
 

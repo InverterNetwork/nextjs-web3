@@ -2,7 +2,7 @@
 
 import { type AccordionProps, Accordion as DaisyAccordion } from 'react-daisyui'
 
-export default function Accordion({
+export function Accordion({
   items,
   ...props
 }: {

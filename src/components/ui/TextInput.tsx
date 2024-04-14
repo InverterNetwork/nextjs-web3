@@ -14,7 +14,7 @@ export type TextInputProps = {
     type?: InputProps['type'] | 'address'
   }
 
-const TextInput = ({
+export const TextInput = ({
   onChange,
   label,
   invalid = false,
@@ -69,5 +69,3 @@ const TextInput = ({
     </div>
   )
 }
-
-export default TextInput

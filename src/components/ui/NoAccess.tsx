@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-export default function NoAccess() {
+export function NoAccess() {
   return (
     <div className="felx flex-col gap-5">
       <h1>You Dont Have Access To Visit this Page</h1>

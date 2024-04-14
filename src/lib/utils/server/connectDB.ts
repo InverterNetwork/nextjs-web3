@@ -1,3 +1,7 @@
+// This File Can Not Contain use server or use client,
+// it is meant to be consumed by next.js primitively
+// parent folder can contain server or client code
+
 import { connect } from 'mongoose'
 
 const MONGO_URI = process.env.MONGO_URI
@@ -16,7 +20,7 @@ if (!cached) {
   cached = global.mongoose = { conn: null, promise: null }
 }
 
-async function connectDB() {
+export default async function () {
   if (cached.conn) return cached.conn
 
   if (!cached.promise) {
@@ -42,5 +46,3 @@ async function connectDB() {
 
   return cached.conn
 }
-
-export default connectDB

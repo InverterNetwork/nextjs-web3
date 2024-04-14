@@ -1,14 +1,11 @@
 'use client'
 
-import { UseToastHandlerReturn } from '../../hooks/useToastHandler'
+import { UseToastHandlerReturn } from '@/hooks/useToastHandler'
 import { useEffect } from 'react'
 import { Alert, Button, Toast } from 'react-daisyui'
 import { IoMdCloseCircleOutline } from 'react-icons/io'
 
-export default function DynamicToast({
-  removeToast,
-  alerts,
-}: UseToastHandlerReturn) {
+export function DynamicToast({ removeToast, alerts }: UseToastHandlerReturn) {
   // using use effect remove the toast after 5 seconds starting from the most recent toast
   useEffect(() => {
     // make this run until alerts length is gone

@@ -1,6 +1,6 @@
 import { cn } from '@/styles/cn'
 
-export default function Frame({
+export function Frame({
   children,
   className,
 }: {

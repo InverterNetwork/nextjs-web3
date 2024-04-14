@@ -1,14 +1,14 @@
 'use client'
 
 import { useIsHydrated } from '@/hooks'
-import { format } from '@/lib/utils'
+import utils from '@/lib/utils'
 import {
   DynamicUserProfile,
   useDynamicContext,
 } from '@dynamic-labs/sdk-react-core'
 import { Button, Loading } from 'react-daisyui'
 
-export default function WalletWidget() {
+export function WalletWidget() {
   const isHydrated = useIsHydrated()
   const {
     setShowDynamicUserProfile,
@@ -29,7 +29,7 @@ export default function WalletWidget() {
           color="accent"
           onClick={() => setShowDynamicUserProfile(true)}
         >
-          {format.compressAddress(address)}
+          {utils.format.compressAddress(address)}
         </Button>
         <DynamicUserProfile />
       </div>

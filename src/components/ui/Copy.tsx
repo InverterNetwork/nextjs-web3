@@ -1,10 +1,10 @@
 'use client'
 
-import { useToast } from '../../hooks'
+import { useToast } from '@/hooks'
 import { Button } from 'react-daisyui'
 import { BsCopy } from 'react-icons/bs'
 
-export default function Copy({ data }: { data: any }) {
+export function Copy({ data }: { data: any }) {
   const { addToast } = useToast()
   return (
     <Button

@@ -1,9 +1,9 @@
 import React from 'react'
 import type { Metadata } from 'next'
-import Providers from '@/providers'
 import { RouteProgressBar, Navbar } from '@/components'
 import { cookies } from 'next/headers'
 import { initialTheme } from '@/styles'
+import Providers from '@/providers'
 import Analytics from '@/providers/Analytics'
 import '@/styles/global.css'
 

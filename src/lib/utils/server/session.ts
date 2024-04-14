@@ -1,7 +1,7 @@
 import nextAppSession, { promisifyStore } from 'next-app-session'
 import MongoStore from 'connect-mongo'
 import connectDB from './connectDB'
-import { User } from '../types'
+import { User } from '@/lib/types'
 
 const session = nextAppSession<Partial<User>>({
   name: 'session-sid', // The cookie name that will hold sid

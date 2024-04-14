@@ -3,14 +3,13 @@
 import { usePathname } from 'next/navigation'
 import Image from 'next/image'
 import NextLink from 'next/link'
-import ThemeSwitcher from './ThemeSwitcher'
+import { ThemeSwitcher, WalletWidget } from '.'
 import Link from 'next/link'
 import { Button, Dropdown } from 'react-daisyui'
-import WalletWidget from './WalletWidget'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { cn } from '@/styles/cn'
 
-export default function Navbar() {
+export function Navbar() {
   const pathname = usePathname()
   return (
     <div
@@ -36,7 +35,7 @@ export default function Navbar() {
       <WalletWidget />
 
       <div className="items-center lg:flex hidden gap-4">
-        <h1>|</h1>
+        <h4>|</h4>
         <NavItems pathname={pathname} />
       </div>
 

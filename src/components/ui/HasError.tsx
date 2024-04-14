@@ -1,13 +1,7 @@
 import Link from 'next/link'
-import JsonView from './JsonView'
+import { JsonView } from '.'
 
-export default function HasError({
-  error,
-  reset,
-}: {
-  error: any
-  reset?: () => void
-}) {
+export function HasError({ error, reset }: { error: any; reset?: () => void }) {
   return (
     <div className="felx flex-col gap-5">
       <h1>We Have Encountered An Error</h1>

@@ -1,7 +1,7 @@
 'use client'
 
 import { useAuth } from '@/hooks'
-import useIsHydratedHandler from '../hooks/useIsHydratedHandler'
+import useIsHydratedHandler from '@/hooks/useIsHydratedHandler'
 import { createContext, useContext } from 'react'
 
 export type TAppContext = {

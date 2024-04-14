@@ -1,8 +1,7 @@
 import { UserModel } from '@/lib/models'
 import { Auth, HTTPError } from '@/lib/types'
-import { helper } from '@/lib/utils'
-import { getBearer } from '@/lib/utils/bearer'
-import session from '@/lib/utils/session'
+import utils from '@/lib/utils'
+import session from '@/lib/utils/server/session'
 import jwt from 'jsonwebtoken'
 
 const nullablePublicKey = process.env.DYNAMIC_PUBLIC_KEY,
@@ -11,11 +10,11 @@ const nullablePublicKey = process.env.DYNAMIC_PUBLIC_KEY,
     : undefined
 
 export async function GET(req: Request) {
-  return await helper.apiResponse(async () => {
+  return await utils.apiResponse(async () => {
     if (!publicKey) throw new HTTPError('Public Key is not defined', 500)
 
     // Get Authorization Header
-    const authToken = getBearer(req) // Get Bearer token
+    const authToken = utils.bearer.get(req) // Get Bearer token
 
     // If no Authorization Header was found
     if (authToken === 'undefined') {

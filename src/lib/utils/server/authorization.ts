@@ -1,12 +1,12 @@
 'use server'
 
-import session from '@/lib/utils/session'
 import { type Hex } from 'viem'
-import { UserModel } from '../models'
-import { authorized, UserRole } from '@/lib/types'
 import { scrypt, randomBytes } from 'crypto'
 import { promisify } from 'util'
-import { splitBearer } from './bearer'
+import session from './session'
+import { UserModel } from '../../models'
+import bearer from '../main/bearer'
+import { authorized, UserRole } from '@/lib/types'
 
 export async function ownerOnly(token?: string) {
   const sessionAddress = <Hex | undefined>await session().get('address')
@@ -20,7 +20,7 @@ export async function ownerOnly(token?: string) {
   } else {
     authorized(token, 'No Bearer Token provided')
 
-    const { key, secret } = splitBearer(token)
+    const { key, secret } = bearer.split(token)
 
     const user = await UserModel.findOne(
       { 'apiSecrets.uid': key },

@@ -1,8 +1,8 @@
 'use client'
 
 import { setThemeCookie } from '@/styles/utils'
-import { DynamicToast } from '../components'
-import useToastHandler from '../hooks/useToastHandler'
+import { DynamicToast } from '@/components'
+import useToastHandler from '@/hooks/useToastHandler'
 import { createContext, useContext, useEffect, useState } from 'react'
 
 export type TThemeContext = {

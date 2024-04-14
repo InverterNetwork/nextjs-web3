@@ -1,12 +1,12 @@
 import { NextRequest } from 'next/server'
-import { isNotEmpty } from '../types'
+import { isNotEmpty } from '@/lib/types'
 
-export const getBearer = (req: Request | NextRequest) => {
+const get = (req: Request | NextRequest) => {
   const token = req.headers.get('authorization')?.split(' ')[1]
   return token
 }
 
-export const splitBearer = (token: string) => {
+const split = (token: string) => {
   const [key, secret] = token.split(':')
 
   isNotEmpty(key || secret, 'Key or Secret is empty')
@@ -14,7 +14,7 @@ export const splitBearer = (token: string) => {
   return { key, secret }
 }
 
-export const getBearerConfig = (token?: string) => {
+const getConfig = (token?: string) => {
   if (!token) throw new Error('No token provided')
 
   const config: RequestInit = {
@@ -25,4 +25,10 @@ export const getBearerConfig = (token?: string) => {
   }
 
   return config
+}
+
+export default {
+  get,
+  split,
+  getConfig,
 }

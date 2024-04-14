@@ -1,13 +1,29 @@
 <div align="center">
 
-[![license](https://img.shields.io/badge/license-Apache%202-blue)](/LICENSE.md)
+[![license](https://img.shields.io/badge/License-LGPL%20v3-blue)](/LICENSE.md)
 [![Follow on Twitter](https://img.shields.io/twitter/follow/inverternetwork.svg?label=follow+INVERTER)](https://twitter.com/inverternetwork)
 
 </div>
 
 ## Inverter / Next.js Web3 Template
 
-App Router + Chakra UI Next.js + Redux + Wagmi ( Viem ) + Dynamic + PWA + PipeLine
+A Next.js template with a focus on Web3 and DeFi applications. This template includes a variety of tools and libraries to help you get started with your project.
+
+## Features
+
+- App Router
+- Daisy UI
+- Redux / React Query
+- Wagmi 2 (Viem 2)
+- Dynamic 2
+- Mongoose
+  - Session
+  - Dynamic Proxy Auth
+  - Cache
+  - Api Keys
+  - WebHooks
+- PWA
+- PipeLine
 
 ## Configuration
 
@@ -28,11 +44,20 @@ bun upgrage
 
 Start by setting up your environment:
 
+## Environment Variables
+
 ```bash
 cp .env.example .env
 ```
 
 Edit the `/.env` file with the necessary settings.
+
+- You will have to optain the `NEXT_PUBLIC_DYNAMIC_ID` from [DYNAMIC XYZ APP](https://app.dynamic.xyz/)
+- `MONGO_URI` - MongoDB connection string ( optional ).
+- `SESSION_SECRET` - Session secret key ( optional ).
+- `DYNAMIC_PUBLIC_KEY` - Dynamic public key ( optional ).
+
+These optional settings are only required if you plan to use the Mongoose session, and Dynamic Proxy Auth features.
 
 ## Quick Start
 
@@ -50,18 +75,11 @@ bun dev
 bun run build && bun start
 ```
 
-## AWS Deploy Configuration
+## Vercel Deploy Configuration
 
-For automated processes like CI/CD using AWS CodePipeline:
+For automated code deployments, you can use the Vercel platform. To deploy your project, you will need to set up the environment variables as mentioned in the `.env.example` file.
 
-1. Edit line 41 in `/.github/.workflows/aws-ecr.yml` to match your AWS ECR_REPOSITORY Name.
-2. Add non `NEXT_PUBLIC_` environment variables to the env vars of the running EC2 instance.
+The optional settings are only required if you plan to use the Mongoose session, and Dynamic Proxy Auth features.
 
-## GitHub Secrets Configuration
-
-For automated processes like CI/CD using GitHub Actions:
-
-1. Navigate to your GitHub repository and access the `Settings` tab.
-2. Locate the `Secrets` option in the left sidebar.
-3. Use the `New repository secret` button to add new secrets.
-4. Specifically, add secrets for `DYNAMIC_ID_DEV`, and `DYNAMIC_ID_PROD` .
+1. Navigate to the deploy section of the vercel dasboard or find the settings env vars section of an already deployed code and input the variables.
+2. And you are ready to go.

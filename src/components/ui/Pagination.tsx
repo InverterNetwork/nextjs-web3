@@ -1,6 +1,6 @@
 import { cn } from '@/styles/cn'
 
-export default function Pagination({
+export function Pagination({
   totalPages,
   page,
   setPage,

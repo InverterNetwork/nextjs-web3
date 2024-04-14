@@ -38,7 +38,7 @@ const compressAddress = (address?: string) =>
 const firstLetterToUpperCase = (text: string) =>
   text.charAt(0).toUpperCase() + text.slice(1)
 
-const unixTimeToDate = (date: number) =>
+const unixTimeToDisplay = (date: number) =>
   new Intl.DateTimeFormat('en-CA', {
     year: 'numeric',
     month: '2-digit',
@@ -50,5 +50,5 @@ export default {
   toCompactNumber,
   compressAddress,
   firstLetterToUpperCase,
-  unixTimeToDate,
+  unixTimeToDisplay,
 }

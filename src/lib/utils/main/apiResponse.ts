@@ -1,4 +1,11 @@
-export async function handleApiResponse<T>(
+/**
+ *
+ * @param call Promise function
+ * @param successStatus Optional success status code ( default 200 )
+ * @param errorStatus Optional error status code ( default 500 )
+ * @returns Response with the result of the promise and the status code
+ */
+export default async function <T>(
   call: () => Promise<T>,
   successStatus = 200,
   errorStatus = 500

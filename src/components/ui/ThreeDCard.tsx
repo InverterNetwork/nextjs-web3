@@ -152,10 +152,8 @@ const useMouseEnter = () => {
   return context
 }
 
-const returns = {
+export const ThreeDCard = {
   Container,
   Body,
   Item,
 }
-
-export default returns
