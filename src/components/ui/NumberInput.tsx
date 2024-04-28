@@ -4,7 +4,7 @@ import { useIsHydrated } from '@/hooks'
 import utils from '@/lib/utils'
 import { cn } from '@/styles/cn'
 import { useState, useRef } from 'react'
-import { Input, type InputProps } from 'react-daisyui'
+import { Input, type InputProps } from '@/react-daisyui'
 
 export function NumberInput({
   onChange,

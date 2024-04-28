@@ -6,7 +6,7 @@ import {
   DynamicUserProfile,
   useDynamicContext,
 } from '@dynamic-labs/sdk-react-core'
-import { Button, Loading } from 'react-daisyui'
+import { Button, Loading } from '@/react-daisyui'
 
 export function WalletWidget() {
   const isHydrated = useIsHydrated()

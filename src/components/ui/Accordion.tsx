@@ -1,6 +1,7 @@
-'use client'
-
-import { type AccordionProps, Accordion as DaisyAccordion } from 'react-daisyui'
+import {
+  type AccordionProps,
+  Accordion as DaisyAccordion,
+} from '@/react-daisyui'
 
 export function Accordion({
   items,

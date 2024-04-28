@@ -12,7 +12,7 @@ import {
   TextInput,
   ThreeDCard,
 } from '@/components'
-import { Button, Card, Divider, Menu, Modal, Skeleton } from 'react-daisyui'
+import { Button, Card, Divider, Menu, Modal, Skeleton } from '@/react-daisyui'
 import { useDisclosure, useToast } from '@/hooks'
 import { IoClose } from 'react-icons/io5'
 import Image from 'next/image'

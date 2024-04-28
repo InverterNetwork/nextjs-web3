@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Button } from 'react-daisyui'
+import { Button } from '@/react-daisyui'
 import { Copy, NumberInput, TextInput, TextInputProps } from '.'
 import { cn } from '@/styles/cn'
 import React from 'react'

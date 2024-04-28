@@ -1,6 +1,6 @@
 'use client'
 
-import { Input, type InputProps } from 'react-daisyui'
+import { Input, type InputProps } from '@/react-daisyui'
 import { cn } from '@/styles/cn'
 
 import { isAddress } from 'viem'

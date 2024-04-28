@@ -1,23 +1,8 @@
-'use client'
-
-import { UseToastHandlerReturn } from '@/hooks/useToastHandler'
-import { useEffect } from 'react'
-import { Alert, Button, Toast } from 'react-daisyui'
+import type { UseToastHandlerReturn } from '@/hooks/useToastHandler'
+import { Alert, Button, Toast } from '@/react-daisyui'
 import { IoMdCloseCircleOutline } from 'react-icons/io'
 
 export function DynamicToast({ removeToast, alerts }: UseToastHandlerReturn) {
-  // using use effect remove the toast after 5 seconds starting from the most recent toast
-  useEffect(() => {
-    // make this run until alerts length is gone
-    if (alerts.length === 0) return
-    const timer = setTimeout(() => {
-      // remove until there is no more toast
-      removeToast(0)
-    }, 10000)
-    return () => clearTimeout(timer)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [alerts])
-
   return (
     <Toast
       vertical="top"

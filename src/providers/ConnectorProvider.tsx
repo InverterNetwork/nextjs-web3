@@ -33,11 +33,11 @@ export default function ConnectorProvider({
 
   const { evmNetworks, config } = useMemo(() => {
     const evmNetworks = utils.transform.lifiChainsToDynamic(lifiChains),
-      wagmiChains = utils.transform.lifiChainsToViem(lifiChains),
+      chains = utils.transform.lifiChainsToViem(lifiChains),
       config = createConfig({
-        chains: wagmiChains,
+        chains,
         multiInjectedProviderDiscovery: false,
-        transports: wagmiChains?.reduce(
+        transports: chains?.reduce(
           (acc, chain) => {
             acc[chain.id] = http()
             return acc
@@ -68,7 +68,9 @@ export default function ConnectorProvider({
         }}
       >
         <WagmiProvider config={config}>
-          <DynamicWagmiConnector>{children}</DynamicWagmiConnector>
+          <DynamicWagmiConnector suppressChainMismatchError>
+            {children}
+          </DynamicWagmiConnector>
         </WagmiProvider>
       </DynamicContextProvider>
     </>

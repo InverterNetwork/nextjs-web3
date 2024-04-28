@@ -5,7 +5,7 @@ import Image from 'next/image'
 import NextLink from 'next/link'
 import { ThemeSwitcher, WalletWidget } from '.'
 import Link from 'next/link'
-import { Button, Dropdown } from 'react-daisyui'
+import { Button, Dropdown } from '@/react-daisyui'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { cn } from '@/styles/cn'
 

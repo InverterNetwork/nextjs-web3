@@ -11,10 +11,10 @@
     "release": "standard-version"
   },
   "dependencies": {
-    "@dynamic-labs/ethereum": "2.0.0-alpha.23",
-    "@dynamic-labs/magic": "2.0.0-alpha.23",
-    "@dynamic-labs/sdk-react-core": "2.0.0-alpha.23",
-    "@dynamic-labs/wagmi-connector": "2.0.0-alpha.23",
+    "@dynamic-labs/ethereum": "^2",
+    "@dynamic-labs/magic": "^2",
+    "@dynamic-labs/sdk-react-core": "^2",
+    "@dynamic-labs/wagmi-connector": "^2",
     "@tanstack/react-query-devtools": "^5",
     "@emotion/react": "^11",
     "@lifi/sdk": "^2",
