@@ -26,7 +26,7 @@ import { IoClose } from 'react-icons/io5'
 import Image from 'next/image'
 
 const imageUrl =
-  'https://images.mirror-media.xyz/publication-images/2yXY8M-emmKoKGbh5TA_A.jpeg?height=480&width=960'
+  'https://raw.githubusercontent.com/InverterNetwork/media/main/inverter-light-banner.png'
 
 export default function PageClient() {
   const { onOpen, isOpen, onClose } = useDisclosure()
@@ -45,44 +45,44 @@ export default function PageClient() {
   return (
     <div className="flex flex-col gap-3">
       {/* Card */}
-      <Card>
-        <Card.Image src={imageUrl} alt="Brand" />
-        <Card.Body>
-          <Card.Title tag="h2">Modular Smart Contracts!</Card.Title>
-          <p>Did someone say Inverter?</p>
-          <Card.Actions className="justify-end">
-            <Button size={'sm'} color="primary">
-              Integrate Now
-            </Button>
-          </Card.Actions>
-        </Card.Body>
-      </Card>
-      <Divider />
-      {/* 3D Card */}
-      <ThreeDCard.Container className="max-w-96 mx-auto">
-        <ThreeDCard.Body>
-          <ThreeDCard.Item
-            as="p"
-            translateZ="60"
-            className="text-subtitle-1 text-primary"
-          >
-            DATE
-          </ThreeDCard.Item>
+      <div className="grid grid-cols-2 place-items-center">
+        <Card>
+          <Card.Image src={imageUrl} alt="Brand" />
+          <Card.Body>
+            <Card.Title tag="h2">Modular Smart Contracts!</Card.Title>
+            <p>Did someone say Inverter?</p>
+            <Card.Actions className="justify-end">
+              <Button size={'sm'} color="primary">
+                Integrate Now
+              </Button>
+            </Card.Actions>
+          </Card.Body>
+        </Card>
+        {/* 3D Card */}
+        <ThreeDCard.Container className="max-w-96 mx-auto">
+          <ThreeDCard.Body>
+            <ThreeDCard.Item
+              as="p"
+              translateZ="60"
+              className="text-subtitle-1 text-primary"
+            >
+              DATE
+            </ThreeDCard.Item>
 
-          <ThreeDCard.Item translateZ="50">TITLE</ThreeDCard.Item>
+            <ThreeDCard.Item translateZ="50">TITLE</ThreeDCard.Item>
 
-          <ThreeDCard.Item translateZ="100" className="w-full mt-4">
-            <Image
-              src={imageUrl}
-              width={400}
-              height={200}
-              className="w-full object-cover rounded-xl group-hover/card:shadow-xl"
-              alt="thumbnail"
-            />
-          </ThreeDCard.Item>
-        </ThreeDCard.Body>
-      </ThreeDCard.Container>
-
+            <ThreeDCard.Item translateZ="100" className="w-full mt-4">
+              <Image
+                src={imageUrl}
+                width={400}
+                height={200}
+                className="w-full object-cover rounded-xl group-hover/card:shadow-xl"
+                alt="thumbnail"
+              />
+            </ThreeDCard.Item>
+          </ThreeDCard.Body>
+        </ThreeDCard.Container>
+      </div>
       <Divider />
       {/* Badge */}
       <Badge size="xs" color="primary">

@@ -7,33 +7,24 @@ import Providers from '@/providers'
 import Analytics from '@/providers/Analytics'
 import '@/styles/global.css'
 
-const title = 'Inverter Network'
-const { description, applicationName, images } = {
-  applicationName: `${title} | Web3 Template`,
-  description:
-    'Easily edit and deploy your own web3 application with this template.',
-  images: [
-    {
-      url: 'InverterNetwork/media/main/inverter-dark-banner.png',
-    },
-  ],
-}
+const title = 'Inverter Network | The Token Programmability Layer',
+  description =
+    'Inverter is a modular protocol for Primary Issuance Markets, enabling maximal value capture from token economies.',
+  images =
+    'https://raw.githubusercontent.com/InverterNetwork/media/main/inverter-light-banner.png'
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://raw.githubusercontent.com/'),
   title,
-  applicationName,
   description,
   openGraph: {
     type: 'website',
     title,
-    siteName: applicationName,
     description,
     images,
   },
   twitter: {
     card: 'summary_large_image',
-    title: applicationName,
+    title,
     description,
     images,
   },
