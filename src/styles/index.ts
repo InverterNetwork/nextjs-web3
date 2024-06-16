@@ -57,9 +57,6 @@ export const initialTheme = 'dark' as 'light' | 'dark'
 const extend = (base: typeof darkBase | typeof lightBase) => ({
   ...base,
   ...({
-    '.collapse': {
-      border,
-    },
     '.collapse:not(.collapse-close) > :where(input[name="accordion"][type="radio"]:checked ~ .collapse-content)':
       {
         'border-top': border,

@@ -15,6 +15,7 @@ import {
   Badge,
   Button,
   Card,
+  Collapse,
   Divider,
   Menu,
   Modal,
@@ -40,6 +41,7 @@ export default function PageClient() {
     address: '',
     number: '',
   })
+
   return (
     <div className="flex flex-col gap-3">
       {/* Card */}
@@ -123,6 +125,16 @@ export default function PageClient() {
           </Menu.Details>
         </Menu.Item>
       </Menu>
+      <Divider />
+      {/* Collapse */}
+      <Collapse>
+        <Collapse.Title className="text-xl font-medium">
+          Collapse `Focus me to see content
+        </Collapse.Title>
+        <Collapse.Content>
+          {'tabindex="0" attribute is necessary to make the div focusable'}
+        </Collapse.Content>
+      </Collapse>
       <Divider />
       {/* Accordion */}
       <Accordion

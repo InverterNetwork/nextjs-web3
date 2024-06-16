@@ -13,7 +13,25 @@ const delay = (seconds: number) =>
 const unixTime = (date?: Date) =>
   Math.floor((date ?? new Date()).getTime() / 1000)
 
+const getTimeDiff = (date?: Date) => {
+  if (!date) return { days: 0, hours: 0 }
+
+  const now = new Date()
+  const itemDate = new Date(date)
+
+  const diffInMilliseconds = Math.abs(now.getTime() - itemDate.getTime())
+  const diffInHours = Math.floor(diffInMilliseconds / (1000 * 60 * 60))
+  const diffInDays = Math.floor(diffInHours / 24)
+  const hours = diffInHours - diffInDays * 24
+
+  return {
+    days: diffInDays,
+    hours,
+  }
+}
+
 export default {
+  getTimeDiff,
   delay,
   unixTime,
 }

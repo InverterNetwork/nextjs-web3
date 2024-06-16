@@ -1,3 +1,5 @@
+'use client'
+
 import {
   type AccordionProps,
   Accordion as DaisyAccordion,

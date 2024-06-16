@@ -8,20 +8,23 @@ import Link from 'next/link'
 import { Button, Dropdown } from '@/react-daisyui'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { cn } from '@/styles/cn'
+import { useTheme } from '@/hooks'
 
 export function Navbar() {
+  const { theme } = useTheme()
   const pathname = usePathname()
   return (
     <div
       className={`
       fixed left-1/2 -translate-x-1/2 items-center p-2 flex 
       justify-center gap-4 z-10 w-max bottom-0 
-      drop-shadow-2xl rounded-tl-xl rounded-tr-xl bg-base-100 
+      drop-shadow-2xl rounded-tl-xl rounded-tr-xl bg-base-100/50 backdrop-blur-2xl
       border-t border-x border-faint
     `.trim()}
     >
       <NextLink href="/">
         <Image
+          className={cn(theme === 'light' && 'invert')}
           priority
           src="/inverter-light-logo.svg"
           alt="inverter_logo"
@@ -43,7 +46,7 @@ export function Navbar() {
         <Button tag="label" color="ghost" className="py-0 px-1" tabIndex={0}>
           <GiHamburgerMenu className="fill-current w-5 h-5" />
         </Button>
-        <Dropdown.Menu className="menu-sm absolute bottom-[120%] right-0">
+        <Dropdown.Menu className="menu-sm absolute bottom-[120%] right-0 bg-base-100">
           <Dropdown.Item className="flex gap-2">
             <ThemeSwitcher className="w-full" />
           </Dropdown.Item>
@@ -64,7 +67,6 @@ const NavItems = ({
   const arr = [
     { href: '/', label: 'Landing' },
     { href: '/one', label: 'One' },
-    { href: '/two', label: 'two' },
   ]
 
   if (reverse) arr.reverse()
@@ -74,25 +76,16 @@ const NavItems = ({
       return (
         <Link href={i.href} key={index}>
           <Dropdown.Item anchor={false}>
-            <div
-              className={cn(
-                'my-1 p-2 text-md',
-                pathname === i.href && 'bg-neutral'
-              )}
-            >
+            <Button size={'sm'} active={pathname === i.href}>
               {i.label}
-            </div>
+            </Button>
           </Dropdown.Item>
         </Link>
       )
     }
     return (
       <Link href={i.href} key={index}>
-        <Button
-          size={'sm'}
-          {...(pathname !== i.href && { color: 'ghost' })}
-          active={pathname === i.href}
-        >
+        <Button size={'sm'} active={pathname === i.href}>
           {i.label}
         </Button>
       </Link>

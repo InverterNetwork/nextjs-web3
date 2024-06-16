@@ -1,16 +1,22 @@
 'use client'
 
 import { useToast } from '@/hooks'
-import { Button } from '@/react-daisyui'
+import { Button, ButtonProps } from '@/react-daisyui'
 import { BsCopy } from 'react-icons/bs'
 
-export function Copy({ data }: { data: any }) {
+export function Copy({
+  data,
+  color = 'primary',
+  variant = 'outline',
+  size = 'sm',
+  ...rest
+}: { data: any } & Omit<ButtonProps, 'onClick'>) {
   const { addToast } = useToast()
+
   return (
     <Button
-      variant="outline"
-      color={'primary'}
-      size={'sm'}
+      {...{ ...rest, color, variant, size }}
+      type="button"
       onClick={() => {
         navigator.clipboard.writeText(data)
         addToast({

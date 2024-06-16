@@ -2,41 +2,35 @@
 
 import { useIsHydrated } from '@/hooks'
 import utils from '@/lib/utils'
-import {
-  DynamicUserProfile,
-  useDynamicContext,
-} from '@dynamic-labs/sdk-react-core'
-import { Button, Loading } from '@/react-daisyui'
+import { useDynamicContext } from '@dynamic-labs/sdk-react-core'
+import { Button, ButtonProps, Loading } from '@/react-daisyui'
 
-export function WalletWidget() {
+export function WalletWidget(props: Omit<ButtonProps, 'color' | 'onClick'>) {
+  const { size, ...rest } = props
   const isHydrated = useIsHydrated()
-  const {
-    setShowDynamicUserProfile,
-    setShowAuthFlow,
-    primaryWallet,
-    isAuthenticated,
-  } = useDynamicContext()
+  const dynamicContext = useDynamicContext()
+
+  const { primaryWallet, isAuthenticated } = dynamicContext
+
   const address = primaryWallet?.address
 
   if (!isHydrated || (isAuthenticated && !address))
-    return <Loading variant="dots" />
+    if (!isHydrated) return <Loading variant="dots" className="m-auto" />
 
-  if (isAuthenticated)
-    return (
-      <div>
-        <Button
-          size="sm"
-          color="accent"
-          onClick={() => setShowDynamicUserProfile(true)}
-        >
-          {utils.format.compressAddress(address)}
-        </Button>
-        <DynamicUserProfile />
-      </div>
-    )
   return (
-    <Button size="sm" color="primary" onClick={() => setShowAuthFlow(true)}>
-      Connect Wallet
+    <Button
+      {...rest}
+      type="button"
+      size={!size ? 'sm' : size}
+      onClick={() =>
+        dynamicContext[
+          !isAuthenticated ? 'setShowAuthFlow' : 'setShowDynamicUserProfile'
+        ](true)
+      }
+    >
+      {!isAuthenticated
+        ? 'Connect Wallet'
+        : utils.format.compressAddress(address)}
     </Button>
   )
 }

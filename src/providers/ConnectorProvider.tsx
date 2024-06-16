@@ -5,7 +5,10 @@ import { lifi } from '@/lib'
 import { dynamicTheme } from '@/styles/dynamicTheme'
 import { EthereumWalletConnectors } from '@dynamic-labs/ethereum'
 import { MagicEvmWalletConnectors } from '@dynamic-labs/magic'
-import { DynamicContextProvider } from '@dynamic-labs/sdk-react-core'
+import {
+  DynamicContextProvider,
+  DynamicUserProfile,
+} from '@dynamic-labs/sdk-react-core'
 import { DynamicWagmiConnector } from '@dynamic-labs/wagmi-connector'
 import { useEffect, useMemo, useState } from 'react'
 import { WagmiProvider, createConfig, http } from 'wagmi'
@@ -65,6 +68,7 @@ export default function ConnectorProvider({
         <WagmiProvider config={config}>
           <DynamicWagmiConnector suppressChainMismatchError>
             {children}
+            <DynamicUserProfile />
           </DynamicWagmiConnector>
         </WagmiProvider>
       </DynamicContextProvider>

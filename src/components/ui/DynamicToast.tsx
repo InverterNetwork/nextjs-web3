@@ -1,4 +1,4 @@
-import type { UseToastHandlerReturn } from '@/hooks/useToastHandler'
+import { UseToastHandlerReturn } from '@/hooks/useToastHandler'
 import { Alert, Button, Toast } from '@/react-daisyui'
 import { IoMdCloseCircleOutline } from 'react-icons/io'
 
@@ -13,7 +13,7 @@ export function DynamicToast({ removeToast, alerts }: UseToastHandlerReturn) {
         <Alert
           key={index}
           status={alert.status}
-          className="px-2 py-1 flex text-xs items-center border border-faint"
+          className="text-left px-2 py-1 flex text-xs items-center max-w-max"
         >
           <p>{alert.text}</p>
           <Button
