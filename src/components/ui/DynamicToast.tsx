@@ -6,7 +6,7 @@ export function DynamicToast({ removeToast, alerts }: UseToastHandlerReturn) {
   return (
     <Toast
       vertical="top"
-      horizontal="start"
+      horizontal="end"
       className={'whitespace-break-spaces break-all z-50'}
     >
       {alerts.map((alert, index) => (
@@ -17,7 +17,7 @@ export function DynamicToast({ removeToast, alerts }: UseToastHandlerReturn) {
         >
           <p>{alert.text}</p>
           <Button
-            className="ml-auto"
+            className="ml-auto p-1"
             color="ghost"
             size="sm"
             onClick={() => removeToast(index)}
