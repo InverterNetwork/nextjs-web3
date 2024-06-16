@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { Button } from '@/react-daisyui'
-import { Copy, NumberInput, TextInput, TextInputProps } from '.'
+import { Copy, Input, TextInputProps } from '.'
 import { cn } from '@/styles/cn'
 import React from 'react'
 
@@ -75,9 +75,9 @@ export function SubmitableForm({
         onSubmit={handleSubmit}
       >
         {rows.map(({ ...props }, i) => {
-          if (props.type === 'number') return <NumberInput key={i} {...props} />
+          if (props.type === 'number') return <Input.Text key={i} {...props} />
 
-          return <TextInput key={i} {...props} />
+          return <Input.Text key={i} {...props} />
         })}
 
         <Button className="mt-6" size={'sm'} color="primary" type="submit">

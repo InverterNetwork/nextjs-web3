@@ -35,8 +35,8 @@ function toCompactNumber(value?: string | number) {
 const compressAddress = (address?: string) =>
   !address ? '...' : address.slice(0, 4) + '...' + address.slice(-4)
 
-const firstLetterToUpperCase = (text: string) =>
-  text.charAt(0).toUpperCase() + text.slice(1)
+const firstLetterToUpperCase = (text?: string) =>
+  !text ? '...' : text.charAt(0).toUpperCase() + text.slice(1)
 
 const unixTimeToDisplay = (date: number) =>
   new Intl.DateTimeFormat('en-CA', {

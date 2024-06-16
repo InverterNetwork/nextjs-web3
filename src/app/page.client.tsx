@@ -4,15 +4,22 @@ import { useState } from 'react'
 import {
   Accordion,
   Frame,
+  Input,
   NoData,
-  NumberInput,
   Pagination,
   SubmitableForm,
   Tabs,
-  TextInput,
   ThreeDCard,
 } from '@/components'
-import { Button, Card, Divider, Menu, Modal, Skeleton } from '@/react-daisyui'
+import {
+  Badge,
+  Button,
+  Card,
+  Divider,
+  Menu,
+  Modal,
+  Skeleton,
+} from '@/react-daisyui'
 import { useDisclosure, useToast } from '@/hooks'
 import { IoClose } from 'react-icons/io5'
 import Image from 'next/image'
@@ -74,6 +81,20 @@ export default function PageClient() {
         </ThreeDCard.Body>
       </ThreeDCard.Container>
 
+      <Divider />
+      {/* Badge */}
+      <Badge size="xs" color="primary">
+        Test Badge XS primary
+      </Badge>
+      <Badge size="sm" color="accent">
+        Test Badge SM accent
+      </Badge>
+      <Badge size="md" color="secondary">
+        Test Badge MD secondary
+      </Badge>
+      <Badge size="lg" color="neutral">
+        Test Badge LG netural
+      </Badge>
       <Divider />
       {/* Tab */}
       <Tabs
@@ -149,14 +170,14 @@ export default function PageClient() {
       </Frame>
       <Divider />
       {/* Text Input */}
-      <TextInput
+      <Input.Text
         label="Text Input"
         onChange={setTextInput}
         value={textInputValue}
       />
       <Divider />
       {/* Number Input */}
-      <NumberInput
+      <Input.Number
         label="Number Input"
         onChange={setNumberInputValue}
         value={numberInputValue}

@@ -2,27 +2,22 @@
 
 import { Global } from '@emotion/react'
 import { lifi } from '@/lib'
-import { getDynamicTheme } from '@/styles/dynamicTheme'
+import { dynamicTheme } from '@/styles/dynamicTheme'
 import { EthereumWalletConnectors } from '@dynamic-labs/ethereum'
 import { MagicEvmWalletConnectors } from '@dynamic-labs/magic'
 import { DynamicContextProvider } from '@dynamic-labs/sdk-react-core'
 import { DynamicWagmiConnector } from '@dynamic-labs/wagmi-connector'
 import { useEffect, useMemo, useState } from 'react'
-import { useTheme } from '@/hooks'
 import { WagmiProvider, createConfig, http } from 'wagmi'
 import utils from '@/lib/utils'
+
+const { cssOverrides, shadowDomOverWrites } = dynamicTheme
 
 export default function ConnectorProvider({
   children,
 }: {
   children: React.ReactNode
 }) {
-  const { theme } = useTheme(),
-    { cssOverrides, shadowDomOverWrites } = useMemo(
-      () => getDynamicTheme(theme === 'light'),
-      [theme]
-    )
-
   const [lifiChains, setLifiChains] = useState<
     Awaited<ReturnType<typeof lifi.getChains>> | undefined
   >(undefined)

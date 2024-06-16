@@ -19,14 +19,14 @@ export default function Providers({
   return (
     <QueryClientProvider client={queryClient}>
       <ReduxProvider>
-        <ThemeProvider initialTheme={theme}>
-          <ConnectorProvider>
-            <AppProvider>
+        <ConnectorProvider>
+          <AppProvider>
+            <ThemeProvider initialTheme={theme}>
               {/* CHILDREN */}
               {children}
-            </AppProvider>
-          </ConnectorProvider>
-        </ThemeProvider>
+            </ThemeProvider>
+          </AppProvider>
+        </ConnectorProvider>
       </ReduxProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>

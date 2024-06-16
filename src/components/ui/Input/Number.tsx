@@ -1,36 +1,36 @@
 'use client'
 
-import { useIsHydrated } from '@/hooks'
 import utils from '@/lib/utils'
-import { cn } from '@/styles/cn'
 import { useState, useRef } from 'react'
-import { Input, type InputProps } from '@/react-daisyui'
+import { Input, type InputProps /* , Button */ } from '@/react-daisyui'
+import { DescriptionLabel, NameLabel } from '.'
 
-export function NumberInput({
+export function Number({
   onChange,
   label,
   invalid = false,
+  description,
   ...props
 }: {
   onChange: (string: string) => void
   label?: string
   invalid?: boolean
+  description?: string
 } & Omit<InputProps, 'onChange' | 'color' | 'type' | 'inputMode'>) {
-  const stepNumber = Number(props.step ?? 1)
+  // const stepNumber = Number(props.step ?? 1)
 
-  const isHydrated = useIsHydrated()
   const [isTouched, setIsTouched] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
 
-  const handleIncrementOrDecrement = (inc?: boolean) => {
-    let newValue =
-      Number(inputRef.current?.value) + (!!inc ? stepNumber : -stepNumber)
-    const newString = utils.format.amountString(newValue.toString())
+  // const handleIncrementOrDecrement = (inc?: boolean) => {
+  //   let newValue =
+  //     Number(inputRef.current?.value) + (!!inc ? stepNumber : -stepNumber)
+  //   const newString = utils.format.amountString(newValue.toString())
 
-    if (!!inputRef.current) inputRef.current.value = newString
-    onChange(newString)
-    if (!isTouched) setIsTouched(true)
-  }
+  //   if (!!inputRef.current) inputRef.current.value = newString
+  //   onChange(newString)
+  //   if (!isTouched) setIsTouched(true)
+  // }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(utils.format.amountString(e.target.value))
@@ -39,8 +39,6 @@ export function NumberInput({
 
   const scanValidity = () => {
     let valid = inputRef.current?.validity.valid ?? true
-
-    if (isHydrated) return valid
 
     if (!!inputRef.current) {
       // let validityMessage = ''
@@ -54,43 +52,40 @@ export function NumberInput({
 
   return (
     <div className="form-control w-auto">
-      <label className={cn('label', !label && 'hidden')}>
-        <span className="label-text">{label}</span>
-      </label>
+      <NameLabel name={label} />
+      <Input
+        placeholder={props.placeholder ?? 'Type Here'}
+        ref={inputRef}
+        type="number"
+        inputMode="decimal"
+        onChange={handleChange}
+        {...(isTouched && isInvalid && { color: 'warning' })}
+        {...props}
+      />
+      <DescriptionLabel description={description} />
 
-      <div className="flex gap-3">
-        <button
+      {/* <div className="flex gap-2 justify-center">
+        <Button
+          {...(props?.size && { size: props.size })}
           type="button"
           onClick={() => {
             handleIncrementOrDecrement(false)
           }}
-          className="btn"
           tabIndex={-1}
         >
           -
-        </button>
-
-        <Input
-          className="w-full"
-          ref={inputRef}
-          type="number"
-          inputMode="decimal"
-          onChange={handleChange}
-          {...(isTouched && isInvalid && { color: 'warning' })}
-          {...props}
-        />
-
-        <button
+        </Button>
+        <Button
+          {...(props?.size && { size: props.size })}
           type="button"
           onClick={() => {
             handleIncrementOrDecrement(true)
           }}
-          className="btn"
           tabIndex={-1}
         >
           +
-        </button>
-      </div>
+        </Button>
+      </div> */}
     </div>
   )
 }

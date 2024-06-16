@@ -1,23 +1,25 @@
 'use client'
 
 import { Input, type InputProps } from '@/react-daisyui'
-import { cn } from '@/styles/cn'
-
 import { isAddress } from 'viem'
 import { useState, useRef } from 'react'
+import { DescriptionLabel, NameLabel } from '.'
 
 export type TextInputProps = {
   onChange: (value: string) => void
   invalid?: boolean
   label?: string
+  description?: string
 } & Omit<InputProps, 'onChange' | 'color' | 'type'> & {
     type?: InputProps['type'] | 'address'
   }
 
-export const TextInput = ({
+export const Text = ({
   onChange,
   label,
   invalid = false,
+  description,
+  placeholder,
   ...props
 }: TextInputProps) => {
   const [isTouched, setIsTouched] = useState(false)
@@ -53,19 +55,17 @@ export const TextInput = ({
 
   return (
     <div className="form-control w-auto">
-      <label className={cn('label', !label && 'hidden')}>
-        <span className="label-text">{label}</span>
-      </label>
+      <NameLabel name={label} />
 
       <Input
-        // onKeyDown={handleKeyDown}
-        placeholder={props.placeholder ?? 'Type Here'}
+        placeholder={placeholder ?? 'Type Here'}
         onChange={handleChange}
         ref={inputRef}
-        // data-inputindex={inputIndex}
         {...(isTouched && isInvalid && { color: 'warning' })}
         {...props}
       />
+
+      <DescriptionLabel description={description} />
     </div>
   )
 }
