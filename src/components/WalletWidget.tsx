@@ -4,7 +4,6 @@ import { useIsHydrated } from '@/hooks'
 import utils from '@/lib/utils'
 import { useDynamicContext } from '@dynamic-labs/sdk-react-core'
 import { Button, ButtonProps, Loading } from '@/react-daisyui'
-import { useAccount } from 'wagmi'
 import Image from 'next/image'
 import { cn } from '@/styles/cn'
 import { GiClick } from 'react-icons/gi'
@@ -18,7 +17,8 @@ export function WalletWidget(
   const { size, className, text, ...rest } = props
   const isHydrated = useIsHydrated()
   const dynamicContext = useDynamicContext()
-  const { isConnected, address } = useAccount()
+  const isConnected = dynamicContext.primaryWallet?.connected
+  const address = dynamicContext.primaryWallet?.address
 
   const iconSrc = dynamicContext?.networkConfigurations?.evm?.find(
     (i) => i.chainId === dynamicContext?.primaryWallet?.network
