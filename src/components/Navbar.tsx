@@ -64,10 +64,7 @@ const NavItems = ({
   pathname: string
   reverse?: boolean
 }) => {
-  const arr = [
-    { href: '/', label: 'Landing' },
-    { href: '/one', label: 'One' },
-  ]
+  const arr = [{ href: '/', label: 'Home' }]
 
   if (reverse) arr.reverse()
 

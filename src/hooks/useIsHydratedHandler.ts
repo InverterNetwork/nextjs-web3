@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-export default function useIsHydratedHandler() {
+export function useIsHydratedHandler() {
   const [isHydrated, setIsHydrated] = useState(false)
 
   useEffect(() => {

@@ -1,5 +1,6 @@
 import type { Chain } from 'viem'
 import type { GenericNetwork } from '@dynamic-labs/types'
+import { getLogo } from '.'
 
 export default function viemChainsToDynamic(
   chains: readonly Chain[]
@@ -12,7 +13,7 @@ export default function viemChainsToDynamic(
       lcdUrl: undefined,
       chainName: undefined,
       nameService: undefined,
-      iconUrls: [],
+      iconUrls: [getLogo(chain.id)],
       nativeCurrency: chain.nativeCurrency,
       rpcUrls: Object.values(chain.rpcUrls).flatMap((rpcUrl) => rpcUrl.http),
       privateCustomerRpcUrls: undefined,

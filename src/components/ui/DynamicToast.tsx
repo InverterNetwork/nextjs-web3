@@ -4,16 +4,12 @@ import { IoMdCloseCircleOutline } from 'react-icons/io'
 
 export function DynamicToast({ removeToast, alerts }: UseToastHandlerReturn) {
   return (
-    <Toast
-      vertical="top"
-      horizontal="end"
-      className={'whitespace-break-spaces break-all z-50'}
-    >
+    <Toast vertical="top" className={'whitespace-break-spaces break-all z-50'}>
       {alerts.map((alert, index) => (
         <Alert
           key={index}
           status={alert.status}
-          className="text-left px-2 py-1 flex text-xs items-center max-w-max"
+          className="text-left px-2 py-1 flex text-xs items-center max-w-max ml-auto"
         >
           <p>{alert.text}</p>
           <Button
