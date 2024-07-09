@@ -3,8 +3,8 @@
 import { GetUserArgs, RequestedModules } from '@inverter-network/sdk'
 import { useEffect, useRef, useState } from 'react'
 import { UsePrepDeployReturn } from './usePrepDeploy'
-import { useToast } from '..'
 import { useDynamicContext } from '@dynamic-labs/sdk-react-core'
+import { toast } from 'sonner'
 
 export type DeployFormSteps = keyof RequestedModules | 'orchestrator'
 
@@ -21,7 +21,6 @@ export const useDeployForm = ({
 }: UsePrepDeployReturn) => {
   const chainId = useDynamicContext()?.primaryWallet?.network
   const prevChainId = useRef(chainId)
-  const { addToast } = useToast()
   const [formStep, setFormStep] = useState<DeployFormSteps>('orchestrator')
 
   const [userArgs, setUserArgs] = useState({} as InitialUserArgs)
@@ -114,10 +113,7 @@ export const useDeployForm = ({
       resetDeployForm(true)
       prevChainId.current = chainId
 
-      addToast({
-        text: 'Network changed, reseting deployment',
-        status: 'warning',
-      })
+      toast.warning('Network changed, reseting deployment')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chainId])

@@ -21,16 +21,16 @@ import {
   Modal,
   Skeleton,
 } from '@/react-daisyui'
-import { useDisclosure, useToast } from '@/hooks'
+import { useDisclosure } from '@/hooks'
 import { IoClose } from 'react-icons/io5'
 import Image from 'next/image'
+import { toast } from 'sonner'
 
 const imageUrl =
   'https://raw.githubusercontent.com/InverterNetwork/media/main/inverter-light-banner.png'
 
 export default function PageClient() {
   const { onOpen, isOpen, onClose } = useDisclosure()
-  const { addToast } = useToast()
   const [page, setPage] = useState(1)
   const [textInputValue, setTextInput] = useState<string>('')
   const [tab, setTab] = useState(1)
@@ -260,7 +260,15 @@ export default function PageClient() {
       <Button
         color={'primary'}
         onClick={() => {
-          addToast({ text: 'Test Toast', status: 'success' })
+          const minLength = 10
+          const maxLength = 400
+          const randomLength =
+            Math.floor(Math.random() * (maxLength - minLength + 1)) + minLength
+          const randomText = Array(randomLength)
+            .fill(null)
+            .map(() => Math.random().toString(36).charAt(2))
+            .join('')
+          toast.success(randomText)
         }}
       >
         Test Toast

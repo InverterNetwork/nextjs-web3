@@ -1,17 +1,17 @@
 'use client'
 
 import { useMutation } from '@tanstack/react-query'
-import { useToast, useInverter } from '..'
+import { useInverter } from '..'
 import { GetUserArgs, RequestedModules } from '@inverter-network/sdk'
 import { useAppDispatch, setOrchestratorAddress } from '@/lib/store'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useAccount } from 'wagmi'
+import { toast } from 'sonner'
 
 export const usePrepDeploy = () => {
   const { isConnected } = useAccount()
   const dispatch = useAppDispatch()
-  const { addToast } = useToast()
   const router = useRouter()
 
   const inverter = useInverter()
@@ -42,16 +42,10 @@ export const usePrepDeploy = () => {
       return { run, inputs }
     },
     onError: (error) => {
-      addToast({
-        text: error.message,
-        status: 'error',
-      })
+      toast.error(error.message)
     },
     onSuccess: () => {
-      addToast({
-        text: 'Deployment prepared',
-        status: 'success',
-      })
+      toast.success('Deployment prepared')
     },
   })
 
@@ -61,16 +55,10 @@ export const usePrepDeploy = () => {
       return prep.data.run(userArgs)
     },
     onError: (error) => {
-      addToast({
-        text: error.message,
-        status: 'error',
-      })
+      toast.error(error.message)
     },
     onSuccess: async ({ transactionHash, orchestratorAddress }) => {
-      addToast({
-        text: `Waiting for confirmation: ${transactionHash}`,
-        status: 'info',
-      })
+      toast.info(`Waiting for confirmation: ${transactionHash}`)
 
       await inverter?.publicClient.waitForTransactionReceipt({
         hash: transactionHash,
@@ -78,10 +66,9 @@ export const usePrepDeploy = () => {
 
       dispatch(setOrchestratorAddress(orchestratorAddress))
 
-      addToast({
-        text: `Workflow deployed at Orchestrator Address: ${orchestratorAddress}`,
-        status: 'success',
-      })
+      toast.success(
+        `Workflow deployed at Orchestrator Address: ${orchestratorAddress}`
+      )
 
       router.push('/operate')
     },

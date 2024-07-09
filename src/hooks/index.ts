@@ -10,5 +10,4 @@ export { useWorkflow } from './useWorkflow'
 
 export const useIsHydrated = () => useAppContext().isHydrated
 export const useInverter = () => useAppContext().inverter
-export const useToast = () => useThemeContext().toastHandler
 export const useTheme = () => useThemeContext().themeHandler
