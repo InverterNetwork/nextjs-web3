@@ -1,33 +1,36 @@
 'use client'
 
-import { useIsHydrated } from '@/hooks'
+import { useChainSpecs, useIsHydrated } from '@/hooks'
 import utils from '@/lib/utils'
-import { useDynamicContext } from '@dynamic-labs/sdk-react-core'
 import { Button, ButtonProps, Loading } from '@/react-daisyui'
 import Image from 'next/image'
 import { cn } from '@/styles/cn'
 import { GiClick } from 'react-icons/gi'
 import { MdErrorOutline } from 'react-icons/md'
+import { MdOutlineWallet } from 'react-icons/md'
 
 export function WalletWidget(
   props: Omit<ButtonProps, 'color' | 'onClick'> & {
     text?: string
+    applyClassToLoading?: boolean
   }
 ) {
-  const { size, className, text, ...rest } = props
+  const { size, className, text, applyClassToLoading = true, ...rest } = props
   const isHydrated = useIsHydrated()
-  const dynamicContext = useDynamicContext()
-  const isConnected = dynamicContext.primaryWallet?.connected
-  const address = dynamicContext.primaryWallet?.address
-
-  const iconSrc = dynamicContext?.networkConfigurations?.evm?.find(
-    (i) => i.chainId === dynamicContext?.primaryWallet?.network
-  )?.iconUrls?.[0]
+  const { dynamicContext, isConnected, address, iconSrc, isUnsupportedChain } =
+    useChainSpecs()
 
   if (!isHydrated || (isConnected && !address))
-    if (!isHydrated) return <Loading variant="dots" className="m-auto" />
+    return (
+      <Loading
+        variant="spinner"
+        className={cn('m-auto', applyClassToLoading && className)}
+      />
+    )
 
   const getStartIcon = () => {
+    if (!isConnected) return <MdOutlineWallet size={20} />
+
     if (!!iconSrc)
       return (
         <Image
@@ -39,7 +42,7 @@ export function WalletWidget(
         />
       )
 
-    if (!!isConnected && text === undefined)
+    if (text === undefined && isUnsupportedChain)
       return <MdErrorOutline size={20} fill="red" />
 
     return null
@@ -62,7 +65,9 @@ export function WalletWidget(
   return (
     <Button
       {...rest}
-      {...((!isConnected || !!text) && { color: 'primary' })}
+      {...((!isConnected || !!text || isUnsupportedChain) && {
+        color: 'primary',
+      })}
       startIcon={getStartIcon()}
       endIcon={getEndIcon()}
       className={cn(className, 'leading-[unset]')}

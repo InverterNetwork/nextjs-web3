@@ -6,7 +6,7 @@ const base2 = 'var(--fallback-b2,oklch(var(--b2)))'
 const base3 = 'var(--fallback-b3,oklch(var(--b3)))'
 const baseContent = 'var(--fallback-bc,oklch(var(--bc)))'
 
-const faintBaseContent = 'var(--fallback-bc/.7, oklch(var(--bc/.7)))'
+const faintBaseContent = 'var(--fallback-bc,oklch(var(--bc)/0.7))'
 const brandColor = 'var(--fallback-p,oklch(var(--p)))'
 const buttonColor = base2
 
@@ -78,6 +78,10 @@ const cssOverrides = `
 
   .dynamic-widget-inline-controls {
     background: ${buttonColor};
+  }
+
+  .single-wallet-buttons__copied {
+    color: ${baseContent};
   }
 `
 

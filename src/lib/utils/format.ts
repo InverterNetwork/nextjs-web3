@@ -45,7 +45,15 @@ const unixTimeToDisplay = (date: number) =>
     day: '2-digit',
   }).format(date * 1000)
 
+function extractError(errorMessage?: string) {
+  if (!errorMessage) return 'Error: Unknown error'
+  const regex = /(Error|Details): .*/
+  const match = errorMessage.match(regex)
+  return match ? match[0] : errorMessage
+}
+
 export default {
+  extractError,
   amountString,
   toCompactNumber,
   compressAddress,

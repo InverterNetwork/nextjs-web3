@@ -10,7 +10,10 @@ export const useInverterHandler = () => {
   const inverter = useMemo(() => {
     if (!publicClient) return
 
-    const instance = new Inverter(publicClient, walletClient.data)
+    const instance = new Inverter({
+      publicClient,
+      walletClient: walletClient.data,
+    })
 
     // use math.random() as fallback for crypto.randomUUID() between 1 and 10000
     const instanceId =

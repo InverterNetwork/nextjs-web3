@@ -49,7 +49,7 @@ export function InteractiveTable({
   if (!rows.length) return <NoData />
 
   return (
-    <div className={cn('overflow-y-scroll w-full hide-scrollbar', className)}>
+    <div className={cn('overflow-y-scroll w-full scrollbar-none', className)}>
       <Table {...tableProps}>
         <Table.Head>
           {heads.map((head, index) => (

@@ -81,6 +81,9 @@ const extend = (base: typeof darkBase | typeof lightBase) => ({
         border,
       },
     },
+    '.collapse': {
+      border,
+    },
     '.menu': {
       gap: '0.5rem',
       border,
@@ -97,6 +100,12 @@ const extend = (base: typeof darkBase | typeof lightBase) => ({
     },
     '.tabs': {
       border,
+    },
+    '.table': {
+      ':where(thead tr, tbody tr:not(:last-child), tbody tr:first-child:last-child)':
+        {
+          'border-bottom': border,
+        },
     },
   } as unknown as Record<string, string>),
 })

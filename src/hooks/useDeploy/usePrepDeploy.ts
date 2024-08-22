@@ -35,7 +35,7 @@ export const usePrepDeploy = () => {
 
       if (!inverter) throw new Error('Inverter instance not found')
 
-      const { run, inputs } = await inverter.getDeploy(requestedModules)
+      const { run, inputs } = await inverter.getDeploy({ requestedModules })
 
       setStep('Deploy')
 

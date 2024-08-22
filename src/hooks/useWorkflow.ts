@@ -3,6 +3,8 @@
 import { useQuery } from '@tanstack/react-query'
 import { useInverter } from '.'
 
+export type UseWorkFlowReturnType = ReturnType<typeof useWorkflow>
+
 export function useWorkflow(orchestratorAddress?: `0x${string}`) {
   const inverter = useInverter()
 
@@ -10,7 +12,8 @@ export function useWorkflow(orchestratorAddress?: `0x${string}`) {
 
   const workflowQuery = useQuery({
     queryKey: ['workflow', orchestratorAddress, inverter?.instanceId],
-    queryFn: () => inverter!.getWorkflow(orchestratorAddress!),
+    queryFn: () =>
+      inverter!.getWorkflow({ orchestratorAddress: orchestratorAddress! }),
     enabled,
     gcTime: 0,
     staleTime: 30 * 60_000, // 30 minutes
@@ -20,5 +23,3 @@ export function useWorkflow(orchestratorAddress?: `0x${string}`) {
 
   return { ...workflowQuery, hasOrchestrator }
 }
-
-export type UseWorkFlowReturnType = ReturnType<typeof useWorkflow>

@@ -1,11 +1,16 @@
 import { cn } from '@/styles/cn'
 
 export function Frame({
-  children,
   className,
-}: {
-  children: React.ReactNode
-  className?: string
-}) {
-  return <div className={cn('frame', className)}>{children}</div>
+  children,
+  ...props
+}: React.DetailedHTMLProps<
+  React.HTMLAttributes<HTMLDivElement>,
+  HTMLDivElement
+>) {
+  return (
+    <div className={cn('frame', className)} {...props}>
+      {children}
+    </div>
+  )
 }

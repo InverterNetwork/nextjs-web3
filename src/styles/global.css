@@ -1,18 +1,10 @@
+@import './react-select.css';
+@import './components.css';
+@import './utilities.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import './react-select.css';
-@import './custom-components.css';
-
-.hide-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-
-.hide-scrollbar {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-}
 
 @font-face {
   font-family: 'Archivo';
@@ -25,7 +17,7 @@
 }
 
 html {
-  @apply hide-scrollbar;
+  @apply scrollbar-none;
   overflow-x: hidden;
   font-family: 'Archivo';
   -webkit-font-smoothing: antialiased;
@@ -54,17 +46,21 @@ h4 {
 }
 
 h1 {
-  @apply text-4xl sm:text-5xl font-extrabold;
+  @apply text-3xl sm:text-5xl font-extrabold;
 }
 
 h2 {
-  @apply text-3xl sm:text-4xl font-bold;
+  @apply text-2xl sm:text-4xl font-bold;
 }
 
 h3 {
-  @apply text-2xl sm:text-3xl font-semibold;
+  @apply text-xl sm:text-3xl font-semibold;
 }
 
 h4 {
-  @apply text-xl sm:text-2xl font-medium;
+  @apply text-lg sm:text-2xl font-semibold;
+}
+
+h5 {
+  @apply text-base sm:text-xl font-semibold;
 }
