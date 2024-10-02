@@ -1,12 +1,13 @@
 'use client'
 
 import { useChainSpecs, useIsHydrated } from '@/hooks'
-import { Button, ButtonProps, Loading } from '@/react-daisyui'
 import Image from 'next/image'
 import utils, { cn } from '@/utils'
 import { GiClick } from 'react-icons/gi'
 import { MdErrorOutline } from 'react-icons/md'
 import { MdOutlineWallet } from 'react-icons/md'
+import { Spinner } from './ui/spinner'
+import { Button, ButtonProps } from './ui/button'
 
 export function WalletWidget(
   props: Omit<ButtonProps, 'color' | 'onClick'> & {
@@ -21,10 +22,7 @@ export function WalletWidget(
 
   if (!isHydrated || (isConnected && !address))
     return (
-      <Loading
-        variant="spinner"
-        className={cn('m-auto', applyClassToLoading && className)}
-      />
+      <Spinner className={cn('m-auto', applyClassToLoading && className)} />
     )
 
   const getStartIcon = () => {

@@ -1,6 +1,6 @@
 'use client'
 
-import { HasError } from '@/components/ui'
+import { HasError } from '@/components/ui/has-error'
 
 export default function Error({
   error,

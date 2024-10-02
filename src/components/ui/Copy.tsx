@@ -1,6 +1,6 @@
-import { Button, ButtonProps } from '@/react-daisyui'
 import { BsCopy } from 'react-icons/bs'
 import { toast } from 'sonner'
+import { Button, ButtonProps } from './button'
 
 export function Copy({
   data,

@@ -1,4 +1,5 @@
 @import './react-select.css';
+@import './typography.css';
 @import './components.css';
 @import './utilities.css';
 
@@ -36,33 +37,6 @@ body {
 
 .page {
   @apply flex flex-col max-w-5xl w-full flex-grow mx-auto;
-}
-
-h1,
-h2,
-h3,
-h4 {
-  font-family: 'PowerGrotesk';
-}
-
-h1 {
-  @apply text-3xl sm:text-5xl font-extrabold;
-}
-
-h2 {
-  @apply text-2xl sm:text-4xl font-bold;
-}
-
-h3 {
-  @apply text-xl sm:text-3xl font-semibold;
-}
-
-h4 {
-  @apply text-lg sm:text-2xl font-semibold;
-}
-
-h5 {
-  @apply text-base sm:text-xl font-semibold;
 }
 
 @layer base {
