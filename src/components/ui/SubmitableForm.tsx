@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { Button } from '@/react-daisyui'
 import { Copy, Input, TextInputProps } from '.'
-import { cn } from '@/styles/cn'
+import { cn } from '@/utils'
 import React from 'react'
 
 type SubmitableFormProps = {
@@ -52,7 +52,7 @@ export function SubmitableForm({
 
   const Toggler = () => (
     <Button size={'sm'} variant="outline" onClick={toggle} loading={isPending}>
-      {!isEditing ? (!data ? 'Add' : buttonLabel ?? 'Edit') : 'Cancel'}
+      {!isEditing ? (!data ? 'Add' : (buttonLabel ?? 'Edit')) : 'Cancel'}
     </Button>
   )
 

@@ -1,5 +1,5 @@
-import { CacheModel } from '@/lib/models'
-import { CacheType } from '@/lib/types'
+import { model } from '@/lib/mongo'
+import { CacheType } from '@/types'
 
 /**
  * Updates a specific cache model with new data if the existing data is outdated.
@@ -25,7 +25,7 @@ export default async function <T>(
   insert: boolean = false
 ): Promise<T> {
   // Choose the correct cache model
-  const DynamicCacheModel = CacheModel[modelName]
+  const DynamicCacheModel = model.Cache[modelName]
 
   // The case for inserting a new document
   const handleInsert = async (data: Awaited<T>) => {

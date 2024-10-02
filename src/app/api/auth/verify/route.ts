@@ -1,7 +1,7 @@
-import { UserModel } from '@/lib/models'
-import { Auth, HTTPError } from '@/lib/types'
-import utils from '@/lib/utils'
-import session from '@/lib/utils/server/session'
+import { model } from '@/lib/mongo'
+import { Auth, HTTPError } from '@/types'
+import utils from '@/utils'
+import session from '@/utils/server/session'
 import jwt from 'jsonwebtoken'
 
 const nullablePublicKey = process.env.DYNAMIC_PUBLIC_KEY,
@@ -53,7 +53,7 @@ export async function GET(req: Request) {
       role: 'USER',
     }
 
-    const existingUser = await UserModel.findOne({
+    const existingUser = await model.User.findOne({
       address: state.address,
     }).lean()
 
@@ -64,7 +64,7 @@ export async function GET(req: Request) {
     } // Create a new User in MongoDB and handle session
     else {
       try {
-        const newUser = new UserModel({
+        const newUser = new model.User({
           address: state.address,
           email: state.email,
         })

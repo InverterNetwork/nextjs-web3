@@ -1,13 +1,13 @@
 // This File Can Not Contain use server or use client,
 // it is meant to be consumed by next.js instrumentation.ts
 
-import { UserModel } from '../models'
-import { EventType } from '../types'
 import fetchBuilder from 'fetch-retry-ts'
+import { EventType, model } from '@/lib/mongo'
 
 export async function getWebHookUrl(address: string) {
-  const webHookUrl = (await UserModel.findOne({ address }, 'webHookUrl').lean())
-    ?.webHookUrl
+  const webHookUrl = (
+    await model.User.findOne({ address }, 'webHookUrl').lean()
+  )?.webHookUrl
 
   if (!webHookUrl) throw new Error()
 

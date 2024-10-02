@@ -12,7 +12,7 @@ import { DynamicWagmiConnector } from '@dynamic-labs/wagmi-connector'
 import { WagmiProvider, createConfig, http } from 'wagmi'
 import { Chain, HttpTransport } from 'viem'
 import { optimismSepolia, polygonAmoy } from 'viem/chains'
-import utils from '@/lib/utils'
+import utils from '@/utils'
 import { useMemo, useState } from 'react'
 import { isEqual } from 'lodash'
 

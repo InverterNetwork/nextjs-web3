@@ -1,4 +1,4 @@
-import { cn } from '@/styles/cn'
+import { cn } from '@/utils'
 
 export function Frame({
   className,

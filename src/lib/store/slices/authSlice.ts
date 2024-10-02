@@ -1,4 +1,4 @@
-import { Auth } from '@/lib/types'
+import { Auth } from '@/types'
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 

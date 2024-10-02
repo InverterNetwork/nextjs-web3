@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server'
-import { isNotEmpty } from '@/lib/types'
+import { isNotEmpty } from '@/types'
 
 const get = (req: Request | NextRequest) => {
   const token = req.headers.get('authorization')?.split(' ')[1]

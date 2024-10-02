@@ -3,10 +3,9 @@
 import { Dropdown, Loading, Table } from '@/react-daisyui'
 import { NoData } from '.'
 import { Fragment, useState } from 'react'
-import { cn } from '@/styles/cn'
 import Link from 'next/link'
 import { HiDotsHorizontal } from 'react-icons/hi'
-import utils from '@/lib/utils'
+import utils, { cn } from '@/utils'
 
 type Action = {
   name: string

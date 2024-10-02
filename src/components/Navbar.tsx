@@ -7,7 +7,7 @@ import { ThemeSwitcher, WalletWidget } from '.'
 import Link from 'next/link'
 import { Button, Dropdown } from '@/react-daisyui'
 import { GiHamburgerMenu } from 'react-icons/gi'
-import { cn } from '@/styles/cn'
+import { cn } from '@/utils'
 import { useTheme } from '@/hooks'
 
 export function Navbar() {

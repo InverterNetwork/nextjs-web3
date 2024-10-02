@@ -1,6 +1,6 @@
 'use client'
 
-import { cn } from '@/styles/cn'
+import { cn } from '@/utils'
 import { Tabs as DaisyTabs, type TabsProps } from '@/react-daisyui'
 
 const { Tab } = DaisyTabs

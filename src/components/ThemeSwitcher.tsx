@@ -2,7 +2,7 @@
 
 import { useTheme } from '@/hooks'
 import { FaMoon, FaSun } from 'react-icons/fa'
-import { cn } from '@/styles/cn'
+import { cn } from '@/utils'
 
 export function ThemeSwitcher(
   props: React.DetailedHTMLProps<

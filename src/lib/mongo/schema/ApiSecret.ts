@@ -1,7 +1,7 @@
 import { Schema } from 'mongoose'
-import { ApiSecret } from '../types'
+import { ApiSecret as TApiSecret } from '../types'
 
-export const ApiSecretSchema = new Schema<ApiSecret>(
+export const ApiSecret = new Schema<TApiSecret>(
   {
     uid: {
       type: String,

@@ -1,4 +1,4 @@
-import { ServerActionWrapperReturn } from '@/lib/types'
+import { ServerActionWrapperReturn } from '@/types'
 import { useTransition } from 'react'
 
 type Expect<T> = Promise<ServerActionWrapperReturn<T, 'client'>>

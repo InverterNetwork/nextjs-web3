@@ -1,7 +1,7 @@
 'use client'
 
-import utils from '@/lib/utils'
-import { Auth } from '@/lib/types'
+import utils from '@/utils'
+import { Auth } from '@/types'
 import { useDynamicContext } from '@dynamic-labs/sdk-react-core'
 import { useQuery } from '@tanstack/react-query'
 

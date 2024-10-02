@@ -1,10 +1,9 @@
 'use client'
 
 import { useChainSpecs, useIsHydrated } from '@/hooks'
-import utils from '@/lib/utils'
 import { Button, ButtonProps, Loading } from '@/react-daisyui'
 import Image from 'next/image'
-import { cn } from '@/styles/cn'
+import utils, { cn } from '@/utils'
 import { GiClick } from 'react-icons/gi'
 import { MdErrorOutline } from 'react-icons/md'
 import { MdOutlineWallet } from 'react-icons/md'

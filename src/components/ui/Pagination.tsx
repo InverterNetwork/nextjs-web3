@@ -1,6 +1,6 @@
 'use client'
 
-import { cn } from '@/styles/cn'
+import { cn } from '@/utils'
 import Link from 'next/link'
 
 type PaginationProps = {

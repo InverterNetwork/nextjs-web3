@@ -1,8 +1,8 @@
-import { Schema, model, models } from 'mongoose'
-import { User, EUserRole } from '../types'
-import { ApiSecretSchema } from '../schemas/ApiSecret'
+import { Schema } from 'mongoose'
+import { EUserRole, User as TUser } from '../types'
+import { ApiSecret } from './ApiSecret'
 
-const UserSchema = new Schema<User>(
+export const User = new Schema<TUser>(
   {
     uid: {
       type: String,
@@ -28,7 +28,7 @@ const UserSchema = new Schema<User>(
       sparse: true,
     },
     apiSecrets: {
-      type: [ApiSecretSchema],
+      type: [ApiSecret],
       default: [],
     },
     webHookUrl: {
@@ -37,11 +37,3 @@ const UserSchema = new Schema<User>(
   },
   { timestamps: true }
 )
-
-const setModel = () => model('users', UserSchema)
-
-if (!models.users) setModel()
-
-const users = models.users as ReturnType<typeof setModel>
-
-export default users

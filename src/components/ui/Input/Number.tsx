@@ -1,6 +1,6 @@
 'use client'
 
-import utils from '@/lib/utils'
+import utils from '@/utils'
 import { useState, useRef } from 'react'
 import { Input, type InputProps } from '@/react-daisyui'
 import { DescriptionLabel, NameLabel } from '.'

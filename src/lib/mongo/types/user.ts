@@ -18,10 +18,3 @@ export type User = {
   createdAt: Date
   updatedAt: Date
 }
-
-export type Auth = Omit<
-  User,
-  'createdAt' | 'updatedAt' | 'apiSecrets' | 'uid'
-> & {
-  isAuth: boolean
-}

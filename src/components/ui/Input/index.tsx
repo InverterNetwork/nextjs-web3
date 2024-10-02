@@ -1,4 +1,4 @@
-import { cn } from '@/styles/cn'
+import { cn } from '@/utils'
 import { Number } from './Number'
 import { Toggle } from './Toggle'
 import { Text } from './Text'
