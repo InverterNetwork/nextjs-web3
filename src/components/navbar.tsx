@@ -6,60 +6,59 @@ import NextLink from 'next/link'
 import { ThemeSwitcher, WalletWidget } from '.'
 import Link from 'next/link'
 import { GiHamburgerMenu } from 'react-icons/gi'
-import { cn } from '@/utils'
 import { Button } from './ui/button'
 import { DropdownMenu } from './ui/dropdown-menu'
-import { useTheme } from 'next-themes'
 
 export function Navbar() {
-  const { theme } = useTheme()
   const pathname = usePathname()
   return (
     <div
       className={`
-      fixed left-1/2 -translate-x-1/2 items-center p-2 flex 
-      justify-center gap-4 z-10 w-max bottom-0 
-      drop-shadow-2xl rounded-tl-xl rounded-tr-xl bg-background-100/50 backdrop-blur-2xl
-      border-t border-x
+      fixed items-center p-2 flex w-screen
+      justify-between gap-4 top-0 
+      drop-shadow-2xl bg-background-100/50 backdrop-blur-2xl
+      border-b border-input
     `.trim()}
     >
-      <NextLink href="/">
-        <Image
-          className={cn(theme === 'light' && 'invert')}
-          priority
-          src="/inverter-light-logo.svg"
-          alt="inverter_logo"
-          width={42}
-          height={42}
-        />
-      </NextLink>
+      <div className="flex items-center gap-4">
+        <NextLink href="/">
+          <Image
+            priority
+            src="/logo.png"
+            alt="Rare Earth Logo"
+            width={64}
+            height={64}
+          />
+        </NextLink>
 
-      <ThemeSwitcher className="lg:flex hidden" />
+        <ThemeSwitcher className="lg:flex hidden" />
 
-      <WalletWidget />
-
-      <div className="items-center lg:flex hidden gap-4">
-        <h4>|</h4>
-        <NavItems pathname={pathname} />
+        <div className="items-center lg:flex hidden gap-4">
+          <NavItems pathname={pathname} />
+        </div>
       </div>
 
-      <span className="lg:hidden">
-        <DropdownMenu>
-          <DropdownMenu.Trigger asChild>
-            <Button variant="outline" size="icon">
-              <GiHamburgerMenu className="fill-current w-5 h-5" />
-            </Button>
-          </DropdownMenu.Trigger>
-          <DropdownMenu.Content align="end">
-            <div className="flex items-center justify-between">
-              <h4 className="ml-3">Theme</h4>
-              <ThemeSwitcher className="mx-auto" />
-            </div>
-            <DropdownMenu.Separator />
-            <NavItems pathname={pathname} reverse />
-          </DropdownMenu.Content>
-        </DropdownMenu>
-      </span>
+      <div className="flex items-center gap-4">
+        <WalletWidget />
+
+        <span className="lg:hidden">
+          <DropdownMenu>
+            <DropdownMenu.Trigger asChild>
+              <Button variant="outline" size="icon">
+                <GiHamburgerMenu className="fill-current w-5 h-5" />
+              </Button>
+            </DropdownMenu.Trigger>
+            <DropdownMenu.Content align="end">
+              <div className="flex items-center justify-between">
+                <h4 className="ml-3">Theme</h4>
+                <ThemeSwitcher className="mx-auto" />
+              </div>
+              <DropdownMenu.Separator />
+              <NavItems pathname={pathname} reverse />
+            </DropdownMenu.Content>
+          </DropdownMenu>
+        </span>
+      </div>
     </div>
   )
 }

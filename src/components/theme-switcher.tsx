@@ -20,7 +20,7 @@ export function ThemeSwitcher({ className }: { className?: string }) {
             <span className="sr-only">Toggle theme</span>
           </Button>
         </DropdownMenu.Trigger>
-        <DropdownMenu.Content align="end">
+        <DropdownMenu.Content align="start">
           <DropdownMenu.Item onClick={() => setTheme('light')}>
             Light
           </DropdownMenu.Item>

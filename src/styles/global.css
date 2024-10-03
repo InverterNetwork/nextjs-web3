@@ -27,6 +27,11 @@ html {
 }
 
 .body {
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.children {
   display: flex;
   flex-direction: column;
   width: 100vw;
@@ -34,4 +39,6 @@ html {
   padding: 1.5rem;
   padding-top: 5rem;
   padding-bottom: 10rem;
+  overflow-y: scroll;
+  @apply scrollbar-none;
 }

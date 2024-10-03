@@ -1,20 +1,20 @@
 @layer base {
   :root,
   .dark {
-    --primary: 209 100% 61%;
+    --primary: 140 60% 40%;
     --primary-foreground: 0 0% 98%;
 
-    --accent: 16 100% 66%;
+    --accent: 160 60% 40%;
     --accent-foreground: 0 0% 98%;
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 80% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --chart-1: 209 100% 61%;
-    --chart-2: 131 70% 45%;
+    --chart-1: 200 100% 60%;
+    --chart-2: 140 60% 40%;
     --chart-3: 16 100% 66%;
     --chart-4: 280 65% 60%;
-    --chart-5: 0 84.2% 60.2%;
+    --chart-5: 0 80% 60%;
   }
 
   :root {

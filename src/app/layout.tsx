@@ -46,12 +46,14 @@ function RootLayout({ children }: { children: React.ReactNode }) {
       <meta name="theme-color" content="#000000" />
       <meta name="apple-mobile-web-app-status-bar-style" content="black" />
       <body>
+        <RouteProgressBar />
         <Analytics />
         <Providers>
-          <RouteProgressBar />
           {/* CONTENT */}
-          <div className="body">{children}</div>
-          <Navbar />
+          <div className="body">
+            <Navbar />
+            <div className="children">{children}</div>
+          </div>
         </Providers>
       </body>
     </html>
