@@ -14,7 +14,7 @@ export const usePrepDeploy = () => {
   const dispatch = useAppDispatch()
   const router = useRouter()
 
-  const inverter = useInverter()
+  const inverter = useInverter().data
 
   const [requestedModules, setRequestedModules] = useState(
     {} as RequestedModules

@@ -6,12 +6,16 @@ import { useInverter } from '.'
 export type UseWorkFlowReturnType = ReturnType<typeof useWorkflow>
 
 export function useWorkflow(orchestratorAddress?: `0x${string}`) {
-  const inverter = useInverter()
+  const inverter = useInverter().data
 
   const enabled = !!inverter && !!orchestratorAddress
 
   const workflowQuery = useQuery({
-    queryKey: ['workflow', orchestratorAddress, inverter?.instanceId],
+    queryKey: [
+      'workflow',
+      orchestratorAddress,
+      inverter?.walletClient?.account.address,
+    ],
     queryFn: () =>
       inverter!.getWorkflow({ orchestratorAddress: orchestratorAddress! }),
     enabled,

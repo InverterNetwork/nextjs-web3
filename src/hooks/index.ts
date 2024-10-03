@@ -9,6 +9,6 @@ export { useWorkflow } from './useWorkflow'
 
 export * from './useChainSpecs'
 export * from './useQueryParams'
+export * from './useInverter'
 
 export const useIsHydrated = () => useAppContext().isHydrated
-export const useInverter = () => useAppContext().inverter
