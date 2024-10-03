@@ -9,16 +9,16 @@ import { Card } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { Tabs } from '@/components/ui/_tabs'
+import { Tabs } from '@/components/ui/tabs'
 import { Menubar } from '@/components/ui/menubar'
 import { Collapsible } from '@/components/ui/collapsible'
 
-import { Accordion } from '@/components/ui/_accordion'
+import { Accordion } from '@/components/ui/accordion'
 
 import { Dialog } from '@/components/ui/dialog'
 import { Skeleton } from '@/components/ui/skeleton'
 import { NoData } from '@/components/ui/no-data'
-import { Pagination } from '@/components/ui/_pagination'
+import { Pagination } from '@/components/ui/pagination'
 import { Frame } from '@/components/ui/frame'
 import {
   FloatingInput,

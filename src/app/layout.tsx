@@ -2,7 +2,7 @@ import React from 'react'
 import type { Metadata } from 'next'
 import { Navbar } from '@/components'
 import Providers from '@/providers'
-import { Analytics } from '@/providers/_analytics'
+import { Analytics } from '@/providers/analytics'
 import '@/styles/global.css'
 import { RouteProgressBar } from '@/components/ui/route-progress-bar'
 
