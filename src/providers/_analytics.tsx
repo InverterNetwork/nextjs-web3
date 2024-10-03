@@ -4,7 +4,7 @@ import { usePathname, useSearchParams } from 'next/navigation'
 import { Suspense, useEffect } from 'react'
 import Script from 'next/script'
 
-export default function Analytics() {
+export function Analytics() {
   return (
     <Suspense>
       <Root />

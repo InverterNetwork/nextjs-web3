@@ -1,5 +1,4 @@
-import { useAppContext } from '@/providers/appContext'
-import { useThemeContext } from '@/providers/themeContext'
+import { useAppContext } from '@/providers/app-context'
 
 export { default as useDisclosure } from './useDisclosure'
 export { default as useAuth } from './useAuth'
@@ -13,4 +12,3 @@ export * from './useQueryParams'
 
 export const useIsHydrated = () => useAppContext().isHydrated
 export const useInverter = () => useAppContext().inverter
-export const useTheme = () => useThemeContext().themeHandler

@@ -1,3 +1,3 @@
 .frame {
-  @apply w-full rounded-box flex gap-3 mx-auto p-4 border border-faint flex-col bg-base-200;
+  @apply w-full rounded-sm flex gap-3 mx-auto p-4 border flex-col bg-background;
 }

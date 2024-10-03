@@ -1,11 +1,10 @@
 import React from 'react'
 import type { Metadata } from 'next'
-import { RouteProgressBar, Navbar } from '@/components'
-import { cookies } from 'next/headers'
-import { initialTheme } from '@/styles'
+import { Navbar } from '@/components'
 import Providers from '@/providers'
-import Analytics from '@/providers/Analytics'
+import { Analytics } from '@/providers/_analytics'
 import '@/styles/global.css'
+import { RouteProgressBar } from '@/components/ui/route-progress-bar'
 
 const title = 'Inverter Network | The Token Programmability Layer',
   description =
@@ -31,11 +30,8 @@ export const metadata: Metadata = {
 }
 
 function RootLayout({ children }: { children: React.ReactNode }) {
-  const theme =
-    (cookies().get('theme')?.value as 'light' | 'dark' | undefined) ??
-    initialTheme
   return (
-    <html lang="en" data-theme={theme}>
+    <html lang="en">
       {/* PWA config */}
       <link rel="manifest" href="/manifest.json" />
       <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -51,11 +47,11 @@ function RootLayout({ children }: { children: React.ReactNode }) {
       <meta name="apple-mobile-web-app-status-bar-style" content="black" />
       <body>
         <Analytics />
-        <Providers theme={theme}>
+        <Providers>
           <RouteProgressBar />
           {/* CONTENT */}
+          <div className="body">{children}</div>
           <Navbar />
-          {children}
         </Providers>
       </body>
     </html>

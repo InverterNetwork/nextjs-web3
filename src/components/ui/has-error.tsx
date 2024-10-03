@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { JsonView } from '.'
+import { JsonView } from './json-view'
 
 export function HasError({ error, reset }: { error: any; reset?: () => void }) {
   return (

@@ -1,35 +1,38 @@
 'use client'
 
 import { useState } from 'react'
-import {
-  Accordion,
-  Frame,
-  Input,
-  NoData,
-  Pagination,
-  SubmitableForm,
-  Tabs,
-  ThreeDCard,
-} from '@/components'
-import {
-  Badge,
-  Button,
-  Card,
-  Collapse,
-  Divider,
-  Menu,
-  Modal,
-  Skeleton,
-} from '@/react-daisyui'
 import { useDisclosure } from '@/hooks'
-import { IoClose } from 'react-icons/io5'
-import Image from 'next/image'
 import { toast } from 'sonner'
+import { Separator } from '@/components/ui/separator'
+import { Badge } from '@/components/ui/badge'
+import { Card } from '@/components/ui/card'
+import { Label } from '@/components/ui/label'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
+import { Tabs } from '@/components/ui/_tabs'
+import { Menubar } from '@/components/ui/menubar'
+import { Collapsible } from '@/components/ui/collapsible'
+
+import { Accordion } from '@/components/ui/_accordion'
+
+import { Dialog } from '@/components/ui/dialog'
+import { Skeleton } from '@/components/ui/skeleton'
+import { NoData } from '@/components/ui/no-data'
+import { Pagination } from '@/components/ui/_pagination'
+import { Frame } from '@/components/ui/frame'
+import {
+  FloatingInput,
+  FloatingLabel,
+} from '@/components/ui/floating-label-input'
+import { Form } from '@/components/ui/form'
+import { useForm } from 'react-hook-form'
+import utils from '@/utils'
 
 const imageUrl =
   'https://raw.githubusercontent.com/InverterNetwork/media/main/inverter-light-banner.png'
 
 export default function PageClient() {
+  const form = useForm()
   const { onOpen, isOpen, onClose } = useDisclosure()
   const [page, setPage] = useState(1)
   const [textInputValue, setTextInput] = useState<string>('')
@@ -44,218 +47,196 @@ export default function PageClient() {
 
   return (
     <div className="flex flex-col gap-3">
-      {/* Card */}
-      <div className="grid grid-cols-2 place-items-center">
-        <Card>
-          <Card.Image src={imageUrl} alt="Brand" />
-          <Card.Body>
-            <Card.Title tag="h2">Modular Smart Contracts!</Card.Title>
-            <p>Did someone say Inverter?</p>
-            <Card.Actions className="justify-end">
-              <Button size={'sm'} color="primary">
-                Integrate Now
-              </Button>
-            </Card.Actions>
-          </Card.Body>
-        </Card>
-        {/* 3D Card */}
-        <ThreeDCard.Container className="max-w-96 mx-auto">
-          <ThreeDCard.Body>
-            <ThreeDCard.Item
-              as="p"
-              translateZ="60"
-              className="text-subtitle-1 text-primary"
-            >
-              DATE
-            </ThreeDCard.Item>
-
-            <ThreeDCard.Item translateZ="50">TITLE</ThreeDCard.Item>
-
-            <ThreeDCard.Item translateZ="100" className="w-full mt-4">
-              <Image
-                src={imageUrl}
-                width={400}
-                height={200}
-                className="w-full object-cover rounded-xl group-hover/card:shadow-xl"
-                alt="thumbnail"
-              />
-            </ThreeDCard.Item>
-          </ThreeDCard.Body>
-        </ThreeDCard.Container>
-      </div>
-      <Divider />
+      {/* Tabs / Card */}
+      <Tabs defaultValue="account">
+        <Tabs.List className="grid w-full grid-cols-2">
+          <Tabs.Trigger value="account">Account</Tabs.Trigger>
+          <Tabs.Trigger value="password">Password</Tabs.Trigger>
+        </Tabs.List>
+        <Tabs.Content value="account">
+          <Card>
+            <Card.Header>
+              <Card.Title>Account</Card.Title>
+              <Card.Description>
+                Make changes to your account here. Click save when youre done.
+              </Card.Description>
+            </Card.Header>
+            <Card.Content className="space-y-2">
+              <div className="space-y-1">
+                <Label htmlFor="name">Name</Label>
+                <Input id="name" defaultValue="Pedro Duarte" />
+              </div>
+              <div className="space-y-1">
+                <Label htmlFor="username">Username</Label>
+                <Input id="username" defaultValue="@peduarte" />
+              </div>
+            </Card.Content>
+            <Card.Footer>
+              <Button>Save changes</Button>
+            </Card.Footer>
+          </Card>
+        </Tabs.Content>
+        <Tabs.Content value="password">
+          <Card>
+            <Card.Header>
+              <Card.Title>Password</Card.Title>
+              <Card.Description>
+                Change your password here. After saving, youll be logged out.
+              </Card.Description>
+            </Card.Header>
+            <Card.Content className="space-y-2">
+              <div className="space-y-1">
+                <Label htmlFor="current">Current password</Label>
+                <Input id="current" type="password" />
+              </div>
+              <div className="space-y-1">
+                <Label htmlFor="new">New password</Label>
+                <Input id="new" type="password" />
+              </div>
+            </Card.Content>
+            <Card.Footer>
+              <Button>Save password</Button>
+            </Card.Footer>
+          </Card>
+        </Tabs.Content>
+      </Tabs>
+      <Separator />
       {/* Badge */}
-      <Badge size="xs" color="primary">
-        Test Badge XS primary
-      </Badge>
-      <Badge size="sm" color="accent">
-        Test Badge SM accent
-      </Badge>
-      <Badge size="md" color="secondary">
-        Test Badge MD secondary
-      </Badge>
-      <Badge size="lg" color="neutral">
-        Test Badge LG netural
-      </Badge>
-      <Divider />
-      {/* Tab */}
-      <Tabs
-        variant="boxed"
-        setTab={setTab}
-        tab={tab}
-        tabs={['Tab 1', 'Tab 2', 'Tab3']}
-      />
-      <Divider />
+      <Badge variant="default">Default</Badge>
+      <Badge variant="destructive">Destructive</Badge>
+      <Badge variant="outline">Outline</Badge>
+      <Badge variant="secondary">Secondary</Badge>
+      <Separator />
       {/* Menu */}
-      <Menu className="bg-base-200 rounded-box">
-        <Menu.Item>
-          <a className={'active'}>Item 1 {'(active)'}</a>
-        </Menu.Item>
-        <Menu.Item>
-          <a>Item 2</a>
-        </Menu.Item>
-        <Menu.Item>
-          <Menu.Details label={'Sub Menu'}>
-            <Menu.Item>
-              <a>level 2 item 1</a>
-            </Menu.Item>
-            <Menu.Item>
-              <a>level 2 item 2</a>
-            </Menu.Item>
-          </Menu.Details>
-        </Menu.Item>
-      </Menu>
-      <Divider />
+      <Menubar>
+        <Menubar.Menu>
+          <Menubar.Trigger>File</Menubar.Trigger>
+          <Menubar.Content>
+            <Menubar.Item>
+              New Tab <Menubar.Shortcut>⌘T</Menubar.Shortcut>
+            </Menubar.Item>
+            <Menubar.Item>New Window</Menubar.Item>
+            <Menubar.Separator />
+            <Menubar.Item>Share</Menubar.Item>
+            <Menubar.Separator />
+            <Menubar.Item>Print</Menubar.Item>
+          </Menubar.Content>
+        </Menubar.Menu>
+      </Menubar>
+      <Separator />
       {/* Collapse */}
-      <Collapse>
-        <Collapse.Title className="text-xl font-medium">
-          Collapse `Focus me to see content
-        </Collapse.Title>
-        <Collapse.Content>
-          {'tabindex="0" attribute is necessary to make the div focusable'}
-        </Collapse.Content>
-      </Collapse>
-      <Divider />
+      <Collapsible>
+        <Collapsible.Trigger>Can I use this in my project?</Collapsible.Trigger>
+        <Collapsible.Content>
+          Yes. Free to use for personal and commercial projects. No attribution
+          required.
+        </Collapsible.Content>
+      </Collapsible>
+
+      <Separator />
       {/* Accordion */}
-      <Accordion
-        className={'bg-base-200'}
-        icon="arrow"
-        items={[
-          { label: 'Accordion 1', content: 'Content 1' },
-          { label: 'Accordion 2', content: 'Content 2' },
-          { label: 'Accordion 3', content: 'Content 3' },
-        ]}
-      />
-      <Divider />
+      <Accordion type="single" collapsible>
+        <Accordion.Item value="item-1">
+          <Accordion.Trigger>Is it accessible?</Accordion.Trigger>
+          <Accordion.Content>
+            Yes. It adheres to the WAI-ARIA design pattern.
+          </Accordion.Content>
+        </Accordion.Item>
+      </Accordion>
+      <Separator />
       {/* Modal */}
-      <Button onClick={onOpen}>Open Modal</Button>
-      <Modal.Legacy open={isOpen}>
-        <Modal.Header className="flex justify-between items-center">
-          <h2>Header</h2>
-          <Button color="ghost" className="p-0">
-            <IoClose size={30} onClick={onClose} />
-          </Button>
-        </Modal.Header>
-        <Modal.Body>This modal works with useDisclosure hook!</Modal.Body>
-      </Modal.Legacy>
-      <Divider />
-      {/* Skeleton */}
-      <div className="flex flex-col gap-4 w-52">
-        <Skeleton className="h-32 w-full"></Skeleton>
-        <Skeleton className="h-4 w-28"></Skeleton>
-        <Skeleton className="h-4 w-full"></Skeleton>
-        <Skeleton className="h-4 w-full"></Skeleton>
+      <Dialog>
+        <Dialog.Trigger>Open</Dialog.Trigger>
+        <Dialog.Content>
+          <Dialog.Header>
+            <Dialog.Title>Are you absolutely sure?</Dialog.Title>
+            <Dialog.Description>
+              This action cannot be undone. This will permanently delete your
+              account and remove your data from our servers.
+            </Dialog.Description>
+          </Dialog.Header>
+        </Dialog.Content>
+      </Dialog>
+      <Separator />
+      {/* Skeleton / Card */}
+      <div className="flex flex-col space-y-3">
+        <Skeleton className="h-[125px] w-[250px] rounded-xl" />
+        <div className="space-y-2">
+          <Skeleton className="h-4 w-[250px]" />
+          <Skeleton className="h-4 w-[200px]" />
+        </div>
       </div>
-      <Divider />
+      <Separator />
       {/* No Data */}
       <div className="flex gap-4 itmes-center">
         <NoData />
         <NoData inline />
       </div>
-      <Divider />
+      <Separator />
       {/* Pagination */}
-      <Pagination setPage={setPage} page={page} totalPages={10} />
-      <Divider />
+      <Pagination>
+        <Pagination.Content>
+          <Pagination.Item>
+            <Pagination.Previous href="#" />
+          </Pagination.Item>
+          <Pagination.Item>
+            <Pagination.Link href="#">1</Pagination.Link>
+          </Pagination.Item>
+          <Pagination.Item>
+            <Pagination.Ellipsis />
+          </Pagination.Item>
+          <Pagination.Item>
+            <Pagination.Next href="#" />
+          </Pagination.Item>
+        </Pagination.Content>
+      </Pagination>
+
+      <Separator />
       {/* Frame */}
       <Frame>
         <h3>{'This is a Frame :)'}</h3>
       </Frame>
-      <Divider />
-      {/* Text Input */}
-      <Input.Text
-        label="Text Input"
-        onChange={setTextInput}
-        value={textInputValue}
-      />
-      <Divider />
+      <Separator />
+      {/* Floating Text Input */}
+      <div className="relative">
+        <FloatingInput id="floating-customize" />
+        <FloatingLabel htmlFor="floating-customize">Text Input</FloatingLabel>
+      </div>
+      <Separator />
       {/* Number Input */}
-      <Input.Number
-        label="Number Input"
-        onChange={setNumberInputValue}
-        value={numberInputValue}
-      />
-      <Divider />
-      {/* Submitable Form */}
-      <SubmitableForm
-        rows={[
-          {
-            label: 'URL',
-            onChange: (t) => setFormState((p) => ({ ...p, url: t })),
-            type: 'url',
-            required: true,
-          },
-          {
-            label: 'EVM Address',
-            onChange: (t) => setFormState((p) => ({ ...p, address: t })),
-            type: 'address',
-            required: true,
-          },
-          {
-            label: 'Email',
-            onChange: (t) => setFormState((p) => ({ ...p, email: t })),
-            type: 'email',
-            required: true,
-          },
-          {
-            label: 'Number',
-            type: 'number',
-            onChange: (t) => setFormState((p) => ({ ...p, number: t })),
-            min: 2,
-            max: 5,
-            required: true,
-          },
-        ]}
-        header="Submitable Form"
-        onSubmit={() => {
-          alert('Submitted!')
-        }}
-        data="DATA!"
-      />
-      <Divider />
-      <SubmitableForm
-        rows={[
-          {
-            label: 'URL',
-            onChange: (t) => setFormState((p) => ({ ...p, url: t })),
-            type: 'url',
-            required: true,
-          },
-          {
-            label: 'Number',
-            type: 'number',
-            onChange: (t) => setFormState((p) => ({ ...p, number: t })),
-            min: 2,
-            max: 5,
-            required: true,
-          },
-        ]}
-        onSubmit={() => {
-          alert('Submitted!')
-        }}
-        defaultIsEditing={true}
-        data="DATA!"
-      />
-      <Divider />
+      <div className="relative">
+        <FloatingInput
+          id="floating-customize"
+          onChange={(e) => {
+            setNumberInputValue(utils.format.amountString(e.target.value))
+          }}
+          value={numberInputValue}
+          type="tel"
+        />
+        <FloatingLabel htmlFor="floating-customize">Number Input</FloatingLabel>
+      </div>
+      <Separator />
+      {/* Form */}
+      <Form {...form}>
+        <Form.Field
+          control={form.control}
+          name="username"
+          render={({ field }) => (
+            <Form.Item>
+              <Form.Label>Username</Form.Label>
+              <Form.Control>
+                <Input placeholder="shadcn" {...field} />
+              </Form.Control>
+              <Form.Description>
+                This is your public display name.
+              </Form.Description>
+              <Form.Message />
+            </Form.Item>
+          )}
+        />
+      </Form>
+      <Separator />
+
       {/* Toast */}
       <Button
         color={'primary'}

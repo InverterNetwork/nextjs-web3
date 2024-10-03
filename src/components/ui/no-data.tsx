@@ -9,7 +9,7 @@ export function NoData({
 }) {
   if (inline)
     return (
-      <div className="flex items-center gap-3 m-auto">
+      <div className="flex justify-center items-center gap-3 m-auto">
         <FaDatabase size={20} />
         <p>{text}</p>
       </div>

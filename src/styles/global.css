@@ -25,7 +25,7 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
+.body {
   display: flex;
   flex-direction: column;
   width: 100vw;
@@ -33,10 +33,6 @@ body {
   padding: 1.5rem;
   padding-top: 5rem;
   padding-bottom: 10rem;
-}
-
-.page {
-  @apply flex flex-col max-w-5xl w-full flex-grow mx-auto;
 }
 
 @layer base {

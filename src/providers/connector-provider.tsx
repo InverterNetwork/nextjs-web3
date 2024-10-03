@@ -32,11 +32,7 @@ const getConfig = (chains: readonly [Chain, ...Chain[]]) =>
     ssr: true,
   })
 
-export default function ConnectorProvider({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export function ConnectorProvider({ children }: { children: React.ReactNode }) {
   const [evmNetworks, setEvmNetworks] = useState(
     utils.transform.viemChainsToDynamic(chains)
   )

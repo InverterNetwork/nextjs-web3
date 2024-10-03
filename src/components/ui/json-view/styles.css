@@ -46,7 +46,7 @@
 }
 
 ._2IvMF {
-  @apply bg-base-100 rounded-box border-faint border;
+  @apply bg-background rounded-sm border-faint border;
 }
 
 ._2bkNM {
@@ -62,11 +62,11 @@
 ._oLqym,
 ._2KJWg,
 ._2AXVT {
-  @apply text-base-content;
+  @apply text-foreground;
 }
 
 ._1xvuR {
-  @apply text-base-content/60;
+  @apply text-foreground/60;
 }
 
 ._1MGIk {
@@ -76,13 +76,13 @@
 
 ._1Gho6,
 ._2T6PJ {
-  @apply text-error;
+  @apply text-destructive;
 }
 
 ._1bQdo {
-  @apply text-info;
+  @apply text-primary;
 }
 
 ._3zQKs {
-  @apply text-success;
+  @apply text-secondary;
 }

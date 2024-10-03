@@ -12,11 +12,7 @@ export type TAppContext = {
 
 const AppContext = createContext({} as TAppContext)
 
-export default function AppProvider({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export function AppProvider({ children }: { children: React.ReactNode }) {
   useAuth()
   const isHydrated = useIsHydratedHandler()
   const inverter = useInverterHandler()

@@ -2,7 +2,7 @@
 
 import { dark, light } from '@/styles'
 import { AppProgressBar } from 'next-nprogress-bar'
-import { useTheme } from '@/hooks'
+import { useTheme } from 'next-themes'
 
 export function RouteProgressBar() {
   const { theme } = useTheme()

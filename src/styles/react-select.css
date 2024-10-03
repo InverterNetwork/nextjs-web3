@@ -4,21 +4,21 @@
 .react-select-container .react-select__menu,
 .react-select-container-100 .react-select__control,
 .react-select-container-100 .react-select__menu {
-  @apply bg-base-200 border border-faint rounded-box;
+  @apply bg-secondary border border-faint rounded-sm;
 }
 
 .react-select-container-100 .react-select__control,
 .react-select-container-100 .react-select__menu {
-  @apply bg-base-100;
+  @apply bg-background;
 }
 
 .react-select-container .react-select__option,
 .react-select-container-100 .react-select__option {
-  @apply text-base-content bg-base-200 hover:bg-primary dark:hover:text-primary-content hover:text-white;
+  @apply text-foreground bg-secondary hover:bg-primary dark:hover:text-primary-foreground hover:text-white;
 }
 
 .react-select-container-100 .react-select__option {
-  @apply bg-base-100;
+  @apply bg-background;
 }
 
 .react-select-container .react-select__multi-value,
@@ -27,7 +27,7 @@
 .react-select-container-100 .react-select__multi-value__label,
 .react-select-container .react-select__single-value,
 .react-select-container-100 .react-select__single-value {
-  @apply text-base-content;
+  @apply text-foreground;
 }
 
 .react-select-container .react-select__multi-value,
@@ -37,5 +37,5 @@
 
 .react-select-container .react-select__multi-value__label,
 .react-select-container-100 .react-select__multi-value__label {
-  @apply text-secondary-content;
+  @apply text-secondary-foreground;
 }

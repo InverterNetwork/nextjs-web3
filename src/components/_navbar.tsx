@@ -5,10 +5,11 @@ import Image from 'next/image'
 import NextLink from 'next/link'
 import { ThemeSwitcher, WalletWidget } from '.'
 import Link from 'next/link'
-import { Button, Dropdown } from '@/react-daisyui'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { cn } from '@/utils'
-import { useTheme } from '@/hooks'
+import { Button } from './ui/button'
+import { DropdownMenu } from './ui/dropdown-menu'
+import { useTheme } from 'next-themes'
 
 export function Navbar() {
   const { theme } = useTheme()
@@ -18,8 +19,8 @@ export function Navbar() {
       className={`
       fixed left-1/2 -translate-x-1/2 items-center p-2 flex 
       justify-center gap-4 z-10 w-max bottom-0 
-      drop-shadow-2xl rounded-tl-xl rounded-tr-xl bg-base-100/50 backdrop-blur-2xl
-      border-t border-x border-faint
+      drop-shadow-2xl rounded-tl-xl rounded-tr-xl bg-background-100/50 backdrop-blur-2xl
+      border-t border-x
     `.trim()}
     >
       <NextLink href="/">
@@ -42,17 +43,23 @@ export function Navbar() {
         <NavItems pathname={pathname} />
       </div>
 
-      <Dropdown className="relative items-center flex lg:hidden">
-        <Button tag="label" color="ghost" className="py-0 px-1" tabIndex={0}>
-          <GiHamburgerMenu className="fill-current w-5 h-5" />
-        </Button>
-        <Dropdown.Menu className="menu-sm absolute bottom-[120%] right-0 bg-base-100">
-          <Dropdown.Item className="flex gap-2">
-            <ThemeSwitcher className="w-full" />
-          </Dropdown.Item>
-          <NavItems pathname={pathname} reverse />
-        </Dropdown.Menu>
-      </Dropdown>
+      <span className="lg:hidden">
+        <DropdownMenu>
+          <DropdownMenu.Trigger asChild>
+            <Button variant="outline" size="icon">
+              <GiHamburgerMenu className="fill-current w-5 h-5" />
+            </Button>
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Content align="end">
+            <div className="flex items-center justify-between">
+              <h4 className="ml-3">Theme</h4>
+              <ThemeSwitcher className="mx-auto" />
+            </div>
+            <DropdownMenu.Separator />
+            <NavItems pathname={pathname} reverse />
+          </DropdownMenu.Content>
+        </DropdownMenu>
+      </span>
     </div>
   )
 }
@@ -72,20 +79,21 @@ const NavItems = ({
     if (reverse) {
       return (
         <Link href={i.href} key={index}>
-          <Dropdown.Item anchor={false}>
-            <Button size={'sm'} active={pathname === i.href}>
-              {i.label}
-            </Button>
-          </Dropdown.Item>
+          <DropdownMenu.CheckboxItem checked={pathname === i.href}>
+            {i.label}
+          </DropdownMenu.CheckboxItem>
         </Link>
       )
     }
     return (
-      <Link href={i.href} key={index}>
-        <Button size={'sm'} active={pathname === i.href}>
-          {i.label}
-        </Button>
-      </Link>
+      <Button
+        key={index}
+        size={'sm'}
+        asChild
+        {...(pathname !== i.href && { variant: 'default' })}
+      >
+        <Link href={i.href}>{i.label}</Link>
+      </Button>
     )
   })
 }
