@@ -1,7 +1,15 @@
 import React from 'react'
 import { cn } from '@/utils'
 import { VariantProps, cva } from 'class-variance-authority'
-import { Loader2 } from 'lucide-react'
+import * as lucidReact from 'lucide-react'
+
+export const loaders = {
+  Loader: lucidReact.Loader,
+  Loader2: lucidReact.Loader2,
+  PinWheel: lucidReact.LoaderPinwheel,
+  Lucide: lucidReact.LucideLoader,
+  Icon: lucidReact.LoaderIcon,
+}
 
 const spinnerVariants = cva('flex-col items-center justify-center', {
   variants: {
@@ -33,6 +41,7 @@ interface SpinnerContentProps
     VariantProps<typeof loaderVariants> {
   className?: string
   children?: React.ReactNode
+  loader?: keyof typeof loaders
 }
 
 export function Spinner({
@@ -40,10 +49,12 @@ export function Spinner({
   show,
   children,
   className,
+  loader = 'PinWheel',
 }: SpinnerContentProps) {
+  const Loader = loaders[loader]
   return (
     <span className={spinnerVariants({ show })}>
-      <Loader2 className={cn(loaderVariants({ size }), className)} />
+      <Loader className={cn(loaderVariants({ size }), className)} />
       {children}
     </span>
   )

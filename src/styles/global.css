@@ -24,21 +24,30 @@ html {
   font-family: 'Archivo';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+}
+
+body,
+.body {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
 }
 
 .body {
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: max-content 1fr; /* Navbar takes max-content, children takes remaining space */
 }
 
 .children {
   display: flex;
   flex-direction: column;
-  width: 100vw;
-  min-height: 100vh;
+  width: 100%; /* Use 100% of available space within parent */
+  height: 100%; /* Make sure it grows to fill the available space */
   padding: 1.5rem;
-  padding-top: 5rem;
-  padding-bottom: 10rem;
-  overflow-y: scroll;
-  @apply scrollbar-none;
+  padding-top: 3rem;
+  padding-bottom: 5rem;
+  overflow-y: auto; /* Scroll only within the children */
+  min-height: 0; /* Important to avoid unwanted overflow in grid children */
+  @apply scrollbar-none; /* Custom Tailwind scrollbar styles */
 }

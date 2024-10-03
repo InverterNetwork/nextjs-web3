@@ -1,2 +1,2 @@
-export * from './componentsSlice'
-export * from './authSlice'
+export * from './components-slice'
+export * from './auth-slice'

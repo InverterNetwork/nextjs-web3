@@ -8,13 +8,16 @@ import Link from 'next/link'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { Button } from './ui/button'
 import { DropdownMenu } from './ui/dropdown-menu'
+import { RiGovernmentLine } from 'react-icons/ri'
+import { BiPurchaseTagAlt } from 'react-icons/bi'
+import { AiOutlineProject } from 'react-icons/ai'
 
 export function Navbar() {
   const pathname = usePathname()
   return (
     <div
       className={`
-      fixed items-center p-2 flex w-screen
+      items-center py-2 px-4 flex w-screen
       justify-between gap-4 top-0 
       drop-shadow-2xl bg-background-100/50 backdrop-blur-2xl
       border-b border-input
@@ -31,7 +34,7 @@ export function Navbar() {
           />
         </NextLink>
 
-        <ThemeSwitcher className="lg:flex hidden" />
+        <ThemeSwitcher />
 
         <div className="items-center lg:flex hidden gap-4">
           <NavItems pathname={pathname} />
@@ -49,11 +52,6 @@ export function Navbar() {
               </Button>
             </DropdownMenu.Trigger>
             <DropdownMenu.Content align="end">
-              <div className="flex items-center justify-between">
-                <h4 className="ml-3">Theme</h4>
-                <ThemeSwitcher className="mx-auto" />
-              </div>
-              <DropdownMenu.Separator />
               <NavItems pathname={pathname} reverse />
             </DropdownMenu.Content>
           </DropdownMenu>
@@ -70,7 +68,19 @@ const NavItems = ({
   pathname: string
   reverse?: boolean
 }) => {
-  const arr = [{ href: '/', label: 'Home' }]
+  const arr = [
+    { href: '/', label: 'Gov', icon: <RiGovernmentLine /> },
+    {
+      href: '/purchase',
+      label: 'Purchase',
+      icon: <BiPurchaseTagAlt />,
+    },
+    {
+      href: '/project',
+      label: 'Project',
+      icon: <AiOutlineProject />,
+    },
+  ]
 
   if (reverse) arr.reverse()
 
@@ -78,7 +88,11 @@ const NavItems = ({
     if (reverse) {
       return (
         <Link href={i.href} key={index}>
-          <DropdownMenu.CheckboxItem checked={pathname === i.href}>
+          <DropdownMenu.CheckboxItem
+            checked={pathname === i.href}
+            className="flex items-center gap-3"
+          >
+            {i?.icon}
             {i.label}
           </DropdownMenu.CheckboxItem>
         </Link>
@@ -88,8 +102,9 @@ const NavItems = ({
       <Button
         key={index}
         size={'sm'}
+        startIcon={i.icon}
         asChild
-        {...(pathname !== i.href && { variant: 'default' })}
+        {...(pathname !== i.href && { variant: 'outline' })}
       >
         <Link href={i.href}>{i.label}</Link>
       </Button>

@@ -1,3 +1,5 @@
+'use client'
+
 import { ServerActionWrapperReturn } from '@/types'
 import { useTransition } from 'react'
 

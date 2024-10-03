@@ -1,13 +1,15 @@
 import Link from 'next/link'
+import { Button } from './button'
+import { Separator } from './separator'
 
 export function FourOFour() {
   return (
-    <div className="felx flex-col gap-5">
+    <div className="flex flex-col gap-3">
       <h1>404 / Page Not Found</h1>
-      <div className="divider" />
-      <Link href="/">
-        <button className="btn btn-primary">Home</button>
-      </Link>
+      <Separator />
+      <Button asChild className="w-max">
+        <Link href="/">Back</Link>
+      </Button>
     </div>
   )
 }

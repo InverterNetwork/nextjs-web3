@@ -1,5 +1,5 @@
-import { useDeployForm } from './useDeployForm'
-import { usePrepDeploy } from './usePrepDeploy'
+import { useDeployForm } from './use-deploy-form'
+import { usePrepDeploy } from './use-prep-deploy'
 
 export const useDeploy = () => {
   const prepDeploy = usePrepDeploy()

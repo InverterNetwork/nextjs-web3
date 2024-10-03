@@ -1,14 +1,14 @@
 import { useAppContext } from '@/providers/app-context'
 
-export { default as useDisclosure } from './useDisclosure'
-export { default as useAuth } from './useAuth'
-export { default as useServerAction } from './useServerAction'
+export { default as useDisclosure } from './use-disclosure'
+export { default as useAuth } from './use-auth'
+export { default as useServerAction } from './use-server-action'
 
-export { useDeploy } from './useDeploy'
-export { useWorkflow } from './useWorkflow'
+export { useDeploy } from './use-deploy'
+export { useWorkflow } from './use-workflow'
 
-export * from './useChainSpecs'
-export * from './useQueryParams'
-export * from './useInverter'
+export * from './use-chain-specs'
+export * from './use-query-params'
+export * from './use-inverter'
 
 export const useIsHydrated = () => useAppContext().isHydrated

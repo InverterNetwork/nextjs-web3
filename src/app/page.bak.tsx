@@ -9,7 +9,7 @@ import { Card } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { Tabs } from '@/components/ui/tabs'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Menubar } from '@/components/ui/menubar'
 import { Collapsible } from '@/components/ui/collapsible'
 
@@ -49,11 +49,11 @@ export default function PageClient() {
     <div className="flex flex-col gap-3">
       {/* Tabs / Card */}
       <Tabs defaultValue="account">
-        <Tabs.List className="grid w-full grid-cols-2">
-          <Tabs.Trigger value="account">Account</Tabs.Trigger>
-          <Tabs.Trigger value="password">Password</Tabs.Trigger>
-        </Tabs.List>
-        <Tabs.Content value="account">
+        <TabsList className="grid w-full grid-cols-2">
+          <TabsTrigger value="account">Account</TabsTrigger>
+          <TabsTrigger value="password">Password</TabsTrigger>
+        </TabsList>
+        <TabsContent value="account">
           <Card>
             <Card.Header>
               <Card.Title>Account</Card.Title>
@@ -75,8 +75,8 @@ export default function PageClient() {
               <Button>Save changes</Button>
             </Card.Footer>
           </Card>
-        </Tabs.Content>
-        <Tabs.Content value="password">
+        </TabsContent>
+        <TabsContent value="password">
           <Card>
             <Card.Header>
               <Card.Title>Password</Card.Title>
@@ -98,7 +98,7 @@ export default function PageClient() {
               <Button>Save password</Button>
             </Card.Footer>
           </Card>
-        </Tabs.Content>
+        </TabsContent>
       </Tabs>
       <Separator />
       {/* Badge */}

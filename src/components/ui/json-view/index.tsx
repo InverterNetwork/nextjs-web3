@@ -15,7 +15,7 @@ export const JsonView = ({
   className?: string
 }) => {
   return (
-    <div className={cn(className, 'rounded-box')}>
+    <div className={cn(className, 'rounded-sm')}>
       <JsonViewOrg
         data={json}
         shouldExpandNode={allExpanded}

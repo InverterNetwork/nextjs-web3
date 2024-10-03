@@ -50,12 +50,7 @@ const TabsContent = React.forwardRef<
     {...props}
   />
 ))
+
 TabsContent.displayName = TabsPrimitive.Content.displayName
 
-const Combined = Object.assign(Tabs, {
-  List: TabsList,
-  Trigger: TabsTrigger,
-  Content: TabsContent,
-})
-
-export { Combined as Tabs }
+export { Tabs, TabsList, TabsTrigger, TabsContent }

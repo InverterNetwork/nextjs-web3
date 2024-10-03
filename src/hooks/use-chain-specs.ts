@@ -1,8 +1,12 @@
+'use client'
+
 import { useDynamicContext } from '@dynamic-labs/sdk-react-core'
 import { useEffect, useRef } from 'react'
+import { useIsHydrated } from '.'
 
 export const useChainSpecs = () => {
   const dynamicContext = useDynamicContext()
+  const isHydrated = useIsHydrated()
   const { primaryWallet, networkConfigurations } = dynamicContext,
     { network: chainId, connected: isConnected, address } = primaryWallet || {},
     evmNetwork = networkConfigurations?.evm?.find(
@@ -13,7 +17,7 @@ export const useChainSpecs = () => {
       !!isConnected &&
       (networkConfigurations?.evm?.every(({ chainId: id }) => id !== chainId) ??
         false),
-    showWalletWidget = !isConnected || isUnsupportedChain
+    showWalletWidget = !isHydrated || !isConnected || isUnsupportedChain
 
   const prevChainId = useRef(chainId)
   const didChainIdChange =

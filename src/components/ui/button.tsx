@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Slot } from '@radix-ui/react-slot'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/utils'
-import { Loader2 } from 'lucide-react'
+import { loaders } from './spinner'
 
 const buttonVariants = cva(
   'animate-pop active:scale-95 inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
@@ -40,6 +40,7 @@ export interface ButtonProps
   loading?: boolean
   startIcon?: React.ReactNode
   endIcon?: React.ReactNode
+  loader?: keyof typeof loaders
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -53,10 +54,13 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       startIcon,
       endIcon,
       children,
+      loader = 'PinWheel',
       ...props
     },
     ref
   ) => {
+    const Loader = loaders[loader]
+
     if (asChild) {
       return (
         <Slot ref={ref} {...props}>
@@ -74,7 +78,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
                         </span>
                       )}
                       {loading && (
-                        <Loader2
+                        <Loader
                           className={cn(
                             'h-4 w-4 animate-spin',
                             !!children && 'mr-2'
@@ -109,7 +113,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             <span className={cn(!!children && 'mr-2')}>{startIcon}</span>
           )}
           {loading && (
-            <Loader2
+            <Loader
               className={cn('h-4 w-4 animate-spin', !!children && 'mr-2')}
             />
           )}

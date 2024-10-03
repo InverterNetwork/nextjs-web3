@@ -2,7 +2,7 @@
 
 import { GetUserArgs, RequestedModules } from '@inverter-network/sdk'
 import { useEffect, useRef, useState } from 'react'
-import { UsePrepDeployReturn } from './usePrepDeploy'
+import { UsePrepDeployReturn } from './use-prep-deploy'
 import { useDynamicContext } from '@dynamic-labs/sdk-react-core'
 import { toast } from 'sonner'
 
