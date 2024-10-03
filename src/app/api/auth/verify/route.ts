@@ -1,6 +1,6 @@
 import { model } from '@/lib/mongo'
-import { Auth, HTTPError } from '@/types'
-import utils from '@/utils'
+import { Auth } from '@/types'
+import utils, { HTTPError } from '@/utils'
 import session from '@/utils/server/session'
 import jwt from 'jsonwebtoken'
 

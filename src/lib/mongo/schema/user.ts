@@ -22,6 +22,11 @@ export const User = new Schema<TUser>(
       default: 'USER',
       enum: EUserRole,
     },
+    username: {
+      type: String,
+      unique: true,
+      sparse: true,
+    },
     email: {
       type: String,
       unique: true,

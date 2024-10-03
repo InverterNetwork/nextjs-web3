@@ -1,19 +1,19 @@
 import { Hex } from 'viem'
 
-enum EProjectStatus {
+export enum EProjectStatus {
   ACTIVE = 'ACTIVE',
   PENDING = 'PENDING',
   INACTIVE = 'INACTIVE',
 }
 
-type ProjectStatus = keyof typeof EProjectStatus
+export type ProjectStatus = keyof typeof EProjectStatus
 
-enum EVoteSentiment {
+export enum EVoteSentiment {
   POSITIVE = 'POSITIVE',
   NEGATIVE = 'NEGATIVE',
 }
 
-type VoteSentiment = keyof typeof EVoteSentiment
+export type VoteSentiment = keyof typeof EVoteSentiment
 
 export type Vote = {
   sentiment: VoteSentiment
@@ -30,4 +30,7 @@ export type Project = {
   votes: Vote[]
   members: Hex[]
   status: ProjectStatus
+  twitterHandle?: string
+  telegramHandle?: string
+  websiteURL?: string
 }

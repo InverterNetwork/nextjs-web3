@@ -6,7 +6,8 @@ import { promisify } from 'util'
 import session from './session'
 import { model } from '@/lib/mongo'
 import bearer from '../main/bearer'
-import { authorized, UserRole } from '@/types'
+import { UserRole } from '@/types'
+import { authorized } from '../guards'
 
 export async function ownerOnly(token?: string) {
   const sessionAddress = <Hex | undefined>await session().get('address')

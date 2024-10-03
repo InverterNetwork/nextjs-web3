@@ -11,6 +11,7 @@ export type UserRole = keyof typeof EUserRole
 export type User = {
   uid: string
   address: string
+  username?: string
   role: UserRole
   email?: string
   apiSecrets: ApiSecret[]
