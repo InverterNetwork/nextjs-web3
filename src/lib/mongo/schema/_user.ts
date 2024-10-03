@@ -1,6 +1,6 @@
 import { Schema } from 'mongoose'
 import { EUserRole, User as TUser } from '../types'
-import { ApiSecret } from './ApiSecret'
+import { ApiSecret } from './api-secret'
 
 export const User = new Schema<TUser>(
   {
