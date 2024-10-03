@@ -2,7 +2,7 @@
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import ReduxProvider from '@/lib/store/ReduxProvider'
+import { ReduxProvider } from '@/lib/store/redux-provider'
 import { ConnectorProvider } from './connector-provider'
 import { AppProvider } from './app-context'
 import { ThemeProvider } from './theme-provider'

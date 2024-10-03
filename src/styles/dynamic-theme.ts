@@ -1,16 +1,18 @@
 import { css } from '@emotion/react'
-import { borderColor, border } from '.'
 
-const base1 = 'var(--fallback-b1,oklch(var(--b1)))'
-const base2 = 'var(--fallback-b2,oklch(var(--b2)))'
-const base3 = 'var(--fallback-b3,oklch(var(--b3)))'
-const baseContent = 'var(--fallback-bc,oklch(var(--bc)))'
+const base1 = 'hsl(var(--background))'
+const base2 = 'hsl(var(--secondary))'
+const base3 = 'hsl(var(--popover))'
+const baseContent = 'hsl(var(--foreground))'
 
-const faintBaseContent = 'var(--fallback-bc,oklch(var(--bc)/0.7))'
-const brandColor = 'var(--fallback-p,oklch(var(--p)))'
+const faintBaseContent = 'hsl(var(--muted-foreground))'
+const brandColor = 'hsl(var(--primary))'
 const buttonColor = base2
 
-const borderRadius = 'var(--rounded-box, 1rem);'
+const borderColor = 'hsl(var(--border))'
+const borderStyle = '0.0625rem solid'
+const border = `${borderStyle} ${borderColor}`
+const borderRadius = 'var(--radius)'
 
 const shadowDomOverWrites = css`
   .dynamic-shadow-dom {

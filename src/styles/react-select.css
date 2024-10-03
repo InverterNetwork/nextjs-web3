@@ -4,7 +4,7 @@
 .react-select-container .react-select__menu,
 .react-select-container-100 .react-select__control,
 .react-select-container-100 .react-select__menu {
-  @apply bg-secondary border border-faint rounded-sm;
+  @apply bg-secondary border border-input rounded-sm;
 }
 
 .react-select-container-100 .react-select__control,

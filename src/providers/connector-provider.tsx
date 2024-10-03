@@ -1,7 +1,7 @@
 'use client'
 
 import { Global } from '@emotion/react'
-import { dynamicTheme } from '@/styles/dynamicTheme'
+import { dynamicTheme } from '@/styles/dynamic-theme'
 import { EthereumWalletConnectors } from '@dynamic-labs/ethereum'
 import {
   DynamicContextProvider,
