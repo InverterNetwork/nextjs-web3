@@ -1,0 +1,37 @@
+@import './theme.css';
+@import './react-select.css';
+@import './typography.css';
+@import './components.css';
+@import './utilities.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Archivo';
+  src: url('/Archivo-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'PowerGrotesk';
+  src: url('/PowerGrotesk-Regular.ttf') format('truetype');
+}
+
+html {
+  @apply scrollbar-none;
+  overflow-x: hidden;
+  font-family: 'Archivo';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  min-height: 100vh;
+  padding: 1.5rem;
+  padding-top: 5rem;
+  padding-bottom: 10rem;
+}

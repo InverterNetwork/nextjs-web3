@@ -1,0 +1,14 @@
+@layer utilities {
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollbar-none {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .shadow-global {
+    @apply shadow-[-8px_8px_0px_1px] shadow-base-content/20;
+  }
+}

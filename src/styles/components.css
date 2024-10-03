@@ -1,0 +1,3 @@
+.frame {
+  @apply w-full rounded-sm flex gap-3 mx-auto p-4 border border-input flex-col bg-background;
+}

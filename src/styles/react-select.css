@@ -1,0 +1,41 @@
+/* React Select */
+
+.react-select-container .react-select__control,
+.react-select-container .react-select__menu,
+.react-select-container-100 .react-select__control,
+.react-select-container-100 .react-select__menu {
+  @apply bg-secondary border border-input rounded-sm;
+}
+
+.react-select-container-100 .react-select__control,
+.react-select-container-100 .react-select__menu {
+  @apply bg-background;
+}
+
+.react-select-container .react-select__option,
+.react-select-container-100 .react-select__option {
+  @apply text-foreground bg-secondary hover:bg-primary dark:hover:text-primary-foreground hover:text-white;
+}
+
+.react-select-container-100 .react-select__option {
+  @apply bg-background;
+}
+
+.react-select-container .react-select__multi-value,
+.react-select-container-100 .react-select__multi-value,
+.react-select-container .react-select__multi-value__label,
+.react-select-container-100 .react-select__multi-value__label,
+.react-select-container .react-select__single-value,
+.react-select-container-100 .react-select__single-value {
+  @apply text-foreground;
+}
+
+.react-select-container .react-select__multi-value,
+.react-select-container-100 .react-select__multi-value {
+  @apply bg-secondary;
+}
+
+.react-select-container .react-select__multi-value__label,
+.react-select-container-100 .react-select__multi-value__label {
+  @apply text-secondary-foreground;
+}
