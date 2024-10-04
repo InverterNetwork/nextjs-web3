@@ -6,11 +6,14 @@ import { Card } from '@/components/ui/card'
 import { FloatingLabelInput } from '@/components/ui/floating-label-input'
 import { FloatingLabelTextarea } from '@/components/ui/floating-label-textarea'
 import { Form } from '@/components/ui/form'
-import { useChainSpecs } from '@/hooks'
+import { useChainSpecs, useServerAction } from '@/hooks'
+import actions from '@/lib/actions'
 import { cn } from '@/utils'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import { z } from 'zod'
 
 const formSchema = z.object({
@@ -27,12 +30,31 @@ const formSchema = z.object({
 
 export function Propose() {
   const { showWalletWidget } = useChainSpecs()
+  const serverAction = useServerAction()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   })
 
-  function onSubmit(values: z.infer<typeof formSchema>) {}
+  const mutation = useMutation({
+    mutationFn: (data: z.infer<typeof formSchema>) =>
+      serverAction(() =>
+        actions.project.create({
+          calledFrom: 'client',
+          params: data,
+        })
+      ),
+    onSuccess: () => {
+      toast.success('Project proposed successfully!')
+    },
+    onError: () => {
+      toast.error('Failed to propose project.')
+    },
+  })
+
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    mutation.mutate(values)
+  }
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className="h-full">
@@ -128,7 +150,12 @@ export function Propose() {
           {showWalletWidget ? (
             <WalletWidget className="w-full" size={'lg'} />
           ) : (
-            <Button className="w-full" size={'lg'} type="submit">
+            <Button
+              className="w-full"
+              size={'lg'}
+              type="submit"
+              loading={mutation.isPending || mutation.isSuccess}
+            >
               Submit
             </Button>
           )}

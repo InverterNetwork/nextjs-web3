@@ -1,3 +1,5 @@
+import { Document, HydratedDocument, Schema } from 'mongoose'
+
 /**
  *
  * @param seconds Time to wait in seconds

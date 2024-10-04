@@ -1,6 +1,6 @@
 import nextAppSession, { promisifyStore } from 'next-app-session'
 import MongoStore from 'connect-mongo'
-import connectDB from './connectDB'
+import connectDB from './connect-db'
 import { User } from '@/types'
 
 const session = nextAppSession<Partial<User>>({

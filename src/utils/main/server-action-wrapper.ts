@@ -8,7 +8,7 @@ export default async function <T, C extends CalledFrom>(
 ): Promise<ServerActionWrapperReturn<T, C>> {
   // import connectDB from '@/lib/utils/server/connectDB'
   if (connectDatabase) {
-    const { default: connectDB } = await import('@/utils/server/connectDB')
+    const { default: connectDB } = await import('@/utils/server/connect-db')
     await connectDB()
   }
 

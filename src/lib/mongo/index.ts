@@ -1,3 +1,9 @@
+import model from './model'
+import schema from './schema'
+
 export * from './types'
-export { default as schema } from './schema'
-export { default as model } from './model'
+
+export default {
+  model,
+  schema,
+}

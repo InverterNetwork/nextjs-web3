@@ -34,3 +34,15 @@ export type Project = {
   telegramHandle?: string
   websiteURL?: string
 }
+
+export type ProjectCreateParams = Omit<
+  Project,
+  | 'uid'
+  | 'votes'
+  | 'members'
+  | 'status'
+  | 'orchestratorAddress'
+  | 'ownerAddress'
+>
+
+export type ProjectGetReturnType = Project

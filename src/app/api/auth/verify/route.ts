@@ -1,4 +1,4 @@
-import { model } from '@/lib/mongo'
+import mongo from '@/lib/mongo'
 import { Auth } from '@/types'
 import utils, { HTTPError } from '@/utils'
 import session from '@/utils/server/session'
@@ -53,7 +53,7 @@ export async function GET(req: Request) {
       role: 'USER',
     }
 
-    const existingUser = await model.User.findOne({
+    const existingUser = await mongo.model.User.findOne({
       address: state.address,
     }).lean()
 
@@ -64,7 +64,7 @@ export async function GET(req: Request) {
     } // Create a new User in MongoDB and handle session
     else {
       try {
-        const newUser = new model.User({
+        const newUser = new mongo.model.User({
           address: state.address,
           email: state.email,
         })

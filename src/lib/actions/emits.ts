@@ -2,11 +2,11 @@
 // it is meant to be consumed by next.js instrumentation.ts
 
 import fetchBuilder from 'fetch-retry-ts'
-import { EventType, model } from '@/lib/mongo'
+import mongo, { EventType } from '@/lib/mongo'
 
 export async function getWebHookUrl(address: string) {
   const webHookUrl = (
-    await model.User.findOne({ address }, 'webHookUrl').lean()
+    await mongo.model.User.findOne({ address }, 'webHookUrl').lean()
   )?.webHookUrl
 
   if (!webHookUrl) throw new Error()

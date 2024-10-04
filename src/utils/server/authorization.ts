@@ -4,7 +4,7 @@ import { type Hex } from 'viem'
 import { scrypt, randomBytes } from 'crypto'
 import { promisify } from 'util'
 import session from './session'
-import { model } from '@/lib/mongo'
+import mongo from '@/lib/mongo'
 import bearer from '../main/bearer'
 import { UserRole } from '@/types'
 import { authorized } from '../guards'
@@ -23,7 +23,7 @@ export async function ownerOnly(token?: string) {
 
     const { key, secret } = bearer.split(token)
 
-    const user = await model.User.findOne(
+    const user = await mongo.model.User.findOne(
       { 'apiSecrets.uid': key },
       { 'apiSecrets.$': 1, address: 1 }
     ).lean()

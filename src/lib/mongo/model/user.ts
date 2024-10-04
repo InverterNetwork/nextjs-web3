@@ -1,7 +1,7 @@
 import { model, models } from 'mongoose'
 import schema from '../schema'
 
-const setModel = () => model('users', schema.User)
+const setModel = () => model('user', schema.User)
 
 if (!models.users) setModel()
 
