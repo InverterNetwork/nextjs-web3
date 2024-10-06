@@ -17,12 +17,3 @@ export interface EventCache extends CacheBase {
   type: 'EVENT'
   data: EventData
 }
-
-// export interface TokenBalancesCache extends Omit<CacheBase, 'type'> {
-//   data: TokenAmount[]
-// }
-
-// export interface FiatRateCache extends CacheBase {
-//   type: CacheType.FIAT_RATE
-//   data: FiatRate
-// }

@@ -24,9 +24,9 @@ html {
   font-family: 'Archivo';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow: hidden;
 }
 
+html,
 body,
 .body {
   height: 100vh;

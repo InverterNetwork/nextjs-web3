@@ -8,11 +8,12 @@ import Link from 'next/link'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { Button } from './ui/button'
 import { DropdownMenu } from './ui/dropdown-menu'
-import { RiGovernmentLine } from 'react-icons/ri'
-import { BiPurchaseTagAlt } from 'react-icons/bi'
-import { AiOutlineProject } from 'react-icons/ai'
+import { RiHome2Fill } from 'react-icons/ri'
+import { useTheme } from 'next-themes'
+import { cn } from '@/utils'
 
 export function Navbar() {
+  const { theme } = useTheme()
   const pathname = usePathname()
   return (
     <div
@@ -24,13 +25,14 @@ export function Navbar() {
     `.trim()}
     >
       <div className="flex items-center gap-4">
-        <NextLink href="/">
+        <NextLink href="/icon.svg">
           <Image
+            className={cn(theme === 'light' && 'invert')}
             priority
-            src="/logo.png"
-            alt="Rare Earth Logo"
-            width={64}
-            height={64}
+            src="/icon.svg"
+            alt="Ineverter Icon"
+            width={42}
+            height={42}
           />
         </NextLink>
 
@@ -68,19 +70,7 @@ const NavItems = ({
   pathname: string
   reverse?: boolean
 }) => {
-  const arr = [
-    { href: '/', label: 'Gov', icon: <RiGovernmentLine /> },
-    {
-      href: '/purchase',
-      label: 'Purchase',
-      icon: <BiPurchaseTagAlt />,
-    },
-    {
-      href: '/project',
-      label: 'Project',
-      icon: <AiOutlineProject />,
-    },
-  ]
+  const arr = [{ href: '/', label: 'Home', icon: <RiHome2Fill /> }]
 
   if (reverse) arr.reverse()
 

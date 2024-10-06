@@ -6,3 +6,5 @@ export type Auth = Omit<
 > & {
   isAuth: boolean
 }
+
+export type UserGerReturnType = User

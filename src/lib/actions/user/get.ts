@@ -1,17 +1,16 @@
 'use server'
 
-import { CalledFrom, ProjectGetReturnType } from '@/types'
+import { CalledFrom, UserGerReturnType } from '@/types'
 import utils, { HTTPError } from '@/utils'
 import server from '@/utils/server'
 import mongo from '@/lib/mongo'
 import { Hex } from 'viem'
 
 /**
- *
  * @param param0
  * @param param0.calledFrom - The origin of the request.
- * @param param0.identifier - The project's UID, owner address, or orchestrator address.
- * @returns The project DTO.
+ * @param param0.identifier - The user's UID, address, or username.
+ * @returns The user DTO.
  */
 export async function get<C extends CalledFrom>({
   calledFrom,
@@ -23,7 +22,7 @@ export async function get<C extends CalledFrom>({
   return await utils.serverActionWrapper(async () => {
     await server.connectDb()
 
-    const project = await mongo.model.Project.findOne({
+    const user = await mongo.model.User.findOne({
       $or: [
         { uid: identifier },
         { ownerAddress: identifier },
@@ -31,10 +30,10 @@ export async function get<C extends CalledFrom>({
       ],
     })
 
-    if (!project) throw new HTTPError('Project not found', 404)
+    if (!user) throw new HTTPError('User not found', 404)
 
-    const { _id, ...pruned } = project.toObject()
+    const { _id, ...pruned } = user.toObject()
 
-    return pruned satisfies ProjectGetReturnType
+    return pruned satisfies UserGerReturnType
   }, calledFrom)
 }

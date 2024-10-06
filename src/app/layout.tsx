@@ -42,7 +42,7 @@ function RootLayout({ children }: { children: React.ReactNode }) {
         name="viewport"
         content="width=device-width height=device-height initial-scale=1"
       />
-      <link rel="icon" href="/logo.png" />
+      <link rel="icon" href="/icon.svg" />
       <meta name="theme-color" content="#000000" />
       <meta name="apple-mobile-web-app-status-bar-style" content="black" />
       <body>
