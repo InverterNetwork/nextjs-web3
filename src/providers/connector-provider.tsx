@@ -12,9 +12,9 @@ import { DynamicWagmiConnector } from '@dynamic-labs/wagmi-connector'
 import { WagmiProvider, createConfig, http } from 'wagmi'
 import { Chain, HttpTransport } from 'viem'
 import { optimismSepolia, polygonAmoy } from 'viem/chains'
-import utils from '@/utils'
 import { useMemo, useState } from 'react'
 import { isEqual } from 'lodash'
+import { dynamicChainsToViem, viemChainsToDynamic } from '@/utils'
 
 const chains = [polygonAmoy, optimismSepolia] as const
 
@@ -33,13 +33,11 @@ const getConfig = (chains: readonly [Chain, ...Chain[]]) =>
   })
 
 export function ConnectorProvider({ children }: { children: React.ReactNode }) {
-  const [evmNetworks, setEvmNetworks] = useState(
-    utils.transform.viemChainsToDynamic(chains)
-  )
+  const [evmNetworks, setEvmNetworks] = useState(viemChainsToDynamic(chains))
   const { shadowDomOverWrites, cssOverrides } = dynamicTheme
 
   const config = useMemo(
-    () => getConfig(utils.transform.dynamicChainsToViem(evmNetworks)),
+    () => getConfig(dynamicChainsToViem(evmNetworks)),
     [evmNetworks]
   )
 

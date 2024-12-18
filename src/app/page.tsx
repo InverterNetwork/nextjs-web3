@@ -1,42 +1,72 @@
 'use client'
 
 import { useState } from 'react'
-import { useDisclosure } from '@/hooks'
 import { toast } from 'sonner'
-import { Separator } from '@/components/ui/separator'
-import { Badge } from '@/components/ui/badge'
-import { Card } from '@/components/ui/card'
-import { Label } from '@/components/ui/label'
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Menubar } from '@/components/ui/menubar'
-import { Collapsible } from '@/components/ui/collapsible'
-
-import { Accordion } from '@/components/ui/accordion'
-
-import { Dialog } from '@/components/ui/dialog'
-import { Skeleton } from '@/components/ui/skeleton'
-import { NoData } from '@/components/ui/no-data'
-import { Pagination } from '@/components/ui/pagination'
-import { Frame } from '@/components/ui/frame'
+import { Form, useForm } from 'react-hook-form'
 import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  Label,
+  Menubar,
+  MenubarContent,
+  MenubarItem,
+  MenubarMenu,
+  MenubarSeparator,
+  MenubarShortcut,
+  MenubarTrigger,
+  Separator,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from '@inverter-network/react/client'
+import {
+  Badge,
+  Button,
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
   FloatingInput,
   FloatingLabel,
-} from '@/components/ui/floating-label-input'
-import { Form } from '@/components/ui/form'
-import { useForm } from 'react-hook-form'
-import utils from '@/utils'
+  Frame,
+  Input,
+  NoData,
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+  Skeleton,
+} from '@inverter-network/react'
+import { amountString } from '@/utils'
 
 const imageUrl =
   'https://raw.githubusercontent.com/InverterNetwork/media/main/inverter-light-banner.png'
 
 export default function PageClient() {
   const form = useForm()
-  const { onOpen, isOpen, onClose } = useDisclosure()
-  const [page, setPage] = useState(1)
-  const [textInputValue, setTextInput] = useState<string>('')
-  const [tab, setTab] = useState(1)
   const [numberInputValue, setNumberInputValue] = useState('')
   const [_, setFormState] = useState({
     url: '',
@@ -55,13 +85,13 @@ export default function PageClient() {
         </TabsList>
         <TabsContent value="account">
           <Card>
-            <Card.Header>
-              <Card.Title>Account</Card.Title>
-              <Card.Description>
+            <CardHeader>
+              <CardTitle>Account</CardTitle>
+              <CardDescription>
                 Make changes to your account here. Click save when youre done.
-              </Card.Description>
-            </Card.Header>
-            <Card.Content className="space-y-2">
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-2">
               <div className="space-y-1">
                 <Label htmlFor="name">Name</Label>
                 <Input id="name" defaultValue="Pedro Duarte" />
@@ -70,21 +100,21 @@ export default function PageClient() {
                 <Label htmlFor="username">Username</Label>
                 <Input id="username" defaultValue="@peduarte" />
               </div>
-            </Card.Content>
-            <Card.Footer>
+            </CardContent>
+            <CardFooter>
               <Button>Save changes</Button>
-            </Card.Footer>
+            </CardFooter>
           </Card>
         </TabsContent>
         <TabsContent value="password">
           <Card>
-            <Card.Header>
-              <Card.Title>Password</Card.Title>
-              <Card.Description>
+            <CardHeader>
+              <CardTitle>Password</CardTitle>
+              <CardDescription>
                 Change your password here. After saving, youll be logged out.
-              </Card.Description>
-            </Card.Header>
-            <Card.Content className="space-y-2">
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-2">
               <div className="space-y-1">
                 <Label htmlFor="current">Current password</Label>
                 <Input id="current" type="password" />
@@ -93,10 +123,10 @@ export default function PageClient() {
                 <Label htmlFor="new">New password</Label>
                 <Input id="new" type="password" />
               </div>
-            </Card.Content>
-            <Card.Footer>
+            </CardContent>
+            <CardFooter>
               <Button>Save password</Button>
-            </Card.Footer>
+            </CardFooter>
           </Card>
         </TabsContent>
       </Tabs>
@@ -109,53 +139,53 @@ export default function PageClient() {
       <Separator />
       {/* Menu */}
       <Menubar>
-        <Menubar.Menu>
-          <Menubar.Trigger>File</Menubar.Trigger>
-          <Menubar.Content>
-            <Menubar.Item>
-              New Tab <Menubar.Shortcut>⌘T</Menubar.Shortcut>
-            </Menubar.Item>
-            <Menubar.Item>New Window</Menubar.Item>
-            <Menubar.Separator />
-            <Menubar.Item>Share</Menubar.Item>
-            <Menubar.Separator />
-            <Menubar.Item>Print</Menubar.Item>
-          </Menubar.Content>
-        </Menubar.Menu>
+        <MenubarMenu>
+          <MenubarTrigger>File</MenubarTrigger>
+          <MenubarContent>
+            <MenubarItem>
+              New Tab <MenubarShortcut>⌘T</MenubarShortcut>
+            </MenubarItem>
+            <MenubarItem>New Window</MenubarItem>
+            <MenubarSeparator />
+            <MenubarItem>Share</MenubarItem>
+            <MenubarSeparator />
+            <MenubarItem>Print</MenubarItem>
+          </MenubarContent>
+        </MenubarMenu>
       </Menubar>
       <Separator />
       {/* Collapse */}
       <Collapsible>
-        <Collapsible.Trigger>Can I use this in my project?</Collapsible.Trigger>
-        <Collapsible.Content>
+        <CollapsibleTrigger>Can I use this in my project?</CollapsibleTrigger>
+        <CollapsibleContent>
           Yes. Free to use for personal and commercial projects. No attribution
           required.
-        </Collapsible.Content>
+        </CollapsibleContent>
       </Collapsible>
 
       <Separator />
       {/* Accordion */}
       <Accordion type="single" collapsible>
-        <Accordion.Item value="item-1">
-          <Accordion.Trigger>Is it accessible?</Accordion.Trigger>
-          <Accordion.Content>
+        <AccordionItem value="item-1">
+          <AccordionTrigger>Is it accessible?</AccordionTrigger>
+          <AccordionContent>
             Yes. It adheres to the WAI-ARIA design pattern.
-          </Accordion.Content>
-        </Accordion.Item>
+          </AccordionContent>
+        </AccordionItem>
       </Accordion>
       <Separator />
       {/* Modal */}
       <Dialog>
-        <Dialog.Trigger>Open</Dialog.Trigger>
-        <Dialog.Content>
-          <Dialog.Header>
-            <Dialog.Title>Are you absolutely sure?</Dialog.Title>
-            <Dialog.Description>
+        <DialogTrigger>Open</DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Are you absolutely sure?</DialogTitle>
+            <DialogDescription>
               This action cannot be undone. This will permanently delete your
               account and remove your data from our servers.
-            </Dialog.Description>
-          </Dialog.Header>
-        </Dialog.Content>
+            </DialogDescription>
+          </DialogHeader>
+        </DialogContent>
       </Dialog>
       <Separator />
       {/* Skeleton / Card */}
@@ -175,20 +205,20 @@ export default function PageClient() {
       <Separator />
       {/* Pagination */}
       <Pagination>
-        <Pagination.Content>
-          <Pagination.Item>
-            <Pagination.Previous href="#" />
-          </Pagination.Item>
-          <Pagination.Item>
-            <Pagination.Link href="#">1</Pagination.Link>
-          </Pagination.Item>
-          <Pagination.Item>
-            <Pagination.Ellipsis />
-          </Pagination.Item>
-          <Pagination.Item>
-            <Pagination.Next href="#" />
-          </Pagination.Item>
-        </Pagination.Content>
+        <PaginationContent>
+          <PaginationItem>
+            <PaginationPrevious href="#" />
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLink href="#">1</PaginationLink>
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationEllipsis />
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationNext href="#" />
+          </PaginationItem>
+        </PaginationContent>
       </Pagination>
 
       <Separator />
@@ -208,7 +238,7 @@ export default function PageClient() {
         <FloatingInput
           id="floating-customize"
           onChange={(e) => {
-            setNumberInputValue(utils.format.amountString(e.target.value))
+            setNumberInputValue(amountString(e.target.value))
           }}
           value={numberInputValue}
           type="tel"
@@ -218,20 +248,20 @@ export default function PageClient() {
       <Separator />
       {/* Form */}
       <Form {...form}>
-        <Form.Field
+        <FormField
           control={form.control}
           name="username"
           render={({ field }) => (
-            <Form.Item>
-              <Form.Label>Username</Form.Label>
-              <Form.Control>
+            <FormItem>
+              <FormLabel>Username</FormLabel>
+              <FormControl>
                 <Input placeholder="shadcn" {...field} />
-              </Form.Control>
-              <Form.Description>
+              </FormControl>
+              <FormDescription>
                 This is your public display name.
-              </Form.Description>
-              <Form.Message />
-            </Form.Item>
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
           )}
         />
       </Form>

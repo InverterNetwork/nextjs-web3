@@ -1,9 +1,9 @@
 'use client'
 
-import { ServerActionWrapperReturn } from '@/types'
+import { ServerActionWrapperReturnType } from '@/types'
 import { useTransition } from 'react'
 
-type Expect<T> = Promise<ServerActionWrapperReturn<T, 'client'>>
+type Expect<T> = Promise<ServerActionWrapperReturnType<T, 'client'>>
 
 export default function useServerAction() {
   const startTransition = useTransition()[1]

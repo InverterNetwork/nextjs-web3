@@ -14,9 +14,9 @@ type ErrorResponse = { success: false; res: SerializedError }
 
 export type CalledFrom = 'client' | 'server'
 
-// ServerActionWrapperReturn type which conditionally returns either a Promise<T> when called from server,
+// ServerActionWrapperReturnType type which conditionally returns either a Promise<T> when called from server,
 // or a union of SuccessResponse and ErrorResponse when called from client.
-export type ServerActionWrapperReturn<
+export type ServerActionWrapperReturnType<
   T,
   C extends CalledFrom,
 > = C extends 'server'

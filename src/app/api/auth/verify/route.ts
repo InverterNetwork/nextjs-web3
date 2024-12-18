@@ -1,6 +1,7 @@
-import mongo from '@/lib/mongo'
+import { UserModel } from '@/lib/mongo'
 import { Auth } from '@/types'
-import utils, { HTTPError } from '@/utils'
+import { HTTPError, getBearerToken, apiResponse } from '@/utils'
+import connectDb from '@/utils/server/connect-db'
 import session from '@/utils/server/session'
 import jwt from 'jsonwebtoken'
 
@@ -10,11 +11,11 @@ const nullablePublicKey = process.env.DYNAMIC_PUBLIC_KEY,
     : undefined
 
 export async function GET(req: Request) {
-  return await utils.apiResponse(async () => {
+  return await apiResponse(async () => {
     if (!publicKey) throw new HTTPError('Public Key is not defined', 500)
 
     // Get Authorization Header
-    const authToken = utils.bearer.get(req) // Get Bearer token
+    const authToken = getBearerToken(req.headers) // Get Bearer token
 
     // If no Authorization Header was found
     if (authToken === 'undefined') {
@@ -53,7 +54,9 @@ export async function GET(req: Request) {
       role: 'USER',
     }
 
-    const existingUser = await mongo.model.User.findOne({
+    await connectDb()
+
+    const existingUser = await UserModel.findOne({
       address: state.address,
     }).lean()
 
@@ -64,7 +67,7 @@ export async function GET(req: Request) {
     } // Create a new User in MongoDB and handle session
     else {
       try {
-        const newUser = new mongo.model.User({
+        const newUser = new UserModel({
           address: state.address,
           email: state.email,
         })

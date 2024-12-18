@@ -3,98 +3,119 @@
 import { usePathname } from 'next/navigation'
 import Image from 'next/image'
 import NextLink from 'next/link'
-import { ThemeSwitcher, WalletWidget } from '.'
 import Link from 'next/link'
-import { GiHamburgerMenu } from 'react-icons/gi'
-import { Button } from './ui/button'
-import { DropdownMenu } from './ui/dropdown-menu'
-import { RiHome2Fill } from 'react-icons/ri'
+import { Button, cn } from '@inverter-network/react'
+import {
+  Drawer,
+  DrawerContent,
+  DrawerDescription,
+  DrawerTitle,
+  DrawerTrigger,
+  Separator,
+} from '@inverter-network/react/client'
+import { Menu, Home, ScrollIcon } from 'lucide-react'
+import { ThemeSwitcher } from './theme-switcher'
+import { WalletWidget } from './wallet-widget'
 import { useTheme } from 'next-themes'
-import { cn } from '@/utils'
 
 export function Navbar() {
-  const { theme } = useTheme()
+  const { resolvedTheme } = useTheme()
   const pathname = usePathname()
   return (
     <div
       className={`
       items-center py-2 px-4 flex w-screen
-      justify-between gap-4 top-0 
+      justify-between gap-3 top-0 
       drop-shadow-2xl bg-background-100/50 backdrop-blur-2xl
       border-b border-input
     `.trim()}
     >
-      <div className="flex items-center gap-4">
-        <NextLink href="/icon.svg">
+      <div className="flex items-center gap-2">
+        <NextLink href="/">
           <Image
-            className={cn(theme === 'light' && 'invert')}
+            style={{
+              filter: resolvedTheme === 'light' ? 'invert(1)' : '',
+            }}
+            className={cn('w-24 md:w-28')}
             priority
-            src="/icon.svg"
+            src="/text_icon.svg"
             alt="Ineverter Icon"
-            width={42}
-            height={42}
+            width={100}
+            height={30}
           />
         </NextLink>
 
         <ThemeSwitcher />
 
-        <div className="items-center lg:flex hidden gap-4">
+        <Separator orientation="vertical" />
+
+        <div className="items-center hidden md:flex gap-4">
           <NavItems pathname={pathname} />
         </div>
       </div>
 
       <div className="flex items-center gap-4">
-        <WalletWidget />
+        <WalletWidget size={'sm'} />
 
-        <span className="lg:hidden">
-          <DropdownMenu>
-            <DropdownMenu.Trigger asChild>
+        <span className="md:hidden">
+          <Drawer>
+            <DrawerTrigger asChild>
               <Button variant="outline" size="icon">
-                <GiHamburgerMenu className="fill-current w-5 h-5" />
+                <Menu className="fill-current w-5 h-5" />
               </Button>
-            </DropdownMenu.Trigger>
-            <DropdownMenu.Content align="end">
-              <NavItems pathname={pathname} reverse />
-            </DropdownMenu.Content>
-          </DropdownMenu>
+            </DrawerTrigger>
+            <DrawerContent aria-describedby="mobile-menu">
+              <DrawerTitle className="border-none" />
+              <DrawerDescription />
+              <div className="p-4 flex flex-col gap-4">
+                <NavItems pathname={pathname} />
+              </div>
+            </DrawerContent>
+          </Drawer>
         </span>
       </div>
     </div>
   )
 }
 
-const NavItems = ({
-  pathname,
-  reverse = false,
-}: {
-  pathname: string
-  reverse?: boolean
-}) => {
-  const arr = [{ href: '/', label: 'Home', icon: <RiHome2Fill /> }]
-
-  if (reverse) arr.reverse()
+const NavItems = ({ pathname }: { pathname: string }) => {
+  const arr = [
+    {
+      href: '/',
+      label: 'Home',
+      icon: <Home />,
+    },
+    {
+      href: '/page-1',
+      label: 'Page 1',
+      icon: <ScrollIcon />,
+    },
+  ]
 
   return arr.map((i, index) => {
-    if (reverse) {
+    if ('comingSoon' in i && i.comingSoon) {
       return (
-        <Link href={i.href} key={index}>
-          <DropdownMenu.CheckboxItem
-            checked={pathname === i.href}
-            className="flex items-center gap-3"
-          >
-            {i?.icon}
-            {i.label}
-          </DropdownMenu.CheckboxItem>
-        </Link>
+        <Button
+          key={index}
+          startIcon={i.icon}
+          size="sm"
+          variant={pathname === i.href ? 'link' : 'ghost'}
+          className={cn('w-full min-w-max justify-start truncate')}
+          disabled
+        >
+          {i.label} | soon
+        </Button>
       )
     }
+
     return (
       <Button
         key={index}
-        size={'sm'}
         startIcon={i.icon}
+        size="sm"
         asChild
-        {...(pathname !== i.href && { variant: 'outline' })}
+        variant={pathname === i.href ? 'link' : 'ghost'}
+        className={cn('w-full min-w-max justify-start truncate')}
       >
         <Link href={i.href}>{i.label}</Link>
       </Button>

@@ -1,6 +1,6 @@
+import { Button } from '@inverter-network/react'
+import { Separator } from '@inverter-network/react/client'
 import Link from 'next/link'
-import { Button } from './button'
-import { Separator } from './separator'
 
 export function FourOFour() {
   return (

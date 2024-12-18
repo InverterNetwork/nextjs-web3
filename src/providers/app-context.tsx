@@ -1,24 +1,18 @@
 'use client'
 
 import { useAuth } from '@/hooks'
-import { useIsHydratedHandler } from '@/hooks/use-is-hydrated-handler'
 import { createContext, useContext } from 'react'
 
-export type TAppContext = {
-  isHydrated: boolean
-}
+export type TAppContext = {}
 
 const AppContext = createContext({} as TAppContext)
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
   useAuth()
-  const isHydrated = useIsHydratedHandler()
 
   // CONTEXT
   //==============================================
-  const contextData: TAppContext = {
-    isHydrated,
-  }
+  const contextData: TAppContext = {}
 
   // RETURN
   //==============================================

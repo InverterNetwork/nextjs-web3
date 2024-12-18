@@ -1,14 +1,15 @@
+'use server'
+
 // This File Can Not Contain use server or use client,
 // it is meant to be consumed by next.js primitively
 // parent folder can contain server or client code
 
-import { connect } from 'mongoose'
+import { connect, mongo } from 'mongoose'
 
 const MONGO_URI = process.env.MONGO_URI
 
 if (!MONGO_URI || typeof MONGO_URI !== 'string')
   throw new Error('Please add your MongoDB URI to .env')
-
 /**
  * Global is used here to maintain a cached connection across hot reloads
  * in development. This prevents connections from growing exponentially
@@ -38,8 +39,15 @@ export default async function () {
   }
 
   try {
-    cached.conn = await cached.promise
+    const conn = await cached.promise
+
+    const bucket = new mongo.GridFSBucket(conn.connection.db!, {
+      bucketName: 'images',
+    })
+
+    cached.conn = Object.assign(conn, { bucket })
   } catch (e) {
+    console.error(e)
     cached.promise = null
     throw e
   }

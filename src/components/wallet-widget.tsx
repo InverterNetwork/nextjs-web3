@@ -1,82 +1,28 @@
 'use client'
 
-import { useChainSpecs, useIsHydrated } from '@/hooks'
-import Image from 'next/image'
-import utils, { cn } from '@/utils'
-import { GiClick } from 'react-icons/gi'
-import { MdErrorOutline } from 'react-icons/md'
-import { MdOutlineWallet } from 'react-icons/md'
-import { Spinner } from './ui/spinner'
-import { Button, ButtonProps } from './ui/button'
+import { useDynamicContext } from '@dynamic-labs/sdk-react-core'
+import {
+  WalletWidgetProps,
+  WalletWidget as Org,
+} from '@inverter-network/react/client'
+import { useAccount } from 'wagmi'
 
 export function WalletWidget(
-  props: Omit<ButtonProps, 'color' | 'onClick'> & {
-    text?: string
-    applyClassToLoading?: boolean
-  }
+  props: Omit<WalletWidgetProps, 'setShowWalletWidget'>
 ) {
-  const { size, className, text, applyClassToLoading = true, ...rest } = props
-  const isHydrated = useIsHydrated()
-  const { dynamicContext, isConnected, address, iconSrc, isUnsupportedChain } =
-    useChainSpecs()
+  const { setShowAuthFlow, setShowDynamicUserProfile, awaitingSignatureState } =
+    useDynamicContext()
 
-  if (!isHydrated || (isConnected && !address))
-    return (
-      <Spinner className={cn('m-auto', applyClassToLoading && className)} />
-    )
-
-  const getStartIcon = () => {
-    if (!isConnected) return <MdOutlineWallet size={20} />
-
-    if (!!iconSrc)
-      return (
-        <Image
-          src={iconSrc}
-          alt="icon"
-          width={20}
-          height={20}
-          className="max-h-full rounded-full"
-        />
-      )
-
-    if (text === undefined && isUnsupportedChain)
-      return <MdErrorOutline size={20} fill="red" />
-
-    return null
-  }
-
-  const getEndIcon = () => {
-    if (!!isConnected && !!text) return <GiClick size={20} />
-
-    return null
-  }
-
-  const getChildren = () => {
-    if (!isConnected) return 'Connect Wallet'
-
-    if (!!text) return text
-
-    return utils.format.compressAddress(address)
-  }
+  const { isConnected } = useAccount()
 
   return (
-    <Button
-      {...rest}
-      {...((!isConnected || !!text || isUnsupportedChain) && {
-        color: 'primary',
-      })}
-      startIcon={getStartIcon()}
-      endIcon={getEndIcon()}
-      className={cn(className, 'leading-[unset]')}
-      type="button"
-      size={!size ? 'sm' : size}
-      onClick={() =>
-        dynamicContext[
-          !isConnected ? 'setShowAuthFlow' : 'setShowDynamicUserProfile'
-        ](true)
+    <Org
+      {...props}
+      setShowWalletWidget={() =>
+        !isConnected || awaitingSignatureState
+          ? setShowAuthFlow(true)
+          : setShowDynamicUserProfile(true)
       }
-    >
-      {getChildren()}
-    </Button>
+    />
   )
 }

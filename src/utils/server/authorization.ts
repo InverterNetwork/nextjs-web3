@@ -4,63 +4,79 @@ import { type Hex } from 'viem'
 import { scrypt, randomBytes } from 'crypto'
 import { promisify } from 'util'
 import session from './session'
-import mongo from '@/lib/mongo'
-import bearer from '../main/bearer'
+import { UserModel } from '@/lib/mongo'
 import { UserRole } from '@/types'
 import { authorized } from '../guards'
+import { headers } from 'next/headers'
+import { splitBearerToken } from '../main'
 
-export async function ownerOnly(token?: string) {
-  const sessionAddress = <Hex | undefined>await session().get('address')
+// Owner only
+export async function ownerOnly(): Promise<{ role: UserRole; address: Hex }> {
+  const { address, role } = await getUserRoleFromTokenOrSession()
 
-  let isOwner = false
-  let address: Hex | undefined
+  authorized(!!address, 'User is not authorized')
 
-  if (!!sessionAddress) {
-    address = sessionAddress
-    isOwner = true
-  } else {
-    authorized(token, 'No Bearer Token provided')
-
-    const { key, secret } = bearer.split(token)
-
-    const user = await mongo.model.User.findOne(
-      { 'apiSecrets.uid': key },
-      { 'apiSecrets.$': 1, address: 1 }
-    ).lean()
-
-    const hashedSecret = user?.apiSecrets?.[0]?.hashedSecret
-
-    authorized(hashedSecret, 'No matching apiSecret found')
-
-    isOwner = await compareApiSecret(secret, hashedSecret)
-    address = user!.address as Hex
-  }
-
-  authorized(isOwner)
-
-  return address as Hex
+  return { address, role }
 }
 
-export async function adminOnly(): Promise<UserRole> {
-  const role = <UserRole | undefined>await session().get('role')
+// Updated adminOnly function
+export async function adminOnly(): Promise<{ role: UserRole; address: Hex }> {
+  const { role, address } = await getUserRoleFromTokenOrSession()
 
   authorized(role)
 
   const isAdmin = ['ADMIN', 'SUPER'].includes(role)
-  authorized(isAdmin)
+  authorized(isAdmin, 'User is not an admin')
 
-  return role
+  return { role, address }
 }
 
-export async function superOnly(): Promise<UserRole> {
-  const role = <UserRole | undefined>await session().get('role')
+// Updated superOnly function
+export async function superOnly(): Promise<{ role: UserRole; address: Hex }> {
+  const { role, address } = await getUserRoleFromTokenOrSession()
 
   authorized(role)
 
   const isSuper = role === 'SUPER'
-  authorized(isSuper)
+  authorized(isSuper, 'User is not a super admin')
 
-  return role
+  return { role, address }
+}
+
+async function getUserRoleFromTokenOrSession(): Promise<{
+  role: UserRole
+  address: Hex
+}> {
+  const token = headers().get('authorization')?.split(' ')[1]
+  const sessionRole = <UserRole | undefined>await session().get('role')
+  const sessionAddress = <Hex | undefined>await session().get('address')
+
+  if (sessionRole && sessionAddress) {
+    return { role: sessionRole, address: sessionAddress }
+  }
+
+  authorized(token, 'No Bearer Token provided')
+
+  const { key, secret } = splitBearerToken(token)
+
+  const user = await UserModel.findOne(
+    { 'apiSecrets.uid': key },
+    { 'apiSecrets.$': 1, role: 1, address: 1 }
+  ).lean()
+
+  const hashedSecret = user?.apiSecrets?.find(
+    (secret) => secret.uid === key
+  )?.hashedSecret
+
+  authorized(hashedSecret, 'No matching apiSecret found')
+
+  const isValidSecret = await compareApiSecret(secret, hashedSecret)
+  authorized(isValidSecret, 'Invalid API secret')
+
+  return {
+    role: user!.role as UserRole,
+    address: user!.address as Hex,
+  }
 }
 
 const scryptAsync = promisify(scrypt)

@@ -1,12 +1,12 @@
-import { NextRequest } from 'next/server'
 import { isNotEmpty } from '@/utils'
+import { ReadonlyHeaders } from 'next/dist/server/web/spec-extension/adapters/headers'
 
-const get = (req: Request | NextRequest) => {
-  const token = req.headers.get('authorization')?.split(' ')[1]
+export const getBearerToken = (headers: Headers | ReadonlyHeaders) => {
+  const token = headers.get('authorization')?.split(' ')[1]
   return token
 }
 
-const split = (token: string) => {
+export const splitBearerToken = (token: string) => {
   const [key, secret] = token.split(':')
 
   isNotEmpty(key || secret, 'Key or Secret is empty')
@@ -14,7 +14,7 @@ const split = (token: string) => {
   return { key, secret }
 }
 
-const getConfig = (token?: string) => {
+export const getBearerConfig = (token?: string) => {
   if (!token) throw new Error('No token provided')
 
   const config: RequestInit = {
@@ -25,10 +25,4 @@ const getConfig = (token?: string) => {
   }
 
   return config
-}
-
-export default {
-  get,
-  split,
-  getConfig,
 }

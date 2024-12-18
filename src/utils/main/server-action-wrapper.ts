@@ -1,11 +1,11 @@
-import { CalledFrom, ServerActionWrapperReturn } from '@/types'
+import { CalledFrom, ServerActionWrapperReturnType } from '@/types'
 
 // Implementation
-export default async function <T, C extends CalledFrom>(
+export async function serverActionWrapper<T, C extends CalledFrom>(
   action: () => Promise<T>,
   calledFrom: C,
   connectDatabase: boolean = false
-): Promise<ServerActionWrapperReturn<T, C>> {
+): Promise<ServerActionWrapperReturnType<T, C>> {
   // import connectDB from '@/lib/utils/server/connectDB'
   if (connectDatabase) {
     const { default: connectDB } = await import('@/utils/server/connect-db')
@@ -24,6 +24,7 @@ export default async function <T, C extends CalledFrom>(
     success = true
     res = await action()
   } catch (e) {
+    console.error('SERVER_ACTION_WRAPPER_ERROR', e)
     success = false
     res =
       e instanceof Error

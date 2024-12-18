@@ -1,25 +1,28 @@
 'use client'
 
-import utils from '@/utils'
+import { getBearerConfig } from '@/utils'
 import { Auth } from '@/types'
 import { useDynamicContext } from '@dynamic-labs/sdk-react-core'
 import { useQuery } from '@tanstack/react-query'
+import { useAccount } from 'wagmi'
 
-export default function useAuth() {
-  const { authToken, primaryWallet } = useDynamicContext()
+export function useAuth() {
+  const { authToken } = useDynamicContext()
+  const { isConnected } = useAccount()
 
   const authQuery = useQuery({
-    queryKey: ['auth', authToken],
+    queryKey: ['auth', authToken?.slice(0, 10)],
     queryFn: async () => {
-      const config = utils.bearer.getConfig(authToken)
+      const config = getBearerConfig(authToken)
       const res = await fetch('/api/auth/verify', config)
 
       const json = <Auth>await res.json()
 
       return json
     },
-    enabled: !!authToken && primaryWallet?.connected,
+    enabled: !!authToken && isConnected,
     retry: 3,
+    refetchOnWindowFocus: false,
   })
 
   return authQuery
