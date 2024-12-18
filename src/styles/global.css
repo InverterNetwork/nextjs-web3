@@ -1,8 +1,6 @@
-@import './theme.css';
-@import './react-select.css';
-@import './typography.css';
-@import './components.css';
 @import './utilities.css';
+@import './theme.css';
+@import './typography.css';
 
 @tailwind base;
 @tailwind components;
@@ -19,7 +17,6 @@
 }
 
 html {
-  @apply scrollbar-none;
   overflow-x: hidden;
   font-family: 'Archivo';
   -webkit-font-smoothing: antialiased;

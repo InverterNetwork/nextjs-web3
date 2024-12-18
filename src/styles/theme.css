@@ -1,53 +1,54 @@
 @layer base {
-  :root,
-  .dark {
-    --primary: 200 100% 60%;
+  :root {
+    --primary: 225.16129032258067 80.17241379310343% 54.509803921568626%;
     --primary-foreground: 0 0% 98%;
 
-    --accent: 200 80% 70%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 0 0% 63.13725490196078%;
+    --accent-foreground: 285 7.999999999999999% 9.803921568627452%;
 
-    --destructive: 0 80% 60%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 60 9.1% 97.8%;
 
-    --chart-1: 200 100% 60%;
-    --chart-2: 140 60% 40%;
-    --chart-3: 16 100% 66%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 0 80% 60%;
-  }
-
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
+    --chart-1: 16.114285714285714 100% 65.68627450980392%;
+    --chart-2: 157.04347826086956 60.846560846560834% 62.94117647058823%;
+    --chart-3: 36 3.1055900621118013% 31.56862745098039%;
+    --chart-4: 46.909090909090914 100.00000000000003% 67.64705882352942%;
+    --chart-5: 27 87% 67%;
 
     --radius: 0.5rem;
   }
-  .dark {
-    --background: 0 0% 3.9%;
+
+  :root,
+  [data-theme='light'] {
+    --background: 0 0% 100%;
+    --foreground: 285 7.999999999999999% 9.803921568627452%;
+    --card: 0 0% 100%;
+    --card-foreground: 285 7.999999999999999% 9.803921568627452%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 285 7.999999999999999% 9.803921568627452%;
+    --secondary: 32 100.00000000000009% 94.11764705882354%;
+    --secondary-foreground: 285 7.999999999999999% 9.803921568627452%;
+    --muted: 60 4.8% 95.9%;
+    --muted-foreground: 25 5.3% 44.7%;
+    --border: 20 5.9% 90%;
+    --input: 20 5.9% 90%;
+    --ring: 285 7.999999999999999% 9.803921568627452%;
+  }
+
+  [data-theme='dark'] {
+    --background: 285 7.999999999999999% 9.803921568627452%;
     --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
+    --card: 285 7.999999999999999% 9.803921568627452%;
     --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
+    --popover: 285 7.999999999999999% 9.803921568627452%;
     --popover-foreground: 0 0% 98%;
-    --secondary: 0 0% 14.9%;
+    --secondary: 225.16129032258067 80.17241379310343% 54.509803921568626%;
     --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
+    --muted: 240 3% 20%;
+    --muted-foreground: 240 5% 64.9%;
+    --border: 240 3% 20%;
+    --input: 240 3% 20%;
+    --ring: 240 4.9% 83.9%;
   }
 }
 

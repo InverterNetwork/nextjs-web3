@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { toast } from 'sonner'
-import { Form, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import {
   Accordion,
   AccordionContent,
@@ -36,6 +36,7 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger,
+  Form,
 } from '@inverter-network/react/client'
 import {
   Badge,

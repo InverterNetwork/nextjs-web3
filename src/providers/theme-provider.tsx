@@ -7,9 +7,9 @@ import { Toaster } from 'sonner'
 
 export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
   return (
-    <NextThemesProvider {...props}>
-      {children}
-      <Toaster richColors position="top-right" closeButton />
-    </NextThemesProvider>
+    <>
+      <NextThemesProvider {...props}>{children}</NextThemesProvider>
+      <Toaster richColors position="bottom-right" closeButton />
+    </>
   )
 }
