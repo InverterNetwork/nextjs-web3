@@ -12,8 +12,7 @@ A Next.js template with a focus on Web3 and DeFi applications. This template inc
 ## Features
 
 - App Router
-- Daisy UI
-- Redux / React Query
+- @inverter-network/react shadcn/ui
 - Wagmi 2 (Viem 2)
 - Dynamic 2
 - Mongoose
@@ -23,7 +22,7 @@ A Next.js template with a focus on Web3 and DeFi applications. This template inc
   - Api Keys
   - WebHooks
 - PWA
-- PipeLine
+- Release Pipeline
 
 ## Configuration
 
@@ -52,12 +51,11 @@ cp .env.example .env
 
 Edit the `/.env` file with the necessary settings.
 
-- You will have to optain the `NEXT_PUBLIC_DYNAMIC_ID` from [DYNAMIC XYZ APP](https://app.dynamic.xyz/)
+- You will have to obtain the `NEXT_PUBLIC_DYNAMIC_ID` from [DYNAMIC XYZ APP](https://app.dynamic.xyz/)
 - `MONGO_URI` - MongoDB connection string ( optional ).
 - `SESSION_SECRET` - Session secret key ( optional ).
 - `DYNAMIC_PUBLIC_KEY` - Dynamic public key ( optional ).
-
-These optional settings are only required if you plan to use the Mongoose session, and Dynamic Proxy Auth features.
+- `NEXT_PUBLIC_DRPC_API_KEY` - Drpc api key ( optional ).
 
 ## Quick Start
 
@@ -69,17 +67,11 @@ bun i
 # Run the development server
 
 bun dev
-
-# Run the production server
-
-bun run build && bun start
 ```
 
 ## Vercel Deploy Configuration
 
 For automated code deployments, you can use the Vercel platform. To deploy your project, you will need to set up the environment variables as mentioned in the `.env.example` file.
-
-The optional settings are only required if you plan to use the Mongoose session, and Dynamic Proxy Auth features.
 
 1. Navigate to the deploy section of the vercel dasboard or find the settings env vars section of an already deployed code and input the variables.
 2. And you are ready to go.
