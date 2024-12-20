@@ -1,8 +1,5 @@
-import { UserModel } from '@/lib/mongo'
 import { Auth } from '@/types'
 import { HTTPError, getBearerToken, apiResponse } from '@/utils'
-import connectDb from '@/utils/server/connect-db'
-import session from '@/utils/server/session'
 import jwt from 'jsonwebtoken'
 
 const nullablePublicKey = process.env.DYNAMIC_PUBLIC_KEY,
@@ -13,6 +10,11 @@ const nullablePublicKey = process.env.DYNAMIC_PUBLIC_KEY,
 export async function GET(req: Request) {
   return await apiResponse(async () => {
     if (!publicKey) throw new HTTPError('Public Key is not defined', 500)
+
+    // Import the User Model and Session dynamically==================
+    const UserModel = (await import('@/lib/mongo')).UserModel
+    const session = (await import('@/utils/server/session')).session
+    // End of dynamic imports==================
 
     // Get Authorization Header
     const authToken = getBearerToken(req.headers) // Get Bearer token
@@ -53,8 +55,6 @@ export async function GET(req: Request) {
       email: decoded?.verified_credentials?.[0]?.email,
       role: 'USER',
     }
-
-    await connectDb()
 
     const existingUser = await UserModel.findOne({
       address: state.address,

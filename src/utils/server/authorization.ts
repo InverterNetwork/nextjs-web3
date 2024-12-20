@@ -3,7 +3,7 @@
 import { type Hex } from 'viem'
 import { scrypt, randomBytes } from 'crypto'
 import { promisify } from 'util'
-import session from './session'
+import { session } from './session'
 import { UserModel } from '@/lib/mongo'
 import { UserRole } from '@/types'
 import { authorized } from '../guards'

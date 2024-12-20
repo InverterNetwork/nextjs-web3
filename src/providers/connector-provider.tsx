@@ -66,7 +66,7 @@ const getConfig = (chains: readonly [Chain, ...Chain[]]) =>
       {} as Record<number, HttpTransport>
     ),
     ssr: true,
-    cacheTime: 5000, // 3 seconds
+    cacheTime: 3000, // 3 seconds
   })
 
 export function ConnectorProvider({ children }: { children: React.ReactNode }) {

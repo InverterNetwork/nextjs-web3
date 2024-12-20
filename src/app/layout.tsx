@@ -36,7 +36,7 @@ function RootLayout({ children }: { children: React.ReactNode }) {
       <meta name="mobile-web-app-capable" content="yes" />
       <meta
         name="viewport"
-        content="width=device-width height=device-height initial-scale=1, maximum-scale=1, user-scalable=no"
+        content="width=device-width height=device-height initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"
       />
       <link rel="icon" href="/icon-512x512.png" />
       <meta name="theme-color" content="#000000" />
