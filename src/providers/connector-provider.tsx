@@ -20,7 +20,6 @@ import {
   polygonZkEvmCardona,
 } from 'viem/chains'
 import { dynamicChainsToViem, viemChainsToDynamic } from '@/utils'
-import { useMemo, useState } from 'react'
 import { isEqual } from 'lodash'
 
 const chains = [
@@ -66,17 +65,16 @@ const getConfig = (chains: readonly [Chain, ...Chain[]]) =>
       {} as Record<number, HttpTransport>
     ),
     ssr: true,
-    cacheTime: 3000, // 3 seconds
+    cacheTime: 5000, // 5 seconds
   })
 
+let config: ReturnType<typeof getConfig>
+
 export function ConnectorProvider({ children }: { children: React.ReactNode }) {
-  const [evmNetworks, setEvmNetworks] = useState(viemChainsToDynamic(chains))
+  const initialEvmNetworks = viemChainsToDynamic(chains)
   const { shadowDomOverWrites, cssOverrides } = dynamicTheme
 
-  const config = useMemo(
-    () => getConfig(dynamicChainsToViem(evmNetworks)),
-    [evmNetworks]
-  )
+  config = getConfig(dynamicChainsToViem(initialEvmNetworks))
 
   // RENDER
   return (
@@ -92,13 +90,13 @@ export function ConnectorProvider({ children }: { children: React.ReactNode }) {
             evmNetworks: (dashboardNetworks) => {
               const newEvmNetworks = mergeNetworks(
                 dashboardNetworks,
-                evmNetworks
+                initialEvmNetworks
               )
 
-              if (!isEqual(newEvmNetworks, evmNetworks))
-                setEvmNetworks(newEvmNetworks)
+              if (!isEqual(newEvmNetworks, initialEvmNetworks))
+                config = getConfig(dynamicChainsToViem(newEvmNetworks))
 
-              return evmNetworks
+              return newEvmNetworks
             },
           },
         }}

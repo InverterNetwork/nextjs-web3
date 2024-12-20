@@ -109,16 +109,16 @@ const NavItems = ({ pathname }: { pathname: string }) => {
     }
 
     return (
-      <Button
-        key={index}
-        startIcon={i.icon}
-        size="sm"
-        asChild
-        variant={pathname === i.href ? 'link' : 'ghost'}
-        className={cn('w-full min-w-max justify-start truncate')}
-      >
-        <Link href={i.href}>{i.label}</Link>
-      </Button>
+      <Link href={i.href} key={index}>
+        <Button
+          startIcon={i.icon}
+          size="sm"
+          variant={pathname === i.href ? 'link' : 'ghost'}
+          className={cn('w-full min-w-max justify-start truncate')}
+        >
+          {i.label}
+        </Button>
+      </Link>
     )
   })
 }
