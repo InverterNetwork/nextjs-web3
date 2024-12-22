@@ -9,7 +9,7 @@ import path from 'path'
  * @param callback Call your logic here with the path of the JSON file
  * @returns void
  */
-export default function readPath(
+export function readPath(
   {
     startPath,
     exclude,
