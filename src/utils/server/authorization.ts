@@ -47,7 +47,7 @@ async function getUserRoleFromTokenOrSession(): Promise<{
   role: UserRole
   address: Hex
 }> {
-  const token = headers().get('authorization')?.split(' ')[1]
+  const token = (await headers()).get('authorization')?.split(' ')[1]
   const sessionRole = <UserRole | undefined>await session().get('role')
   const sessionAddress = <Hex | undefined>await session().get('address')
 

@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation'
 import Image from 'next/image'
 import NextLink from 'next/link'
 import Link from 'next/link'
-import { Button, cn } from '@inverter-network/react'
+import { Button } from '@inverter-network/react'
 import {
   Drawer,
   DrawerContent,
@@ -13,13 +13,11 @@ import {
   DrawerTrigger,
   Separator,
 } from '@inverter-network/react/client'
-import { Menu, Home, ScrollIcon } from 'lucide-react'
+import { Menu, SlidersVertical, Home } from 'lucide-react'
 import { ThemeSwitcher } from './theme-switcher'
 import { WalletWidget } from './wallet-widget'
-import { useTheme } from 'next-themes'
 
 export function Navbar() {
-  const { resolvedTheme } = useTheme()
   const pathname = usePathname()
   return (
     <div
@@ -33,12 +31,9 @@ export function Navbar() {
       <div className="flex items-center gap-2">
         <NextLink href="/">
           <Image
-            style={{
-              filter: resolvedTheme === 'light' ? 'invert(1)' : '',
-            }}
-            className={cn('w-24 md:w-28')}
+            className="w-24 md:w-28 invert dark:invert-0"
             priority
-            src="/text_icon.svg"
+            src="/light_text_icon.svg"
             alt="Ineverter Icon"
             width={100}
             height={30}
@@ -86,9 +81,9 @@ const NavItems = ({ pathname }: { pathname: string }) => {
       icon: <Home />,
     },
     {
-      href: '/page-1',
-      label: 'Page 1',
-      icon: <ScrollIcon />,
+      href: '/operate',
+      label: 'Operate',
+      icon: <SlidersVertical />,
     },
   ]
 
@@ -100,7 +95,7 @@ const NavItems = ({ pathname }: { pathname: string }) => {
           startIcon={i.icon}
           size="sm"
           variant={pathname === i.href ? 'link' : 'ghost'}
-          className={cn('w-full min-w-max justify-start truncate')}
+          className="w-full min-w-max justify-start truncate"
           disabled
         >
           {i.label} | soon
@@ -109,12 +104,12 @@ const NavItems = ({ pathname }: { pathname: string }) => {
     }
 
     return (
-      <Link href={i.href} key={index}>
+      <Link key={index} href={i.href} className="w-full">
         <Button
           startIcon={i.icon}
           size="sm"
           variant={pathname === i.href ? 'link' : 'ghost'}
-          className={cn('w-full min-w-max justify-start truncate')}
+          className="w-full min-w-max justify-start truncate"
         >
           {i.label}
         </Button>

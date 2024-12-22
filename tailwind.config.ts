@@ -1,7 +1,7 @@
 import type { Config as TailwindConfig } from 'tailwindcss'
 
 const config: TailwindConfig = {
-  darkMode: ['class'],
+  darkMode: ['class', '[data-theme="dark"]'],
   theme: {
     extend: {
       borderRadius: {

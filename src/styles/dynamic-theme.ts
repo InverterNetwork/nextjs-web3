@@ -1,4 +1,4 @@
-import { css } from '@emotion/react'
+import { css } from '@/utils'
 
 const background = 'hsl(var(--background))'
 const secondary = 'hsl(var(--secondary))'
@@ -58,7 +58,7 @@ const shadowDomOverWrites = css`
   }
 `
 
-const cssOverrides = `
+const cssOverrides = css`
   .connect-button,
   .dynamic-widget-inline-controls,
   .dynamic-widget-inline-controls__account-control,
@@ -92,7 +92,7 @@ const cssOverrides = `
   .input__container .input {
     background: ${muted} !important;
   }
-  
+
   .focus:input__container .focus:input {
     background: ${background} !important;
   }

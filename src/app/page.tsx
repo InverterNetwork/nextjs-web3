@@ -39,6 +39,7 @@ import {
   Form,
 } from '@inverter-network/react/client'
 import {
+  amountString,
   Badge,
   Button,
   Card,
@@ -61,7 +62,6 @@ import {
   PaginationPrevious,
   Skeleton,
 } from '@inverter-network/react'
-import { amountString } from '@/utils'
 
 const imageUrl =
   'https://raw.githubusercontent.com/InverterNetwork/media/main/inverter-light-banner.png'

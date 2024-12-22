@@ -1,7 +1,2 @@
-import readPath from './readPath'
-import writeLog from './writeLog'
-
-export default {
-  readPath,
-  writeLog,
-}
+export * from './read-path'
+export * from './write-log'

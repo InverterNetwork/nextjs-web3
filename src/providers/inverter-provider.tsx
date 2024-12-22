@@ -4,12 +4,12 @@ import { InverterProvider as InverterProviderCore } from '@inverter-network/reac
 import { useTheme } from 'next-themes'
 
 export function InverterProvider({ children }: { children: React.ReactNode }) {
-  const { resolvedTheme } = useTheme()
+  const { theme } = useTheme()
 
   return (
     <InverterProviderCore
       themeConfig={{
-        theme: (resolvedTheme ?? 'dark') as 'light' | 'dark' | undefined,
+        theme: theme as 'light' | 'dark' | 'system' | undefined,
       }}
     >
       {children}

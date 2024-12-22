@@ -14,7 +14,11 @@ export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
       <ConnectorProvider>
-        <ThemeProvider attribute="data-theme" enableSystem>
+        <ThemeProvider
+          attribute="data-theme"
+          defaultTheme="system"
+          enableSystem
+        >
           <InverterProvider>
             <AppProvider>
               {/* CHILDREN */}
