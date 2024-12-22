@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.13](https://github.com/InverterNetwork/nextjs-web3/compare/v0.3.12...v0.3.13) (2024-12-22)
+
+### Bug Fixes
+
+- testing tools export ([876e93c](https://github.com/InverterNetwork/nextjs-web3/commit/876e93c907e283ddf06d697deff5ffa72c483d17))
+
 ### [0.3.12](https://github.com/InverterNetwork/nextjs-web3/compare/v0.3.10...v0.3.12) (2024-12-22)
 
 ### 0.3.10 (2024-12-19)
