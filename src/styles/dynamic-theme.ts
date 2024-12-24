@@ -1,16 +1,18 @@
 import { css } from '@inverter-network/react'
 
 const background = 'hsl(var(--background))'
+const primary = 'hsl(var(--primary))'
 const secondary = 'hsl(var(--secondary))'
 const muted = 'hsl(var(--muted))'
 const popover = 'hsl(var(--popover))'
 const card = 'hsl(var(--card))'
-const baseContent = 'hsl(var(--foreground))'
 
+const foreground = 'hsl(var(--foreground))'
+const primaryForeground = 'hsl(var(--primary-foreground))'
 const secondaryForeground = 'hsl(var(--secondary-foreground))'
-const faintBaseContent = 'hsl(var(--muted-foreground))'
-const brandColor = 'hsl(var(--primary))'
-const buttonColor = secondary
+const mutedForeground = 'hsl(var(--muted-foreground))'
+const popoverForeground = 'hsl(var(--popover-foreground))'
+const cardForeground = 'hsl(var(--card-foreground))'
 
 const borderColor = 'hsl(var(--border))'
 const borderStyle = '0.0625rem solid'
@@ -26,34 +28,34 @@ const shadowDomOverWrites = css`
     --dynamic-base-3: ${popover};
     --dynamic-base-4: ${borderColor};
 
-    --dynamic-text-primary: ${baseContent};
-    --dynamic-text-secondary: ${secondaryForeground};
-    --dynamic-text-tertiary: ${faintBaseContent};
+    --dynamic-text-primary: ${foreground};
+    --dynamic-text-secondary: ${foreground};
+    --dynamic-text-tertiary: ${mutedForeground};
 
-    --dynamic-brand-primary-color: ${brandColor};
-    --dynamic-badge-dot-background: ${brandColor};
-    --dynamic-footer-background-color: ${brandColor};
+    --dynamic-brand-primary-color: ${primary};
+    --dynamic-badge-dot-background: ${primary};
+    --dynamic-footer-background-color: ${primary};
 
-    --dynamic-search-bar-background: ${muted};
-    --dynamic-search-bar-background-focus: ${popover};
-    --dynamic-search-bar-background-hover: ${popover};
+    --dynamic-search-bar-background: ${card};
+    --dynamic-search-bar-background-focus: ${background};
+    --dynamic-search-bar-background-hover: ${background};
     --dynamic-search-bar-border: ${border};
     --dynamic-search-bar-border-hover: ${border};
     --dynamic-search-bar-border-focus: ${border};
     --dynamic-search-border-radius: ${borderRadius};
 
-    --dynamic-badge-color: ${baseContent};
-    --dynamic-badge-background: ${secondary};
+    --dynamic-badge-background: ${background};
+    --dynamic-badge-color: ${foreground};
 
-    --dynamic-button-primary-background: ${buttonColor};
+    --dynamic-button-primary-background: ${primary};
     --dynamic-button-primary-border: ${border};
 
-    --dynamic-wallet-list-tile-background: ${secondary};
+    --dynamic-wallet-list-tile-background: ${card};
     --dynamic-wallet-list-tile-background-hover: ${background};
     --dynamic-wallet-list-tile-border-radius: ${borderRadius};
 
     --dynamic-modal-border: ${border};
-    --dynamic-hover: ${buttonColor};
+    --dynamic-hover: ${primary};
     --dynamic-border-radius: ${borderRadius};
   }
 `
@@ -82,22 +84,22 @@ const cssOverrides = css`
   }
 
   .dynamic-widget-inline-controls {
-    background: ${buttonColor};
+    background: ${primary};
   }
 
   .single-wallet-buttons__copied {
-    color: ${baseContent};
+    color: ${foreground};
   }
 
   .input__container .input {
-    background: ${muted} !important;
+    background: ${card} !important;
   }
 
-  .focus:input__container .focus:input {
+  .input__container .input:not(.input_error):focus {
     background: ${background} !important;
   }
 
-  .hover:input__container .hover:input {
+  .input__container .input:not(.input_error):hover {
     background: ${background} !important;
   }
 `
