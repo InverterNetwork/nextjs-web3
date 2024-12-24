@@ -1,4 +1,4 @@
-import { css } from '@/utils'
+import { css } from '@inverter-network/react'
 
 const background = 'hsl(var(--background))'
 const secondary = 'hsl(var(--secondary))'

@@ -6,9 +6,9 @@ import { promisify } from 'util'
 import { session } from './session'
 import { UserModel } from '@/lib/mongo'
 import { UserRole } from '@/types'
-import { authorized } from '../guards'
 import { headers } from 'next/headers'
 import { splitBearerToken } from '../main'
+import { authorized } from '@inverter-network/sdk'
 
 // Owner only
 export async function ownerOnly(): Promise<{ role: UserRole; address: Hex }> {

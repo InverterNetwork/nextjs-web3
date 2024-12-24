@@ -1,5 +1,6 @@
 import { Auth } from '@/types'
-import { HTTPError, getBearerToken, apiResponse } from '@/utils'
+import { getBearerToken } from '@/utils'
+import { HTTPError, apiResponse } from '@inverter-network/sdk'
 import jwt from 'jsonwebtoken'
 
 const nullablePublicKey = process.env.DYNAMIC_PUBLIC_KEY,

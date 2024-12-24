@@ -5,6 +5,7 @@ import { Analytics } from '@/providers/analytics'
 import { RouteProgressBar } from '@/components/ui/route-progress-bar'
 import { Navbar } from '@/components/navbar'
 import '@/styles/global.css'
+import { Footer } from '@/components/footer'
 
 const title = 'Inverter Network | The Token Programmability Layer',
   description =
@@ -50,7 +51,10 @@ function RootLayout({ children }: { children: React.ReactNode }) {
             <div className="body">
               <Navbar />
               <div className="children">
-                <Suspense>{children}</Suspense>
+                <div className="children-content">
+                  <Suspense>{children}</Suspense>
+                </div>
+                <Footer />
               </div>
             </div>
           </Providers>

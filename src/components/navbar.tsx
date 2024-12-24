@@ -13,7 +13,7 @@ import {
   DrawerTrigger,
   Separator,
 } from '@inverter-network/react/client'
-import { Menu, SlidersVertical, Home } from 'lucide-react'
+import { Menu, Home, TestTube } from 'lucide-react'
 import { ThemeSwitcher } from './theme-switcher'
 import { WalletWidget } from './wallet-widget'
 
@@ -81,9 +81,9 @@ const NavItems = ({ pathname }: { pathname: string }) => {
       icon: <Home />,
     },
     {
-      href: '/operate',
-      label: 'Operate',
-      icon: <SlidersVertical />,
+      href: '/test',
+      label: 'Test',
+      icon: <TestTube />,
     },
   ]
 

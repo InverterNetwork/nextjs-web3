@@ -14,7 +14,7 @@ import {
   polygonZkEvm,
   polygonZkEvmCardona,
 } from 'viem/chains'
-import { WagmiProvider, createConfig, http } from 'wagmi'
+import { WagmiProvider, createConfig } from 'wagmi'
 
 // Dynamic Labs SDK imports
 import { EthereumWalletConnectors } from '@dynamic-labs/ethereum'
@@ -28,7 +28,11 @@ import { DynamicWagmiConnector } from '@dynamic-labs/wagmi-connector'
 
 // Local imports
 import { dynamicTheme } from '@/styles/dynamic-theme'
-import { dynamicChainsToViem, viemChainsToDynamic } from '@/utils'
+import {
+  dynamicChainsToViem,
+  viemChainsToDynamic,
+  getDrpcTransport,
+} from '@/utils'
 
 // ============================================================================
 // Constants & Configuration
@@ -44,35 +48,9 @@ const chains = [
   polygonZkEvmCardona,
 ] as const
 
-// DRPC API configuration
-const drpcApiKey = process.env.NEXT_PUBLIC_DRPC_API_KEY
-
-// Mapping of chain IDs to DRPC network identifiers
-const drpcChainIdMap = {
-  1: 'ethereum',
-  11155111: 'sepolia',
-  10: 'optimism',
-  11155420: 'optimism-sepolia',
-  84532: 'base-sepolia',
-  1101: 'polygon-zkevm',
-  2442: 'polygon-zkevm-cardona',
-} as Record<number, string | undefined>
-
 // ============================================================================
 // Helper Functions
 // ============================================================================
-
-/**
- * Creates an HTTP transport for a specific chain
- * Falls back to default HTTP transport if DRPC is not configured
- */
-const getTransport = (chainId: number) => {
-  const chainIdMap = drpcChainIdMap?.[chainId]
-  if (!drpcApiKey || !chainIdMap) return http()
-  return http(
-    `https://lb.drpc.org/ogrpc?network=${chainIdMap}&dkey=${drpcApiKey}`
-  )
-}
 
 /**
  * Creates Wagmi configuration with specified chains and transport settings
@@ -83,7 +61,7 @@ const getConfig = (chains: readonly [Chain, ...Chain[]]) =>
     multiInjectedProviderDiscovery: false,
     transports: chains.reduce(
       (acc, chain) => {
-        acc[chain.id] = getTransport(chain.id)
+        acc[chain.id] = getDrpcTransport(chain.id)
         return acc
       },
       {} as Record<number, HttpTransport>

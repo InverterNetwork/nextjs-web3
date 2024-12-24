@@ -1,5 +1,5 @@
-import { isNotEmpty } from '@/utils'
 import { ReadonlyHeaders } from 'next/dist/server/web/spec-extension/adapters/headers'
+import { isNotEmpty } from '@inverter-network/sdk'
 
 export const getBearerToken = (headers: Headers | ReadonlyHeaders) => {
   const token = headers.get('authorization')?.split(' ')[1]
