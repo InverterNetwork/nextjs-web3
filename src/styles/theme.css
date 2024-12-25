@@ -9,17 +9,17 @@
     --destructive: 0 84% 41%;
     --destructive-foreground: 0 0% 100%;
 
-    --chart-1: 16.114285714285714 100% 65.68627450980392%;
-    --chart-2: 157.04347826086956 60.846560846560834% 62.94117647058823%;
-    --chart-3: 36 3.1055900621118013% 31.56862745098039%;
-    --chart-4: 46.909090909090914 100.00000000000003% 67.64705882352942%;
+    --chart-1: 16 100% 66%;
+    --chart-2: 157 61% 63%;
+    --chart-3: 36 3% 32%;
+    --chart-4: 47 100% 68%;
     --chart-5: 27 87% 67%;
 
     --radius: 0.5rem;
   }
 
   :root,
-  [data-inverter-theme='light'] {
+  [data-theme='light'] {
     --background: 0 0% 100%;
     --foreground: 224 5% 10%;
     --card: 30 100% 98%;
@@ -35,7 +35,7 @@
     --ring: 207 100% 60%;
   }
 
-  [data-inverter-theme='dark'] {
+  [data-theme='dark'] {
     --background: 222 22% 9%;
     --foreground: 0 0% 100%;
     --card: 222 21% 12%;
