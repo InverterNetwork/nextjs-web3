@@ -2,17 +2,18 @@
 
 import { getBearerConfig } from '@/utils'
 import { Auth } from '@/types'
-import { useDynamicContext } from '@dynamic-labs/sdk-react-core'
+import { getAuthToken, useIsLoggedIn } from '@dynamic-labs/sdk-react-core'
 import { useQuery } from '@tanstack/react-query'
 import { useAccount } from 'wagmi'
 
 export function useAuth() {
-  const { authToken } = useDynamicContext()
+  const isLoggedIn = useIsLoggedIn()
   const { isConnected } = useAccount()
 
   const authQuery = useQuery({
-    queryKey: ['auth', authToken?.slice(0, 10)],
+    queryKey: ['auth', isLoggedIn],
     queryFn: async () => {
+      const authToken = getAuthToken()
       const config = getBearerConfig(authToken)
       const res = await fetch('/api/auth/verify', config)
 
@@ -20,7 +21,7 @@ export function useAuth() {
 
       return json
     },
-    enabled: !!authToken && isConnected,
+    enabled: isConnected,
     retry: 3,
     refetchOnWindowFocus: false,
   })

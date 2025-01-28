@@ -1,15 +1,14 @@
 import { Auth } from '@/types'
-import { getBearerToken } from '@/utils'
+import { getBearerToken, getPublicKeyFromJWKS } from '@/utils'
 import { HTTPError, apiResponse } from '@inverter-network/sdk'
 import jwt from 'jsonwebtoken'
 
-const nullablePublicKey = process.env.DYNAMIC_PUBLIC_KEY,
-  publicKey = !!nullablePublicKey
-    ? nullablePublicKey.replace(/\\n/g, '\n')
-    : undefined
+// Replace dynamicPublicKey with JWKS handling
+const JWKS_URL = `https://app.dynamic.xyz/api/v0/sdk/${process.env.NEXT_PUBLIC_DYNAMIC_ID}/.well-known/jwks`
 
 export async function GET(req: Request) {
   return await apiResponse(async () => {
+    const publicKey = await getPublicKeyFromJWKS(JWKS_URL)
     if (!publicKey) throw new HTTPError('Public Key is not defined', 500)
 
     // Import the User Model and Session dynamically==================
