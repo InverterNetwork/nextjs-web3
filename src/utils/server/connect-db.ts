@@ -8,8 +8,6 @@ import { connect, mongo } from 'mongoose'
 
 const MONGO_URI = process.env.MONGO_URI
 
-if (!MONGO_URI || typeof MONGO_URI !== 'string')
-  throw new Error('Please add your MongoDB URI to .env')
 /**
  * Global is used here to maintain a cached connection across hot reloads
  * in development. This prevents connections from growing exponentially
@@ -22,6 +20,9 @@ if (!cached) {
 }
 
 export async function connectDb() {
+  if (!MONGO_URI || typeof MONGO_URI !== 'string')
+    throw new Error('Please add your MongoDB URI to .env')
+
   if (cached.conn) return cached.conn
 
   if (!cached.promise) {
